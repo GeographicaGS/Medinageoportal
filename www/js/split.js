@@ -148,7 +148,7 @@ Split = {
 				Split.mapMover(Split.__mapLeft.getMap(), Split.__mapRight.getMap());
 			}
 			else{
-				Split.mapMover(SplitoggleLayert.__mapRight.getMap(), Split.__mapLeft.getMap());
+				Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 			}
 		}
 		else{
