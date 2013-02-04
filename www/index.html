@@ -48,8 +48,10 @@
 		$("#container").height($(window).height() - $("header").outerHeight(true));
 		var mw = Math.floor($(window).width() /2);
 		$("#sep").css("left",mw-1);
-		$("#map_left").width(mw);
-		$("#map_right").width(mw);
+		$("#panel_left").width(mw);
+		$("#panel_right").width(mw);
+		
+		
 	}
 	
 	function showInfoFancybox(text) {
@@ -97,7 +99,7 @@
 		<input class="fleft" type="text" id="search" />
 		<div class="clear"></div>
 	</div>	
-	<nav class="fleft">		
+	<nav class="fleft">
 		<a href="http://www.medinaproject.eu/" target="_blank">
 			The project
 		</a>
@@ -119,25 +121,41 @@
 </header>
 
 <div id="container" >
-	<div id="map_left" class="map">
+	
+	<div id="panel_left" class="panel">
+	
+		<div id="map_left"></div>
+	
+		<div id="histogram_left" style="display:none"></div>
+		
 		<div class="split_ctrl">			
 			<img class="sync" src="img/MED_icon_enlazar_OK_left.png" width=15px height=16px title="Desynchronized maps" />						
 			<a href="javascript:Split.togglePanel(Split.LEFT)">
 				<img class="toggle" src="img/MED_icon_split_left.png" width=28px height=29px title="Hide left map"/>
 			</a>
 		</div>
+	
 		<a href="javascript:Split.toggleLayersInterface(Split.LEFT)" class="layer_ctrl">Capas</a>
+	
 	</div>
+	
 	<div id="sep" class="sep" ></div>
-	<div id="map_right" class="map">
-		<div class="split_ctrl">
-			
+	
+	<div id="panel_right" class="panel">
+	
+		<div id="map_right"></div>
+	
+		<div id="histogram_right" style="display:none"></div>
+	
+		<div class="split_ctrl">			
 			<img class="sync" src="img/MED_icon_enlazar_OK_right" width=15px height=16px title="Desynchronized maps"/>			
 			<a href="javascript:Split.togglePanel(Split.RIGHT)">
 				<img class="toggle" src="img/MED_icon_split_right.png" width=28px height=29px title="Show right map"/>
 			</a>
 		</div>
+	
 		<a href="javascript:Split.toggleLayersInterface(Split.RIGHT)" class="layer_ctrl">Capas</a>
+	
 	</div>
 	<div class="clear"></div>
 </div>

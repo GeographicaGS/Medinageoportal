@@ -99,17 +99,17 @@ Split = {
 		var totalWidth = Math.floor(($(window).width()-2) /2);
 		if (el==this.LEFT){
 			//Left panel
-			if ($("#map_left").is(":visible") && $("#map_right").is(":visible")){	
+			if ($("#panel_left").is(":visible") && $("#panel_right").is(":visible")){	
 				// hide panel left
 				$("#sep").hide();
-				$('#map_left').hide();
-				$('#map_right').width(totalWidth*2);					
+				$('#panel_left').hide();
+				$('#panel_right').width(totalWidth*2);					
 				Split.__mapRight.getMap().invalidateSize();				
 			}
 			else{
 				$("#sep").show();				
-				$('#map_right').show();
-				$('#map_left').width(totalWidth);					
+				$('#panel_right').show();
+				$('#panel_left').width(totalWidth);					
 				Split.__mapLeft.getMap().invalidateSize();		
 			}
 			
@@ -118,17 +118,17 @@ Split = {
 		else if (el==this.RIGHT)
 		{
 			//Right paneltoggleLayers
-			if ($("#map_left").is(":visible") && $("#map_right").is(":visible")){	
+			if ($("#panel_left").is(":visible") && $("#panel_right").is(":visible")){	
 				// hide panel right
 				$("#sep").hide();
-				$('#map_right').hide();
-				$('#map_left').width(totalWidth*2);					
+				$('#panel_right').hide();
+				$('#panel_left').width(totalWidth*2);					
 				Split.__mapLeft.getMap().invalidateSize();				
 			}
 			else{
 				$("#sep").show();				
-				$('#map_left').show();
-				$('#map_right').width(totalWidth);					
+				$('#panel_left').show();
+				$('#panel_right').width(totalWidth);					
 				Split.__mapRight.getMap().invalidateSize();		
 			}
 		}
@@ -137,8 +137,8 @@ Split = {
 		Split.syncEnable = !Split.syncEnable;
 		var lurl = Split.syncEnable ? "MED_icon_enlazar_OK_left.png" : "MED_icon_enlazar_KO_left.png";
 		var rurl = Split.syncEnable ? "MED_icon_enlazar_OK_right.png" : "MED_icon_enlazar_KO_right.png";
-		$("#map_left img.sync").attr("src","img/"+lurl);
-		$("#map_right img.sync").attr("src","img/"+rurl);
+		$("#panel_left img.sync").attr("src","img/"+lurl);
+		$("#panel_right img.sync").attr("src","img/"+rurl);
 		
 		if (Split.syncEnable){
 			$("img.sync").attr("title","Desynchronize maps");
