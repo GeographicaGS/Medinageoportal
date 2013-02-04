@@ -35,6 +35,10 @@ Split = {
 		}		
 		this.__mapLeft = new GroupLayer(opts);		
 		
+		zoomControl = new L.Control.Zoom({
+				position : 'bottomleft'
+		});
+		 
 		var mapRight = new L.Map('map_right', {
 			  center: startingCenter,
 			  zoom: this.iniZoom,			  
@@ -43,6 +47,7 @@ Split = {
 			  zoomControl: false,
 			  attributionControl: false
 		});
+		
 				
 		zoomControl.addTo(mapRight);		
 		
