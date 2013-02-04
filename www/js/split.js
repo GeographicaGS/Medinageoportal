@@ -79,7 +79,7 @@ Split = {
 		
 		Split.__currentMasterMap = Split.__mapLeft.getMap() == a ? Split.__mapLeft : Split.__mapRight;
 		
-		if (Split.__mapIsMoving || !Split.syncEnable){ 
+		if (Split.__mapIsMoving || !Split.syncEnable){ title="Synchronized maps"
 			return; 
 		}
 	
@@ -141,12 +141,16 @@ Split = {
 		$("#map_right img.sync").attr("src","img/"+rurl);
 		
 		if (Split.syncEnable){
+			$("img.sync").attr("title","Desynchronize maps");
 			if (Split.__currentMasterMap == Split.__mapLeft){
 				Split.mapMover(Split.__mapLeft.getMap(), Split.__mapRight.getMap());
 			}
 			else{
 				Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 			}
+		}
+		else{
+			$("img.sync").attr("title","Synchronize maps");
 		}
 	},
 	toggleLayersInterface: function(el){
