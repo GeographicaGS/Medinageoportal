@@ -78,10 +78,17 @@ Split = {
 		this.__currentMasterMap = this.__mapLeft;
 	},
 	mapMover: function(a,b) {		  
+		var bActive;
+		if (Split.__mapLeft.getMap() == a){
+			Split.__currentMasterMap = Split.__mapLeft;
+			bActive =  Split.__mapRight.isActive();
+		}
+		else{
+			Split.__currentMasterMap = Split.__mapRight;
+			bActive =  Split.__mapLeft.isActive();
+		}
 		
-		Split.__currentMasterMap = Split.__mapLeft.getMap() == a ? Split.__mapLeft : Split.__mapRight;
-		
-		if (Split.__mapIsMoving || !Split.syncEnable){ title="Synchronized maps"
+		if (Split.__mapIsMoving || !Split.syncEnable || !bActive){ 
 			return; 
 		}
 	
@@ -106,14 +113,16 @@ Split = {
 				$("#sep").hide();
 				$('#panel_left').hide();
 				$('#panel_right').width(totalWidth*2);					
-				Split.__mapRight.getMap().invalidateSize();				
+				Split.__mapRight.getMap().invalidateSize();	
+				Split.__mapLeft.setActive(false);				
 			}
 			else{
 				$("#sep").show();				
 				$('#panel_right').show();
 				$('#panel_left').width(totalWidth);					
-				Split.__mapLeft.getMap().invalidateSize();		
-			}
+				Split.__mapLeft.getMap().invalidateSize();	
+				Split.__mapRight.setActive(true);
+			}			
 			
 			
 		}
@@ -125,14 +134,22 @@ Split = {
 				$("#sep").hide();
 				$('#panel_right').hide();
 				$('#panel_left').width(totalWidth*2);					
-				Split.__mapLeft.getMap().invalidateSize();				
+				Split.__mapLeft.getMap().invalidateSize();
+				Split.__mapRight.setActive(false);
 			}
 			else{
 				$("#sep").show();				
 				$('#panel_left').show();
 				$('#panel_right').width(totalWidth);					
-				Split.__mapRight.getMap().invalidateSize();		
+				Split.__mapRight.getMap().invalidateSize();
+				Split.__mapLeft.setActive(true);
 			}
+		}
+		if (Split.__currentMasterMap == Split.__mapLeft){
+			Split.mapMover(Split.__mapLeft.getMap(), Split.__mapRight.getMap());
+		}
+		else{
+			Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 		}
 	},
 	sync: function(){

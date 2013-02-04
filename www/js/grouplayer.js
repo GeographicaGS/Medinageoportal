@@ -6,6 +6,7 @@ function GroupLayer(opts){
 	this.father = opts.father;
 	this.layers = null;
 	this.__layerHistogram = null;
+	this.__active = true;
 	
 	this.layers = new Array();
 
@@ -36,6 +37,14 @@ function GroupLayer(opts){
 	this.getMap = function(){
 		return this.map;
 	};
+	
+	this.isActive = function(){
+		return this.__active;
+	}
+	
+	this.setActive = function(active){
+		this.__active = active;
+	}
 	
 	this.getHTMLLayersPanel = function(){
 		var html = "";
