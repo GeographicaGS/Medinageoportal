@@ -81,7 +81,7 @@ Split = {
 		
 		if (Split.__mapIsMoving || !Split.syncEnable){ 
 			return; 
-		}toggleLayers
+		}
 	
 		Split.__mapIsMoving = true;
 
