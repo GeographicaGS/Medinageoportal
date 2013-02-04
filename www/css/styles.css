@@ -58,11 +58,10 @@ header nav a{
 }
 
 header .left{
-	background-color:#0363aa;
+	background:#0363aa url("../img/MED_separador_cab1.png") repeat-y right top;
 	float:left;
 	width:560px;
 	height:72px;
-	border-right: 1px solid #024d96;
 	
 }
 .fleft{	float:left;}
