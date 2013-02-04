@@ -43,6 +43,7 @@ header nav a{
 	text-decoration: none;
 	padding-left: 10px;
 	padding-right: 12px;
+	text-shadow: #013e88 0px -1px 0px;
 }
 
 header .left{
@@ -110,6 +111,7 @@ p.credits{
 	margin-right:20px;
 	text-align:right;
 	color:#84aed2;
+	text-shadow: #013e88 0px -1px 0px;
 }
 
 .layer_ctrl{
@@ -128,6 +130,7 @@ p.credits{
 	border: 1px solid #888;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	
 }
 	
 }

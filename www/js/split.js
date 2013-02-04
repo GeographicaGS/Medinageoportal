@@ -81,7 +81,7 @@ Split = {
 		
 		if (Split.__mapIsMoving || !Split.syncEnable){ 
 			return; 
-		}
+		}toggleLayers
 	
 		Split.__mapIsMoving = true;
 
@@ -97,8 +97,7 @@ Split = {
 	},
 	togglePanel:function (el){
 		var totalWidth = Math.floor(($(window).width()-2) /2);
-		if (el==this.LEFT)
-		{
+		if (el==this.LEFT){
 			//Left panel
 			if ($("#map_left").is(":visible") && $("#map_right").is(":visible")){	
 				// hide panel left
@@ -118,7 +117,7 @@ Split = {
 		}
 		else if (el==this.RIGHT)
 		{
-			//Right panel
+			//Right paneltoggleLayers
 			if ($("#map_left").is(":visible") && $("#map_right").is(":visible")){	
 				// hide panel right
 				$("#sep").hide();
@@ -148,6 +147,14 @@ Split = {
 			else{
 				Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 			}
+		}
+	},
+	toggleLayersInterface: function(el){
+		if (el==this.LEFT){
+			
+		}
+		else if (el==this.RIGHT){
+			
 		}
 	}
 	
