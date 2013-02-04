@@ -31,7 +31,8 @@ Split = {
 		
 		var opts = {
 				map: mapLeft,
-				layers: layers
+				layers: layers,
+				father:this.LEFT
 		}		
 		this.__mapLeft = new GroupLayer(opts);		
 		
@@ -53,7 +54,8 @@ Split = {
 		
 		opts = {
 				map: mapRight,
-				layers: layers
+				layers: layers,
+				father:this.RIGHT
 		}
 		this.__mapRight = new GroupLayer(opts);
 		
@@ -136,7 +138,7 @@ Split = {
 	sync: function(){
 		Split.syncEnable = !Split.syncEnable;
 		var lurl = Split.syncEnable ? "MED_icon_enlazar_OK_left.png" : "MED_icon_enlazar_KO_left.png";
-		var rurl = Split.syncEnable ? "MED_icon_enlazar_OK_right.png" : "MED_icon_enlazar_KO_right.png";
+		var rurl = Split.syncEnabletoggleLayer ? "MED_icon_enlazar_OK_right.png" : "MED_icon_enlazar_KO_right.png";
 		$("#panel_left img.sync").attr("src","img/"+lurl);
 		$("#panel_right img.sync").attr("src","img/"+rurl);
 		
@@ -146,7 +148,7 @@ Split = {
 				Split.mapMover(Split.__mapLeft.getMap(), Split.__mapRight.getMap());
 			}
 			else{
-				Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
+				Split.mapMover(SplitoggleLayert.__mapRight.getMap(), Split.__mapLeft.getMap());
 			}
 		}
 		else{
@@ -154,12 +156,62 @@ Split = {
 		}
 	},
 	toggleLayersInterface: function(el){
+		
 		if (el==this.LEFT){
-			
+			var $panel = $("#panel_left .layer_panel");
+			if ($panel.hasClass("close")){
+				$panel.removeClass("close");
+				$panel.html( this.__mapLeft.getHTMLLayersPanel());
+				$("#panel_left .layer_ctrl").addClass("open");
+			}
+			else{
+				$panel.addClass("close");
+				$panel.html("");
+				$("#panel_left .layer_ctrl").removeClass("open");
+			}
 		}
 		else if (el==this.RIGHT){
-			
+			var $panel = $("#panel_right .layer_panel");
+			if ($panel.hasClass("close")){
+				$panel.removeClass("close");
+				$panel.html( this.__mapRight.getHTMLLayersPanel());
+				$("#panel_right .layer_ctrl").addClass("open");
+			}
+			else{
+				$panel.addClass("close");
+				$panel.html("");
+				$("#panel_right .layer_ctrl").removeClass("open");
+			}
 		}
+	},
+	__drawLayerInterface: function(el){		
+		if (el==this.LEFT){
+			var $panel = $("#panel_left .layer_panel");
+			$panel.html( this.__mapLeft.getHTMLLayersPanel());
+		}
+		else if (el==this.RIGHT){
+			var $panel = $("#panel_right .layer_panel");
+			$panel.html( this.__mapRight.getHTMLLayersPanel());
+		}
+	},
+	toggleLayer: function(id_layer,el){
+		if (el==this.LEFT){
+			this.__mapLeft.toogleLayer(id_layer);			
+		}
+		else if (el==this.RIGHT){
+			this.__mapRight.toogleLayer(id_layer);			
+		}
+		this.__drawLayerInterface(el);
+	},
+	setHistogram: function(id_layer,el){
+		if (el==this.LEFT){
+			this.__mapLeft.setHistogram(id_layer);			
+		}
+		else if (el==this.RIGHT){
+			this.__mapRight.setHistogram(id_layer);
+		}
+		this.__drawLayerInterface(el);
 	}
+	
 	
 }

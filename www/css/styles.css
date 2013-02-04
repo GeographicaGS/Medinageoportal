@@ -49,7 +49,7 @@ header nav a{
 	background: url("../img/MED_separador_cab2.png") no-repeat top right;
 	line-height: 72px;
 	height: 72px;
-	color: #B4D1E6;
+	color: #B4D1E6;Right
 	font-size: 12px;
 	text-decoration: none;
 	padding-left: 10px;
@@ -95,7 +95,7 @@ header #search{
 }
 
 .split_ctrl{
-	cursor:pointer;
+	
 	
 	
 }
@@ -103,12 +103,14 @@ img.toggle{
 	position:absolute;
 	top:26px;
 	z-index:4;
+	cursor:pointer;
 }
 
 img.sync{
 	position:absolute;
 	top:0;
 	z-index:4;	
+	cursor:pointer;
 }
 
 #panel_left .split_ctrl img.toggle{
@@ -150,7 +152,48 @@ p.credits{
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-shadow: #fff 0px -1px 0px;
+	z-index:1002;
 	
 }
+.layer_ctrl.open{
+	background-image: url("../img/MED_icon_cerrar_capas.png");
+}
 	
+.layer_panel{
+	position: absolute;	
+	background: url("../img/MED_fondo_capas.png") repeat-x left top;
+	bottom: 0;
+	left: 0;
+	width: 100%;	
+	z-index:1001;
+	padding-bottom:40px;
+	padding-top:70px;
+}
+
+.layer_panel.close{
+	height: 60px;
+	overflow: hidden;	
+	z-index:1;
+	padding-bottom:0;
+	padding-top:0;
+	
+}
+ul.layer_panel li{
+	height:35px;
+	clear:both;
+	border-top: 1px solid #423c36;
+	color:#cccccc;
+	padding-left:48px;
+	padding-right:25px;	
+}
+
+ul.layer_panel li span{
+	float:left;	
+	margin-top:2px;
+	
+}
+ul.layer_panel li a{
+	float:right;
+	margin-left:10px;
+	margin-top:5px;
 }
