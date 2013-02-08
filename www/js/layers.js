@@ -69,6 +69,14 @@ var layers = [
 		priority: 5,
 		visible: false,		
 	},*/
+	
+	{
+		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
+		title: "Chlorophyll A PML",
+		layers: "clorofill_a_geo",
+		priority: 5,
+		visible: false,		
+	},
 
 	{
 		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
