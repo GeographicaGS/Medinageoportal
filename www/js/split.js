@@ -2,7 +2,7 @@ Split = {
 	layers: null,	
 	iniLat: 34,
 	iniLng: 14,	
-	iniZoom: 4,
+	iniZoom: 5,
 	__mapLeft:null,
 	__mapRight: null,
 	__currentMasterMap: null,
