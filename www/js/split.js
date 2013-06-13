@@ -11,7 +11,22 @@ Split = {
 	RIGHT: 1,
 	syncEnable : true,
 	initialize: function(){
+		var temp;
+		//order layers by priority
+		for(var i=0;i<layers.length;i++)
+		{
+			 for (var j = 0 ; j < layers.length - 1 ; j++)
+		        {
+		            if ( layers[j].priority < layers[j + 1].priority )
+		            {
+		                temp = layers[j];
+		                layers[j]=layers[j + 1];
+		                layers[j + 1] = temp;
+		            }
+		        }
+		}
 		
+		console.log(layers);
 		var startingCenter = new L.LatLng(this.iniLat, this.iniLng);
 		
 		var zoomControl = new L.Control.Zoom({
@@ -32,7 +47,8 @@ Split = {
 		var opts = {
 				map: mapLeft,
 				layers: layers,
-				father:this.LEFT
+				father:this.LEFT,
+				$layerPanel : $("#panel_left ul.layer_panel")
 		}		
 		this.__mapLeft = new GroupLayer(opts);		
 		
@@ -55,7 +71,8 @@ Split = {
 		opts = {
 				map: mapRight,
 				layers: layers,
-				father:this.RIGHT
+				father:this.RIGHT,
+				$layerPanel : $("#panel_right ul.layer_panel")
 		}
 		this.__mapRight = new GroupLayer(opts);
 		
@@ -76,6 +93,10 @@ Split = {
 		});
 		
 		this.__currentMasterMap = this.__mapLeft;
+		
+		this.__mapLeft.refreshLayerPanel();
+		this.__mapRight.refreshLayerPanel();
+		
 	},
 	mapMover: function(a,b) {		  
 		var bActive;
@@ -176,39 +197,37 @@ Split = {
 		
 		if (el==this.LEFT){
 			var $panel = $("#panel_left .layer_panel");
-			if ($panel.hasClass("close")){
-				$panel.removeClass("close");
-				$panel.html( this.__mapLeft.getHTMLLayersPanel());
+			if(!$panel.is(":visible")){
+				
+				$panel.fadeIn(300);
 				$("#panel_left .layer_ctrl").addClass("open");
 			}
 			else{
-				$panel.addClass("close");
-				$panel.html("");
+				$panel.fadeOut(300);
 				$("#panel_left .layer_ctrl").removeClass("open");
+
 			}
 		}
 		else if (el==this.RIGHT){
 			var $panel = $("#panel_right .layer_panel");
-			if ($panel.hasClass("close")){
-				$panel.removeClass("close");
-				$panel.html( this.__mapRight.getHTMLLayersPanel());
+			if(!$panel.is(":visible")){
+				
+				$panel.fadeIn(300);
 				$("#panel_right .layer_ctrl").addClass("open");
 			}
 			else{
-				$panel.addClass("close");
-				$panel.html("");
+				$panel.fadeOut(300);
 				$("#panel_right .layer_ctrl").removeClass("open");
 			}
+			
 		}
 	},
 	__drawLayerInterface: function(el){		
 		if (el==this.LEFT){
-			var $panel = $("#panel_left .layer_panel");
-			$panel.html( this.__mapLeft.getHTMLLayersPanel());
+			this.__mapLeft.refreshLayerPanel();
 		}
 		else if (el==this.RIGHT){
-			var $panel = $("#panel_right .layer_panel");
-			$panel.html( this.__mapRight.getHTMLLayersPanel());
+			this.__mapRight.refreshLayerPanel();
 		}
 	},
 	toggleLayer: function(id_layer,el){
