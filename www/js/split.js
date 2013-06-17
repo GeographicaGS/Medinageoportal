@@ -304,6 +304,13 @@ Split = {
 			}				
 		});
 	},
+	addServiceCSW: function (url,title){
+		var req_url = url.replace("?","&");
+		$("#search_server").append("<option value='" + req_url +"'>"+title+"</option>");
+		$("#search_server").val(req_url);
+		this.search();
+		
+	},
 	__getHTMLSearch: function (elements){
 		var html = "";
 		for(var i=0;i<elements.length;i++){
@@ -317,7 +324,7 @@ Split = {
 				html += "<p><a href='javascript:Split.parseServiceWMS(\"" + e.url +"\")'>Explore WMS service</a></p>";
 			}
 			else if (e.type == "CSW"){
-				html += "<p><a href='javascript:Split.addServiceCSW(\"" + e.url +"\")'>Add catalog</a></p>";
+				html += "<p><a href='javascript:Split.addServiceCSW(\"" + e.url +"\",\""+ e.title +"\")'>Add catalog</a></p>";
 			}
 			else{
 				html += "<p><a href='" + e.url + "' target='_blank'>Open this external service</a></p>"
@@ -348,7 +355,7 @@ Split = {
 				$panel_search.fadeIn(300);
 			}
 			// to be replaced, use a load image instead of a text message
-			$panel_search.html("Loading...");
+			$panel_search.html("<p class='no_search'>Loading...</p>");
 		}
 		else{
 			// pagination
@@ -449,8 +456,14 @@ Split = {
 						console.log("------------");
 					}*/
 				}
+				else{
+					$panel_search.html("<p class='no_search'>No results found</p>");
+				}
 				
-			}				
+			}	
+			,error: function(){
+				$panel_search.html("<p class='no_search'>No results found</p>");
+			}
 		});
 	},
 	addLayer: function (server_url,name,title){
@@ -467,6 +480,16 @@ Split = {
 		console.log(server_url);
 		console.log(name);
 		console.log(title);
+	},
+	toggleSearchPanel: function(){
+		var $panel_search = $("#panel_search");
+		if (!$panel_search.is(":visible")){
+			$panel_search.fadeIn(300);
+		}
+		else{
+			$panel_search.fadeOut(300);
+		}
+		
 	}
 	
 	

@@ -68,6 +68,7 @@ header .left{
 #search_server{
 	margin-top: 27px;
 	margin-left: 10px;
+	width:70px;
 }
 
 .fleft{	float:left;}
@@ -367,4 +368,10 @@ ul.search_result a ,ul.wms a{
 	text-decoration: underline;
 }
 
+p.no_search{
+	padding:20px;
+}
 
+#more{
+	margin: 20px;
+}
