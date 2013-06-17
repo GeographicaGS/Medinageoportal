@@ -22,8 +22,7 @@ a{
 .sep{
 	width: 2px;
 	background-color: #CCC;
-	position: absolute;
-	top: 74px;	
+	position: absolute;	
 	z-index: 2;
 	height: 452px;
 }
@@ -42,6 +41,7 @@ header{
 	background-color:#176fb1;
 	border-bottom:1px solid #013e88;	
 	margin-bottom:2px;
+	overflow:hidden;
 }
 
 header nav a{
@@ -317,6 +317,7 @@ footer{
 	text-shadow: #000 0px -1px 0px;
 	font-size:10px;
 	border-top: 1px solid #000f49;
+	overflow:hidden;
 }
 
 footer .geographica{

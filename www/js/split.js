@@ -461,6 +461,7 @@ Split = {
 			layers: name
 		}
 		this.__mapLeft.addLayer(l);
+		this.__mapRight.addLayer(l);
 		//$("#panel_search").fadeOut(300);
 		//this.__mapRight.addLayer(l);
 		console.log(server_url);

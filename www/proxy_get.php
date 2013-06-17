@@ -1,4 +1,5 @@
 <? 
+header('Content-type: application/xml');
 
 //set GET variables
 $url = $_GET['url'];
@@ -22,7 +23,6 @@ foreach ($headers as $name => $value)
 	if ($name == "Host") continue;
 	$curl_array_headers [] = "$name : $value";
 }
-
 curl_setopt($ch,CURLOPT_HTTPHEADER,$curl_array_headers);
 
 //echo $url . "?$fields_string";
