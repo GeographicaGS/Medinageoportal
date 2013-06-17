@@ -562,7 +562,7 @@ Split = {
 						$panel_search.find("ul.search_result").append(split.__getHTMLSearch(elements,startPosition));
 						if (nextRecord<=nRecords){
 							// add more link
-							$panel_search.find("#more").html("<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more</a></div>");
+							$panel_search.find("#more").html("<a href='javascript:Split.search("+nextRecord+")'>See more</a>");
 						}
 						else{
 							// remove add more link
