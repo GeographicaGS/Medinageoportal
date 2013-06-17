@@ -26,7 +26,7 @@ Split = {
 		        }
 		}
 		
-		console.log(layers);
+		//console.log(layers);
 		var startingCenter = new L.LatLng(this.iniLat, this.iniLng);
 		
 		var zoomControl = new L.Control.Zoom({
@@ -247,6 +247,225 @@ Split = {
 			this.__mapRight.setHistogram(id_layer);
 		}
 		this.__drawLayerInterface(el);
+	},
+	
+	
+	__getCSWURL: function(){
+		var url,server,text;
+		
+		server = $("#search_server").val();
+		text = $("#search").val();
+		
+		// let's build a valid request url
+		// first, we've to call to the service through a proxy to avoid cross domain request
+		url = "proxy_get.php?url="+server;
+		// build the request
+		url += "&service=CSW&Version=2.0.2&request=GetRecords&resultType=results&typeNames=gmd:MD_Metadata"
+				+"&constraintlanguage=CQL_TEXT&constraint=gmd:anytext+like+'"+escape(text)+"'"
+				+ "&constraint_language_version=1.1.0&outputFormat=application/xml"
+				+ "&outputSchema=http://www.isotc211.org/2005/gmd&elementsetname=full";
+		
+		return url;
+		
+	},
+	
+	parseServiceWMS: function(url){
+		var $panel_search = $("#panel_search");
+		$panel_search.html("Loading...");
+		
+		var req_url = url.replace("?","&");
+		
+		var server_base_url = url.substring(0,url.indexOf("?"));
+		
+		$.ajax({
+			//url: 'proxy_get.php?url=http://www.idee.es/wms/PNOA/PNOA&service=wms&version=1.3.0&request=getcapabilities',
+			//url: 'proxy_get.php?url=http://www.medinageoportal.eu/cgi-bin/medinageoportal&service=wms&version=1.3.0&request=getcapabilities',
+			url: 'proxy_get.php?url='+req_url,
+			dataType: 'xml',
+			success: function(xml){
+				var html = "<ul class='wms'>";
+				$(xml).find("Layer").first().find("Layer").each(function(){
+					var name = $(this).find("Name").text();
+					var title = $(this).find("Title").text();
+					var crs = $(this).find("CRS").text();
+					
+					html += "<li>" +
+							"	<p>"+title+"</p>" +
+							"	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>Add layer</a>" +
+							"</li>"
+						
+					/*console.log("Name:"+ $(this).find("Name").text());
+					console.log("Title:"+ $(this).find("Title").text());
+					console.log("CRS:"+ $(this).find("CRS").text());*/
+				});
+				html += "</ul>";
+				
+				$panel_search.html(html);
+			}				
+		});
+	},
+	__getHTMLSearch: function (elements){
+		var html = "";
+		for(var i=0;i<elements.length;i++){
+			var e = elements[i];
+			html += "<li>" +
+					"	<p>Type: "+ e.type + "</p>" + 
+					"	<p>Title: "+ e.title + "</p>" +
+					"	<p>Description: "+ e.description + "</p>";
+			
+			if (e.type == "WMS"){
+				html += "<p><a href='javascript:Split.parseServiceWMS(\"" + e.url +"\")'>Explore WMS service</a></p>";
+			}
+			else if (e.type == "CSW"){
+				html += "<p><a href='javascript:Split.addServiceCSW(\"" + e.url +"\")'>Add catalog</a></p>";
+			}
+			else{
+				html += "<p><a href='" + e.url + "' target='_blank'>Open this external service</a></p>"
+			}
+	
+			html += "</li>"; 
+			
+		}
+		
+		return html;
+	},
+	search: function(startPosition){
+		
+		// no text to search
+		if ($("#search").val()==""){
+			return;
+		}
+		
+		var url = this.__getCSWURL();
+		
+		var $panel_search = $("#panel_search");
+		
+		if (!startPosition){
+			// no pagination, this is the first call
+			url +="&startposition=1";
+			
+			if (!$panel_search.is(":visible")){
+				$panel_search.fadeIn(300);
+			}
+			// to be replaced, use a load image instead of a text message
+			$panel_search.html("Loading...");
+		}
+		else{
+			// pagination
+			url +="&startposition="+startPosition;
+			
+			$panel_search.find("#more").html("Loading...");
+		}
+		
+		
+		
+		// set object to access y ajax success closure
+		var split = this;
+		
+		// make the ajax request
+		$.ajax({
+			//url: "proxy_get.php?url=http://geossregistries.info:9002/geonetwork/srv/en/csw&Request=GetCapabilities&Service=CSW&Version=2.0.2",
+			//url:   "proxy_get.php?url=http://geossregistries.info:9002/geonetwork/srv/en/csw&service=CSW&Version=2.0.2&request=GetRecords&resultType=results&typeNames=gmd:MD_Metadata&constraintlanguage=CQL_TEXT&constraint=gmd:anytext+like+'ice'&constraint_language_version=1.1.0&outputFormat=application/xml&outputSchema=http://www.isotc211.org/2005/gmd&startposition=1&elementsetname=full",
+			url: url,
+			dataType: 'xml',
+			success: function(xml){
+				var $sr = $(xml).find("SearchResults");
+				var elements = [];
+				var obj;
+				var nRecords = parseInt($sr.attr("numberOfRecordsMatched"));
+				var nRecordsReturn = parseInt($sr.attr("numberOfRecordsReturned"));
+				var nextRecord = parseInt($sr.attr("nextRecord"));
+				
+				if ($sr.length>0){
+					$sr.find("MD_Metadata").each(function(){
+						obj = {};
+						var $info = $(this).find("identificationInfo");						
+						obj.description = $.trim($info.find("abstract").text());
+						obj.title = $.trim($info.find("citation").find("title").text());
+						obj.date = $.trim($($info.find("citation").find("date")[0]).text());
+						
+						var $links = $(this).find("distributionInfo").find("linkage");
+						
+						// search WMS
+						obj.type = null;
+						for(var i=0;i<$links.length;i++){
+							if ($($links[i]).text().indexOf("WMS")!= -1){
+								obj.url = $.trim($($links[i]).text());
+								obj.type = "WMS";
+								break;
+							}
+						}
+						
+						// search for CSW
+						if (!obj.type){
+							for(var i=0;i<$links.length;i++){
+								if ($($links[i]).text().indexOf("CSW")!= -1){
+									obj.url = $.trim($($links[i]).text());
+									obj.type = "CSW";
+									break;
+								}
+							}	
+						}
+						
+						if (!obj.type){
+							// Direct web link, it could be anything	
+							obj.type = "WWW";
+							obj.url = $.trim($($links[0]).text());	
+						}
+												
+						elements.push(obj);
+						
+					});
+					
+					var html;
+					
+					if (!startPosition){
+						html = "<ul class='search_result'>" + split.__getHTMLSearch(elements) + "</ul>";
+						html += "<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more</a></div>";
+						
+						$panel_search.html(html);
+					}
+					else{
+						
+						$panel_search.find("ul.search_result").append(split.__getHTMLSearch(elements));
+						if (nextRecord<=nRecords){
+							// add more link
+							$panel_search.find("#more").html("<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more</a></div>");
+						}
+						else{
+							// remove add more link
+							$panel_search.find("#more").remove();
+						}
+						
+					}
+					
+					
+					/*for(var i=0;i<elements.length;i++){
+						var e = elements[i];
+						console.log("Title:" + e.title);
+						console.log("Description:" + e.title);
+						console.log("Type:" + e.type);
+						console.log("URL:" + e.url);
+						console.log("------------");
+					}*/
+				}
+				
+			}				
+		});
+	},
+	addLayer: function (server_url,name,title){
+		
+		var l = {
+			server: server_url,
+			title: title,
+			layers: name
+		}
+		this.__mapLeft.addLayer(l);
+		 $("#panel_search").fadeOut(300);
+		//this.__mapRight.addLayer(l);
+		console.log(server_url);
+		console.log(name);
+		console.log(title);
 	}
 	
 	

@@ -60,10 +60,16 @@ header nav a{
 header .left{
 	background:#0363aa url("../img/MED_separador_cab1.png") repeat-y right top;
 	float:left;
-	width:560px;
+	width:650px;
 	height:72px;
 	
 }
+
+#search_server{
+	margin-top: 27px;
+	margin-left: 10px;
+}
+
 .fleft{	float:left;}
 .fright{ float:right;}
 header #logo{
@@ -168,7 +174,7 @@ img.sync{
 	width: 240px;
 	z-index: 1001;
 	background-color: #fff;
-	height: 300px;
+	
 	margin-top: 290px;
 	overflow-y: scroll;
 	display: none;
@@ -176,6 +182,34 @@ img.sync{
 	border-top: 1px solid #999;
 	border-radius: 6px 0 0 0px;
 }
+
+@media only screen and (min-height: 900) and (max-height:1080){
+	.layer_panel{
+		max-height: 600px;
+	}
+}	
+@media only screen and (min-height: 700) and (max-height:899){
+	.layer_panel{
+		max-height: 500px;
+	}
+}
+@media only screen and (min-height:550) and (max-height:699){
+	.layer_panel{
+		max-height: 300px;
+	}
+}
+@media only screen and (min-height:400) and (max-height:549){
+	.layer_panel{
+		max-height: 200px;
+	}
+}
+
+@media only screen and (max-height:399){
+	.layer_panel{
+		max-height: 100px;
+	}
+}	
+
 
 
 /*
@@ -304,4 +338,32 @@ p.credits{
 	float:right;
 	margin: 17px 15px 0 0 ;
 }
+
+#container{
+	position:relative;
+}
+
+#panel_search{
+	position: absolute;
+	z-index: 6;
+	left: 0;
+	top: 0;
+	width: 50%;
+	background-color: #fff;
+	overflow-y: scroll;
+}
+
+ul.search_result,ul.wms{
+	padding:10px;
+	list-style:none;
+}
+
+ul.search_result li,ul.wms li{
+	margin: 20px 0;
+}
+
+ul.search_result a ,ul.wms a{
+	text-decoration: underline;
+}
+
 

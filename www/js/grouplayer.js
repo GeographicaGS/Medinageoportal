@@ -44,11 +44,35 @@ function GroupLayer(opts){
 	
 	this.isActive = function(){
 		return this.__active;
-	}
+	};
 	
 	this.setActive = function(active){
 		this.__active = active;
-	}
+	};
+	
+	this.addLayer = function(layer){
+		
+		var l = {
+			id: this.layers[0].id +1,
+			tile: new L.tileLayer.wms(layer.server, {		
+			    layers: layer.layers,
+			    format: 'image/png',
+			    transparent: true,
+			    zIndex: this.layers[0].priority +1
+			}),
+			visible:true,
+			priority:this.layers[0].priority +1,
+			title:layer.title
+		};
+		
+		this.map.addLayer(l.tile);
+		
+		this.layers.splice(0,0,l);
+		
+		this.refreshLayerPanel();
+		
+		
+	};
 	
 	this.getHTMLLayersPanel = function(){
 		var html = "";
@@ -190,7 +214,7 @@ function GroupLayer(opts){
 						}
 					}
 				}
-				console.log(obj.layers);
+				//console.log(obj.layers);
 				var debug = "";
 				for(var i=0;i<obj.layers.length;i++){
 					console.log(obj.layers[i].title + ":" +obj.layers[i].priority);

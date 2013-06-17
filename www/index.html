@@ -47,6 +47,7 @@
 	function resize(){
 		var h = $(window).height() - $("header").outerHeight(true) -  $("footer").outerHeight(true);
 		$("#container").height(h);
+		$("#panel_search").height(h);
 		var mw = Math.floor($(window).width() /2);
 		$("#sep").height(h);
 		$("#sep").css("left",mw-1);
@@ -64,6 +65,7 @@
 	function showDevMsg(){
 		showInfoFancybox("<br/><br/>Functionality under development");
 	}
+	
 	$(window).ready(function(){
 		$("a#info_fancybox").fancybox({
 			"hideOnContentClick" : true,
@@ -73,8 +75,12 @@
 		
 		$("#search").keypress(function(e) {
 		    if(e.which == 13) {
-		    	showDevMsg();
+		    	Split.search();
 		    }
+		});
+		
+		$("#search_server").change(function(){
+			Split.search();
 		});
 		
 		resize();
@@ -87,6 +93,7 @@
 		resize();
 		Split.__mapLeft.getMap().invalidateSize();		
 		Split.__mapRight.getMap().invalidateSize();		
+		console.log($(window).height());
 	})
 </script>
 </head>
@@ -98,6 +105,10 @@
 	<div class="fleft left">
 		<img class="fleft" id="logo" src="img/MED_logo_cab.png" width=112px height=51px/>
 		<input class="fleft" type="text" id="search" />
+		<select class="fleft" id="search_server">
+			<option value="http://geossregistries.info:9002/geonetwork/srv/en/csw" selected>Geos</option>	
+			<option value="http://www.medinageoportal.eu/catalogue">Medina</option>
+		</select>
 		<div class="clear"></div>
 	</div>	
 	<nav class="fleft">
@@ -119,7 +130,9 @@
 </header>
 
 <div id="container" >
-	
+	<div id="panel_search" style="display:none">
+		
+	</div>
 	<div id="panel_left" class="panel">
 	
 		<div id="map_left"></div>
@@ -168,8 +181,8 @@
 		Indicators for North Africa
 		[ENV.2011.4.1.4-2], Grant agreement no: 282977
 	</p>	
-	<a class="geographica" href="http://www.geographica.gs" target="_blank">
-		<span>D+D Geographica</span>
+	<a class="geographica" href="http://www.geographica.gs" target="_blank" title="Design + Development">
+		<span>D+D <span class='bold'>Geographica</span></span>
 		<img src="img/GEO_W12_icon_bygeographica" />
 	</a>
 </footer>
