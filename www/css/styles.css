@@ -377,7 +377,8 @@ ul.search_result li:hover{
 ul.search_result li .counter{
 	color: #0363aa;
 	float:left;
-	margin: 0 10px 0 10px;
+	margin: 0 0 0 10px;
+	width: 30px;
 	
 }
 
