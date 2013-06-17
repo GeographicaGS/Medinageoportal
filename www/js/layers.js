@@ -5,7 +5,7 @@ var layers = [
 		title: "Natural Earth Base Map",
 		layers: "Natural_earth_HR",
 		priority: 1,
-		visible: false,
+		visible: true,
 	},
 	{
 		id: 2,
@@ -115,7 +115,7 @@ var layers = [
 		title: "Study Cases",
 		layers: "CASES_ZONES",
 		priority: 13,
-		visible: false,		
+		visible: true,		
 	}
 	
 
