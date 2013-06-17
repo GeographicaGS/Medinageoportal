@@ -97,6 +97,22 @@ Split = {
 		this.__mapLeft.refreshLayerPanel();
 		this.__mapRight.refreshLayerPanel();
 		
+		//permanet hooks
+		$(document).on("click",".ctrl_expand",function(){
+			
+			var $extra = $(this).closest("li").find(".extra");
+			if (!$extra.is(":visible")){
+				$extra.fadeIn(300);
+				$(this).closest("li").addClass("expand");
+				$(this).html("Collapse");
+			}
+			else{
+				$(this).closest("li").removeClass("expand");
+				$extra.fadeOut(300);
+				$(this).html("Expand");
+			}
+		});
+		
 	},
 	mapMover: function(a,b) {		  
 		var bActive;
@@ -284,16 +300,98 @@ Split = {
 			url: 'proxy_get.php?url='+req_url,
 			dataType: 'xml',
 			success: function(xml){
-				var html = "<ul class='wms'>";
-				$(xml).find("Layer").first().find("Layer").each(function(){
-					var name = $(this).find("Name").text();
-					var title = $(this).find("Title").text();
-					var crs = $(this).find("CRS").text();
+				var $srv = $(xml).find("Service");
+				var gtitle = $.trim($srv.find("Title").text());
+				var gdesc = $.trim($srv.find("Abstract").text());
+				
+				var gkeywords = [];
+				$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
+					gkeywords.push($.trim($(this).text()));
+				});
+				
+				
+				var fatherSupport4326 = false;
+				
+				var $layerFather = $(xml).find("Layer").first();
+				
+				var gatt = $.trim($($layerFather.find("Attribution")[0]).find("Title").text());
+				
+				$layerFather.find("SRS").each(function(){
+					if ($(this).text()=="EPSG:4326"){
+						fatherSupport4326 = true;
+						return false;
+					}
+				});
+				
+				var html = "<a class='wms_back' href='javascript:Split.search()'>" +
+				"	<img src='img/MED_icon_back.png' />"+
+				"	<span class='blue'>Volver a resultados</span>" +
+				"</a>"; 
 					
-					html += "<li>" +
-							"	<p>"+title+"</p>" +
-							"	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>Add layer</a>" +
-							"</li>"
+				html += "<ul class='wms'>";
+				
+				html += "<li>" +
+				"	<p class='title'>" + gtitle + "</p>" +
+				"	<p class='att'>"+ gatt + "</p>" +
+				"	<p class='desc'>" + gdesc + "</p>";
+				
+				if (gkeywords.length>1){
+					html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + gkeywords.join(", ") + "</p>";	
+				}
+				var $childs = $layerFather.find("Layer");
+				
+				html += "<p class='desc mb'><span class='bold grey2'>LAYERS</span> (" + $childs.length +") </p>";
+				html +="</li>"
+					
+				$childs.each(function(){
+					var name = $(this).find("Name").text();
+					
+					var title = $(this).find("Title").text();
+					if (!title || title=="") title = gtitle;
+					
+					var desc = $.trim($(this).find("Abstract").text());
+					
+					var keywords = [];
+					$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
+						keywords.push($.trim($(this).text()));
+					});
+					var support4326 = false;
+					
+					$srs = $(this).find("SRS");
+					
+					if ($srs.length>0){
+						$srs.each(function(){
+							if ($(this).text()=="EPSG:4326"){
+								support4326 = true;
+								return false;
+							}
+						});
+					}
+					else{
+						// no SRS defined in this node look the father
+						support4326 = fatherSupport4326;
+					}	
+					
+					if (support4326){
+						html += "<li>" +
+							"	<p class='title'>"+title+"</p>" +
+							"	<p class='desc'>"+desc+"</p>";
+						
+						if (keywords.length>1){
+							html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + keywords.join(", ") + "</p>";	
+						}
+						
+						html += "<p class='desc mb'>" +
+								"	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>" +
+								"		<img src='img/MED_icon_add_layer.png' />" +
+								"		<span>Add layer</span>" +
+								"	</a>" +
+								"</p>" +
+						"</li>"
+					}
+					
+					
+				
 						
 					/*console.log("Name:"+ $(this).find("Name").text());
 					console.log("Title:"+ $(this).find("Title").text());
@@ -312,14 +410,28 @@ Split = {
 		this.search();
 		
 	},
-	__getHTMLSearch: function (elements){
+	__getHTMLSearch: function (elements,startPosition){
 		var html = "";
 		for(var i=0;i<elements.length;i++){
 			var e = elements[i];
 			html += "<li>" +
-					"	<p>Type: "+ e.type + "</p>" + 
-					"	<p>Title: "+ e.title + "</p>" +
-					"	<p>Description: "+ e.description + "</p>";
+					"	<div class='counter'>" + (i+ startPosition) + ". </div>" +
+					"	<div class='img_label "+e.type + "'></div>" +
+					"	<a class='ctrl_expand'>Expand</a>"+
+					"	<div class='info'>" +
+					"		<p title='"+e.title+"'>"+e.title +"</p>" +
+					"		<p title='"+e.org +"'>"+e.org+"</p>"+	
+					"	</div>" +
+				
+					"	<div class='extra' style='display:none'>"+
+					"		<p class='desc'>"+ e.description + "</p>";
+			
+			if (e.keywords.length>0){
+				html += "<p class='keywords'><span class='bold'>KEYWORDS </span> > " + e.keywords.join(", ") + "</p>";
+			}
+					
+			
+					
 			
 			if (e.type == "WMS"){
 				html += "<p><a href='javascript:Split.parseServiceWMS(\"" + e.url +"\")'>Explore WMS service</a></p>";
@@ -331,6 +443,8 @@ Split = {
 				html += "<p><a href='" + e.url + "' target='_blank'>Open this external service</a></p>"
 			}
 	
+			html += "	</div>";
+			
 			html += "</li>"; 
 			
 		}
@@ -349,8 +463,8 @@ Split = {
 		var $panel_search = $("#panel_search");
 		
 		if (!startPosition){
+			startPosition = 1
 			// no pagination, this is the first call
-			url +="&startposition=1";
 			
 			if (!$panel_search.is(":visible")){
 				$panel_search.fadeIn(300);
@@ -359,13 +473,11 @@ Split = {
 			$panel_search.html("<p class='no_search'>Loading...</p>");
 		}
 		else{
-			// pagination
-			url +="&startposition="+startPosition;
-			
 			$panel_search.find("#more").html("Loading...");
 		}
 		
-		
+		// pagination
+		url +="&startposition="+startPosition;
 		
 		// set object to access y ajax success closure
 		var split = this;
@@ -391,6 +503,11 @@ Split = {
 						obj.description = $.trim($info.find("abstract").text());
 						obj.title = $.trim($info.find("citation").find("title").text());
 						obj.date = $.trim($($info.find("citation").find("date")[0]).text());
+						obj.org =  $.trim($($(this).find("contact").find("organisationName")[0]).text());
+						obj.keywords = [];
+						$(this).find("keyword").each(function(){
+							obj.keywords.push($.trim($(this).text()));
+						});
 						
 						var $links = $(this).find("distributionInfo").find("linkage");
 						
@@ -427,15 +544,22 @@ Split = {
 					
 					var html;
 					
-					if (!startPosition){
-						html = "<ul class='search_result'>" + split.__getHTMLSearch(elements) + "</ul>";
-						html += "<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more</a></div>";
+					if ( startPosition == 1){
+						html = "<div class='search_result_top'>" +
+								"	<span class='blue bold'>"+nRecords+"</span>" +
+								"	<span class='grey'>Resultados para</span>" +
+								"	<span class='black italic'>"+$("#search").val()+"</span>" +
+								"	<span class='grey'>"+$("#search_server > option[selected]").text()+"</span>" +
+								"</div>";
+								
+						html += "<ul class='search_result'>" + split.__getHTMLSearch(elements,startPosition) + "</ul>";
+						html += "<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more results</a></div>";
 						
 						$panel_search.html(html);
 					}
 					else{
 						
-						$panel_search.find("ul.search_result").append(split.__getHTMLSearch(elements));
+						$panel_search.find("ul.search_result").append(split.__getHTMLSearch(elements,startPosition));
 						if (nextRecord<=nRecords){
 							// add more link
 							$panel_search.find("#more").html("<div id='more'><a href='javascript:Split.search("+nextRecord+")'>See more</a></div>");
@@ -478,9 +602,7 @@ Split = {
 		this.__mapRight.addLayer(l);
 		//$("#panel_search").fadeOut(300);
 		//this.__mapRight.addLayer(l);
-		console.log(server_url);
-		console.log(name);
-		console.log(title);
+		
 	},
 	toggleSearchPanel: function(){
 		var $panel_search = $("#panel_search");
