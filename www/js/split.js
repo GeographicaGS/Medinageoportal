@@ -271,7 +271,8 @@ Split = {
 	
 	parseServiceWMS: function(url){
 		var $panel_search = $("#panel_search");
-		$panel_search.html("Loading...");
+		$panel_search.html("<p class='no_search'>Loading...</p>");
+
 		
 		var req_url = url.replace("?","&");
 		
