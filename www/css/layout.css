@@ -9,9 +9,7 @@
 
 
 /* Square margin*/
-.sqm{
-   margin: 10px;
-}
+.sqm{ margin: 10px;}
 
 
 .mth1{ margin-top:18px !important;} .mth2{margin-top:36px !important;}
@@ -182,7 +180,7 @@
 
 .size15 {
 	font-size: 15px;
-}
+} 
 
 .size16 {
 	font-size: 16px;

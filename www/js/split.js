@@ -2,7 +2,7 @@ Split = {
 	layers: null,	
 	iniLat: 34,
 	iniLng: 14,	
-	iniZoom: 4,
+	iniZoom: 7,
 	__mapLeft:null,
 	__mapRight: null,
 	__currentMasterMap: null,
@@ -10,6 +10,7 @@ Split = {
 	LEFT: 0,
 	RIGHT: 1,
 	syncEnable : true,
+	
 	initialize: function(){
 		
 		var startingCenter = new L.LatLng(this.iniLat, this.iniLng);
