@@ -39,7 +39,7 @@ RectangleDrawer = {
 		
 		setInterval(function(){
         	RectangleDrawer._drawRect();
-        },100)
+        },10)
 		
 	},
 	_drawRect: function(){
