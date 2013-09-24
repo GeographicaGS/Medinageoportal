@@ -531,4 +531,9 @@ ul.wms .desc{
 	height:100%;
 	width: 100%;
 	background-color:#f00;
+	cursor: url("../img/cursor_arrow.png");
+}
+
+#map_left:active{
+	cursor:url("../img/cursor_arrow.png");
 }
