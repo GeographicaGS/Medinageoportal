@@ -526,3 +526,9 @@ ul.wms .desc{
 	border-bottom: 1px solid #999;
 	padding-left: 30px;
 }
+
+#rectangle_drawer{
+	height:100%;
+	width: 100%;
+	background-color:#f00;
+}
