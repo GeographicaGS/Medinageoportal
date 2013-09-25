@@ -38,7 +38,14 @@ RectangleDrawer = {
 	        RectangleDrawer._lu.y = mousePos.y;	
 	        console.log("x: " + RectangleDrawer._lu.x + " y:" + RectangleDrawer._lu.y);
 	        RectangleDrawer._drawRect();
-		});;
+		}).bind('click', function(evt) {
+			evt.stopPropagation();
+	        var mousePos = RectangleDrawer._getMousePos(evt);
+	        RectangleDrawer._lu.x = mousePos.x;
+	        RectangleDrawer._lu.y = mousePos.y;	
+	        console.log("X1: " + RectangleDrawer._lu.x + " Y1:" + RectangleDrawer._lu.y);
+	        
+		});
 		
 		setInterval(function(){
         	RectangleDrawer._drawRect();
@@ -49,13 +56,10 @@ RectangleDrawer = {
 		if (this._lu.x && this._lu.y && this._rl.x && this._rl.y)
 		{
 			var ctx=this._canvas.getContext("2d");
-			
 			ctx.save();
-
 			// Use the identity matrix while clearing the canvas
 			//ctx.setTransform(1, 0, 0, 1, 0, 0);
 			ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-
 			// Restore the transform
 			ctx.restore();
 			
