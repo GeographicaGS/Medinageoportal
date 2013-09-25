@@ -77,7 +77,7 @@ RectangleDrawer = L.Class.extend({
 	        	
 	        }
 	        
-	        $("#rectangle_name").css("top",obj._rl.y -10).css("left",obj._rl.x - 10);
+	        $("#rectangle_name").css("top",obj._rl.y -10).css("left",obj._lu.x + 10);
 	        
 	        $("#rectangle_name a[save]").click(function(){
 	        	obj._saveRectangle();

@@ -186,6 +186,9 @@ function GroupLayer(opts){
 			}
 			
 			var l = obj.findLayerById(id);
+			var legendUrl = l.tile._url + "?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&"
+									+"EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER=" + l.tile.wmsParams.layers;
+			
 			var $el = $("<div class='flotable_legend' id_layer="+id +">"
 					+	"<h4>" 
 					+		"<img src='img/MED_icon_leyenda.png' />"
@@ -193,6 +196,7 @@ function GroupLayer(opts){
 					+		"<img class='close' src='img/MED_icon_delete.png' />"
 					+	"</h4>"
 					+	"<div class='co_legend'>"
+					+	"	<img src='" + legendUrl +"'/>"
 					+	"</div>"
 					+	"</div>");
 			$container.prepend($el);
@@ -205,6 +209,8 @@ function GroupLayer(opts){
 				$(this).remove();
 			});
 			
+			//    layers.set("legendURL","http://my-ip-address/geoserver/wms?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER=" + map.layers[i].params["LAYERS"]); 
+			console.log(l.tile._url + "?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER=" + l.tile.wmsParams.layers);
 			
 			
 			
