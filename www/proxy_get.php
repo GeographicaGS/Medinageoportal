@@ -1,5 +1,5 @@
 <? 
-header('Content-type: application/xml');
+//header('Content-type: application/xml');
 
 //set GET variables
 $url = $_GET['url'];

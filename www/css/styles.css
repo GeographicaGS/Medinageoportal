@@ -107,7 +107,7 @@ header #search{
 }
 img.toggle{
 	position:absolute;
-	top:26px;
+	top:90px;
 	z-index:4;
 	cursor:pointer;
 }
@@ -117,6 +117,10 @@ img.sync{
 	top:0;
 	z-index:4;	
 	cursor:pointer;
+}
+
+.split_ctrl img.sync{
+	top:125px;
 }
 
 #panel_left .split_ctrl img.toggle{
@@ -131,7 +135,6 @@ img.sync{
 #panel_right .split_ctrl img.toggle{
 	left:1px;	
 }
-
 
 
 .layer_ctrl{
@@ -527,13 +530,102 @@ ul.wms .desc{
 	padding-left: 30px;
 }
 
-#rectangle_drawer{
-	height:100%;
-	width: 100%;
-	background-color:#f00;
-	cursor: url("../img/cursor_arrow.png");
+.cursor_cross{
+	cursor: url("../img/MED_herram_area_cursor.png") 13 16;
 }
 
-#map_left:active{
-	cursor:url("../img/cursor_arrow.png");
+.cursor_info{
+	cursor: url("../img/MED_herram_info_cursor.png") 13 16;
 }
+
+#rectangle_name{
+	position: absolute;
+	z-index: 2;	
+	border: 1px solid #013e88;
+	height: 21px;
+	font-size:10px;
+	background-color:#cccccc;
+}
+
+#rectangle_name > *{
+	float:left;
+	height: 21px;
+	line-height: 21px;
+	border-left: 1px solid #333;
+}
+
+#rectangle_name input{
+	color:#999999;
+	width:100px;
+	border:none;
+	padding: 0 5px;
+	font-size:10px;
+	
+}
+
+#rectangle_name a{
+	padding: 0 5px;
+	text-shadow: 0 1px 0 #fff;
+}
+
+#rectangle_name a[save]{
+	color:#0363aa;
+}
+
+#rectangle_name a[cancel]{
+	color:#333;
+}
+
+.co_overlay_panel{
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index:1;
+}
+
+#tool_bar{
+	position: absolute;
+	top: 0;
+	background-color: #ccc;
+	height: 29px;
+	width: 67px;
+	border-radius: 0 0 5px 5px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+	left: 50%;
+	margin-left: -36px;
+	z-index: 2;
+}
+
+#tool_bar > * {
+	width: 29px;
+	height: 23px;
+	float:left;
+	cursor: pointer;
+	margin-top: 2px;
+	margin-left: 2px;
+}
+
+#tool_bar #ctrl_rectangle_drawer{
+	background:url("../img/MED_herram_area_OFF.png");	 	 
+}
+
+#tool_bar #ctrl_rectangle_drawer.enable{
+	background:url("../img/MED_herram_area_ON.png");	 
+}
+
+#tool_bar #ctrl_feature_info{
+	background:url("../img/MED_herram_info_OFF.png");	 	 
+}
+
+#tool_bar #ctrl_feature_info.enable{
+	background:url("../img/MED_herram_info_ON.png");	 
+}
+
+#container_feature_info{
+	width: 800px;
+	height: 400px;
+	overflow:auto;
+}
+

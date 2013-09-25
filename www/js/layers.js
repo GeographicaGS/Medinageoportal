@@ -116,9 +116,16 @@ var layers = [
 		layers: "CASES_ZONES",
 		priority: 13,
 		visible: true,		
+	},
+	{
+		id: 14,
+		server: "http://www.igpresa.geographica.gs/cgi-bin/ig",
+		title: "Catastro",
+		layers: "catastro",
+		priority: 14,
+		visible: true,		
 	}
 	
-
 
 
 

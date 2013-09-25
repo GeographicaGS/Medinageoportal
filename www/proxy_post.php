@@ -11,6 +11,7 @@ foreach($_POST as $key=>$value)
 }
 
 $fields_string = rtrim($fields_string,'&');
+
 //open connection
 $ch = curl_init();
 //set the url, number of POST vars, POST data

@@ -7,6 +7,8 @@ Split = {
 	__mapRight: null,
 	__currentMasterMap: null,
 	__mapIsMoving: false,
+	__leftRectangles: [],
+	__rightRectangles: [],
 	LEFT: 0,
 	RIGHT: 1,
 	syncEnable : true,
@@ -67,6 +69,7 @@ Split = {
 		});
 		
 				
+		
 		zoomControl.addTo(mapRight);		
 		
 		opts = {
@@ -114,6 +117,38 @@ Split = {
 			}
 		});
 		
+		$("#ctrl_rectangle_drawer").click(function(){
+			var $rd = $("#ctrl_feature_info");
+			if ($rd.hasClass("enable")){
+				$rd.trigger("click");
+			}
+			if ($(this).hasClass("enable")) { 
+				$(this).removeClass("enable");
+				Split.deActivateRectangleTool();
+			}
+			else{
+				$(this).addClass("enable");				
+				Split.activateRectangleTool();
+			}
+		});
+		
+		$("#ctrl_feature_info").click(function(){
+			var $rd = $("#ctrl_rectangle_drawer");
+			if ($rd.hasClass("enable")){
+				$rd.trigger("click");
+			}
+			
+			if ($(this).hasClass("enable")) { 
+				$(this).removeClass("enable");
+				Split.deActivateFeatureInfo()
+			}
+			else{
+				$(this).addClass("enable");				
+				Split.activateFeatureInfo()
+			}
+		});
+		
+		resize();
 	},
 	mapMover: function(a,b) {		  
 		var bActive;
@@ -143,14 +178,14 @@ Split = {
 		Split.__mapIsMoving = false;
 	},
 	togglePanel:function (el){
-		var totalWidth = Math.floor(($(window).width()-2) /2);
+		var totalWidth = Math.floor($(window).width() /2);
 		if (el==this.LEFT){
 			//Left panel
 			if ($("#panel_left").is(":visible") && $("#panel_right").is(":visible")){	
 				// hide panel left
 				$("#sep").hide();
 				$('#panel_left').hide();
-				$('#panel_right').width(totalWidth*2);					
+				$('#panel_right').width($(window).width());					
 				Split.__mapRight.getMap().invalidateSize();	
 				Split.__mapLeft.setActive(false);				
 			}
@@ -160,6 +195,7 @@ Split = {
 				$('#panel_left').width(totalWidth);					
 				Split.__mapLeft.getMap().invalidateSize();	
 				Split.__mapRight.setActive(true);
+				resize();
 			}			
 			
 			
@@ -171,7 +207,7 @@ Split = {
 				// hide panel right
 				$("#sep").hide();
 				$('#panel_right').hide();
-				$('#panel_left').width(totalWidth*2);					
+				$('#panel_left').width($(window).width());					
 				Split.__mapLeft.getMap().invalidateSize();
 				Split.__mapRight.setActive(false);
 			}
@@ -181,6 +217,7 @@ Split = {
 				$('#panel_right').width(totalWidth);					
 				Split.__mapRight.getMap().invalidateSize();
 				Split.__mapLeft.setActive(true);
+				resize();
 			}
 		}
 		if (Split.__currentMasterMap == Split.__mapLeft){
@@ -189,6 +226,7 @@ Split = {
 		else{
 			Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 		}
+		
 	},
 	sync: function(){
 		Split.syncEnable = !Split.syncEnable;
@@ -614,7 +652,88 @@ Split = {
 			$panel_search.fadeOut(300);
 		}
 		
-	}
+	},
+	_rectangleMouseover: function(rectangle,name,e){
+		rectangle.setStyle({fillOpacity: 1});		
+	},
+	_rectangleMouseout: function(rectangle,name,e){
+		rectangle.setStyle({fillOpacity: 0.75});		
+	},
+	_addRectangle: function(bounds,name){
+		var rectangleLeft = L.rectangle(bounds, {fillColor: "#176fb1", fillOpacity: 0.75,color: "#00ccff", weight: 1});
+		var rectangleRight = L.rectangle(bounds, {fillColor: "#176fb1", fillOpacity: 0.75,color: "#00ccff", weight: 1});
+
+		
+		rectangleLeft.on('mouseover',function(e){
+			Split._rectangleMouseover(rectangleLeft,name,e);
+		}).on('mouseout',function(e){
+			Split._rectangleMouseout(rectangleLeft,name,e);
+		});		
+		rectangleLeft = rectangleLeft.bindLabel(name,{ noHide: true });
+		
+		rectangleRight.on('mouseover',function(e){
+			Split._rectangleMouseover(rectangleRight,name,e);
+		}).on('mouseout',function(e){
+			Split._rectangleMouseout(rectangleRight,name,e);
+		});
+		
+		rectangleRight.bindLabel(name,{ noHide: true });
+		
+		this.__mapLeft.getMap().addLayer(rectangleLeft);
+		this.__mapRight.getMap().addLayer(rectangleRight);		
+		this.__leftRectangles.push(rectangleLeft);
+		this.__rightRectangles.push(rectangleRight);
+		
+		
+		
+	},
+	activateRectangleTool: function(){
+		
+		this._ldrawer = new RectangleDrawer("rectangle_canvas_left",{
+			"map" : this.__mapLeft.getMap(),
+			"callback" : function(bounds,name){
+				Split._addRectangle(bounds,name);
+			}
+		});
+		
+		this._rdrawer = new RectangleDrawer("rectangle_canvas_right",{
+			"map" : this.__mapRight.getMap(),
+			"callback" : function(bounds,name){
+				Split._addRectangle(bounds,name);
+			}
+		});
+	},
+	
+	deActivateRectangleTool:function(){
+		this._ldrawer._removeCanvas();
+		this._rdrawer._removeCanvas();
+	},
+	activateFeatureInfo: function(){
+		var obj = this;
+		var msg = "Loading data. <br/>Please, be patient."
+		this.__mapLeft.getMap().on("click",function(e){
+			
+			showInfoFancybox("<div id='container_feature_info'>" + msg + "</div>");
+			
+			
+			Split.__mapLeft.featureInfo(e);
+		});
+		this.__mapRight.getMap().on("click",function(e){			
+			showInfoFancybox("<div id='container_feature_info'>" + msg + "</div>");
+			
+			Split.__mapRight.featureInfo(e);
+		});
+		
+		$("#map_left,#map_right").addClass("cursor_info");
+	},
+	deActivateFeatureInfo: function(){
+		
+		this.__mapLeft.getMap().off("click");
+		this.__mapRight.getMap().off("click");
+		
+		$("#map_left,#map_right").removeClass("cursor_info");
+	},
+	
 	
 	
 }

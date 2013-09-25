@@ -23,7 +23,8 @@ function GroupLayer(opts){
 			}),
 			visible:l.visible,
 			priority:l.priority,
-			title:l.title			
+			title:l.title,
+			opacity: 1
 		};
 		
 		
@@ -62,7 +63,8 @@ function GroupLayer(opts){
 			}),
 			visible:true,
 			priority:this.layers[0].priority +1,
-			title:layer.title
+			title:layer.title,
+			opacity: 1
 		};
 		
 		this.map.addLayer(l.tile);
@@ -181,6 +183,7 @@ function GroupLayer(opts){
 				$(ui.handle).closest(".opacity_panel").siblings("img").attr("title","Opacity " + ui.value +" %");
 				var l = obj.findLayerById(id_layer);
 				l.tile.setOpacity(ui.value/100);
+				l["opacity"] = ui.value/100;
 			}
 		});
 		
@@ -214,15 +217,76 @@ function GroupLayer(opts){
 						}
 					}
 				}
-				//console.log(obj.layers);
+				
 				var debug = "";
 				for(var i=0;i<obj.layers.length;i++){
 					console.log(obj.layers[i].title + ":" +obj.layers[i].priority);
 				}
-				//console.log(debug);
+			
 			}
 		});
-	}
+	};
+	
+	this.featureInfo = function(e,id){
+		
+		if(!id){
+			id = 0;
+		}
+		
+		var map = this.getMap();
+		var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+		    
+		var BBOX = map.getBounds().toBBoxString();
+		var WIDTH = map.getSize().x;
+		var HEIGHT = map.getSize().y;
+		var X = map.layerPointToContainerPoint(e.layerPoint).x;
+		var Y = map.layerPointToContainerPoint(e.layerPoint).y;
+		    
+		var layers = null;   
+		var server = null;
+		var requestIdx = null;
+		
+		for (var i=id;i<this.layers.length;i++){
+			var l = this.layers[i];
+			if (l.visible && l.opacity>0){
+				server = l.tile._url;
+				layers = l.tile.wmsParams.layers;
+				requestIdx = i;
+				break;
+			}
+		}
+		//featureInfo = "poligonos,lineas,puntos,catastro,parcelas2";
+		
+		if (layers===null || server===null || requestIdx===null)
+		{
+			$("#container_feature_info").html("No information on this point");
+			
+			return;
+		}
+		
+		var request = server + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' +layers+'&QUERY_LAYERS='+layers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+	    
+		var obj = this;
+	    $.ajax({
+			url : "proxy.php",
+			data: { "url": request},	       
+			type: "POST",			
+	        success: function(data) {
+	        	console.log("no error");
+	        	if (!data || data.indexOf("LayerNotQueryable")!=-1){
+	        		obj.featureInfo(e,requestIdx+1);
+	        	}
+	        	else{
+	        		$("#container_feature_info").html(data);
+	        	}
+	        	
+	        },
+	        error: function(){	        	
+	        	obj.featureInfo(e,requestIdx+1);
+	        }
+	    });
+		
+	};
 	
 	
 	
