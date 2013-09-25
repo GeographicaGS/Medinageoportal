@@ -96,7 +96,8 @@ function GroupLayer(opts){
 			
 			html += "<li title='"+l.title+"'>" + 
 					"	<input type='checkbox' id_layer="+l.id+" " + checked + "/>" +
-					" 	<img src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
+					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
+					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Leyend popup' id_layer="+l.id+" />"	+
 					"	<p class='" + styleclass +"'>"+l.title+"</span>" +
 					"   <div class='opacity_panel' style='display:none'>"+
 					"		<span class='opacity_label'>Opacity 100%</span>"+
@@ -157,7 +158,7 @@ function GroupLayer(opts){
 			
 		});
 		
-		this.$layerPanel.find("li > img").click(function(){
+		this.$layerPanel.find("li > img.opacity").click(function(){
 			var $opacity_panel = $(this).siblings(".opacity_panel");
 			var $li = $(this).parent(); 
 			if ($opacity_panel.is(":visible")){
@@ -170,6 +171,44 @@ function GroupLayer(opts){
 				$opacity_panel.show();
 				$li.css("border-bottom","none");
 			}
+			
+		});
+		
+		var obj = this;
+		this.$layerPanel.find("li > img.legend").click(function(){
+			var id = $(this).attr("id_layer");
+			var $container = $(obj.map.getContainer()).parent();
+			var $currentLegend = $container.find(".flotable_legend[id_layer="+id+"]");
+			
+			if($currentLegend.length>0){
+				$currentLegend.remove();
+			
+			}
+			
+			var l = obj.findLayerById(id);
+			var $el = $("<div class='flotable_legend' id_layer="+id +">"
+					+	"<h4>" 
+					+		"<img src='img/MED_icon_leyenda.png' />"
+					+		"<p>"+l.title+"</p>"
+					+		"<img class='close' src='img/MED_icon_delete.png' />"
+					+	"</h4>"
+					+	"<div class='co_legend'>"
+					+	"</div>"
+					+	"</div>");
+			$container.prepend($el);
+			$el.draggable();
+			
+			$el.css("left",($container.width() / 2 ) - $el.width());
+			$el.css("top",($container.height() / 2 ) - ($el.height() / 2));
+			
+			$el.click(function(){
+				$(this).remove();
+			});
+			
+			
+			
+			
+			
 			
 		});
 		
@@ -259,7 +298,7 @@ function GroupLayer(opts){
 		
 		if (layers===null || server===null || requestIdx===null)
 		{
-			$("#container_feature_info").html("No information on this point");
+			$("#container_feature_info").html("No information on this point.");
 			
 			return;
 		}

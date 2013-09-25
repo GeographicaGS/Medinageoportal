@@ -287,8 +287,13 @@ ul.layer_panel > li > input {
 
 ul.layer_panel > li > img{
 	float:right;
-	padding: 5px 15px;
+	padding: 5px 15px 5px 10px;
 	cursor:pointer;
+}
+
+ul.layer_panel > li > img.legend{
+	padding: 5px 0px;
+
 }
 
 ul.layer_panel > li > p {
@@ -346,6 +351,7 @@ p.credits{
 
 #container{
 	position:relative;
+	overflow: hidden;
 }
 
 #panel_search{
@@ -576,11 +582,59 @@ ul.wms .desc{
 	color:#333;
 }
 
-.co_overlay_panel{
+.co_overlay_panel,.flotable_legend{
+
 	position: absolute;
 	left: 0;
 	right: 0;
 	z-index:1;
+	cursor: move;
+}
+
+.flotable_legend{
+	z-index:2;
+	background-color:#f1f1f1;
+	width: 300px;
+	border:1px solid #a3a3a3;
+
+}
+
+.flotable_legend h4{
+	height:26px;
+	background-color: #fff;
+	
+}
+.flotable_legend h4 > *{
+	float:left;
+	font-size:10px;
+	color:#000000;
+	
+}
+
+.flotable_legend h4 > img.close{
+	float:right;
+	margin: 7px 6px 0 0;
+	cursor:pointer;
+}
+
+.flotable_legend h4 :nth-child(1){
+	margin: 5px;
+}
+.flotable_legend h4 :nth-child(2){
+	margin: 6px 5px 0 0 ;
+		white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;	/* required for Opera */
+    -ms-text-overflow: ellipsis;	/* required for IE8, allegedly */
+    -moz-binding: url('ellipsis.xml#ellipsis');    /* for Firefox; details here */
+	width: 245px;
+}
+.flotable_legend .co_legend{
+	overflow: auto;
+	height: 250px;
+	width: 100%;
+	border-top: 1px solid #d1d1d1;
 }
 
 #tool_bar{
@@ -628,4 +682,9 @@ ul.wms .desc{
 	height: 400px;
 	overflow:auto;
 }
+
+.flotable_legend{
+	
+}
+
 
