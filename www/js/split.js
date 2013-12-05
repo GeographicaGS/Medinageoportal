@@ -44,6 +44,8 @@ Split = {
 			  zoomControl: false,
 			  attributionControl: false
 		});
+		var ggl = new L.Google('SATELLITE');
+		mapLeft.addLayer(ggl);
 		
 		zoomControl.addTo(mapLeft);
 		
@@ -68,7 +70,8 @@ Split = {
 			  attributionControl: false
 		});
 		
-				
+		var ggl = new L.Google('SATELLITE');
+		mapRight.addLayer(ggl);		
 		
 		zoomControl.addTo(mapRight);		
 		
