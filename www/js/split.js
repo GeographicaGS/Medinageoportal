@@ -1,3 +1,5 @@
+var ggl1,ggl2;
+
 Split = {
 	layers: null,	
 	iniLat: 39.463906,
@@ -40,12 +42,13 @@ Split = {
 			  center: startingCenter,
 			  zoom: this.iniZoom,
 			  fadeAnimation: false,
-			  crs: L.CRS.EPSG4326,
+			  crs: L.CRS.EPSG3857,
 			  zoomControl: false,
 			  attributionControl: false
 		});
-		var ggl = new L.Google('SATELLITE');
-		mapLeft.addLayer(ggl);
+		
+		ggl1 = new L.Google('SATELLITE');
+		mapLeft.addLayer(ggl1);
 		
 		zoomControl.addTo(mapLeft);
 		
@@ -65,13 +68,14 @@ Split = {
 			  center: startingCenter,
 			  zoom: this.iniZoom,			  
 			  fadeAnimation: false,
-			  crs: L.CRS.EPSG4326,
+			  crs: L.CRS.EPSG3857,
+			  //crs: L.CRS.EPSG4326,
 			  zoomControl: false,
 			  attributionControl: false
 		});
 		
-		var ggl = new L.Google('SATELLITE');
-		mapRight.addLayer(ggl);		
+		ggl2 = new L.Google('SATELLITE');
+		mapRight.addLayer(ggl2);		
 		
 		zoomControl.addTo(mapRight);		
 		
@@ -91,7 +95,7 @@ Split = {
 			Split.mapMover(Split.__mapRight.getMap(), Split.__mapLeft.getMap());
 		});
 
-		this.__mapLeft.getMap().on("zoomend", function() {
+		this.__mapLeft.getMap().on("zoomend", function() {			
 			Split.mapMover(Split.__mapLeft.getMap(), Split.__mapRight.getMap());
 		});
 
@@ -153,7 +157,8 @@ Split = {
 		
 		resize();
 	},
-	mapMover: function(a,b) {		  
+	mapMover: function(a,b) {
+		
 		var bActive;
 		if (Split.__mapLeft.getMap() == a){
 			Split.__currentMasterMap = Split.__mapLeft;
@@ -176,6 +181,11 @@ Split = {
 		
 		if (newZoom !== otherZoom){
 		    b.setZoom(newZoom);
+			setTimeout(function(){
+				var c = a.getCenter();
+				c.lat += 0.0001
+				b.setView(c);
+			},500);
 		}
 	
 		Split.__mapIsMoving = false;

@@ -44,7 +44,7 @@ header{
 	overflow:hidden;
 }
 
-header nav a{
+header a.big_link{
 	float: left;
 	background: url("../img/MED_separador_cab2.png") no-repeat top right;
 	line-height: 72px;
@@ -55,14 +55,29 @@ header nav a{
 	padding-left: 10px;
 	padding-right: 12px;
 	text-shadow: #013e88 0px -1px 0px;
+	
 }
 
-header .left{
+div.sep2{
+	background: url("../img/MED_separador_cab1.png") repeat-y top right;
+	line-height: 72px;
+	height: 72px;
+	width: 2px;
+}
+
+header .enhaced{
 	background:#0363aa url("../img/MED_separador_cab1.png") repeat-y right top;
 	float:left;
-	width:650px;
-	height:72px;
-	
+	height:72px;	
+}
+
+a#ctrl_catalog{
+	color: #dab400;
+	font-weight: bold;
+}
+
+header .enhaced a{
+	margin-left: 10px;
 }
 
 #search_server{
@@ -89,6 +104,7 @@ header #search{
 	width: 380px;
 	padding-left: 5px;
 	height: 33px;
+	margin-right: 20px;
 }
 
 .clear {
@@ -346,7 +362,7 @@ p.credits{
 
 .logo_upo{
 	float:right;
-	margin: 17px 15px 0 0 ;
+	margin: 17px 15px 0 20px ;
 }
 
 #container{

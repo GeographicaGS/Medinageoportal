@@ -1,12 +1,12 @@
 var layers = [
-//  	{
-//		id:1,
-//		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
-//		title: "Natural Earth Base Map",
-//		layers: "Natural_earth_HR",
-//		priority: 1,
-//		visible: false,
-//	},
+  	{
+		id:1,
+		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
+		title: "Natural Earth Base Map",
+		layers: "Natural_earth_HR",
+		priority: 1,
+		visible: false,
+	},
 	{
 		id: 2,
 		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
