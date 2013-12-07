@@ -322,6 +322,7 @@ Split = {
 		var url,server,text;
 		
 		server = $("#search_server").val();
+		server = "http://pegasosdi.uab.es/catalog/srv/en/csw"
 		text = $("#search").val();
 		
 		// let's build a valid request url

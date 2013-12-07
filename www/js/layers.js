@@ -1,4 +1,4 @@
-var layers = [{
+var layers = [/*{
 		id: 1,
 		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
 		title: "Natural Earth Base Map",
@@ -170,25 +170,17 @@ var layers = [{
 		layers: "UMZ_na_coast100",
 		priority: 23,
 		visible: false,
-	},
+	},*/
 
 	{
-		id: 24,
+		id: 1,
 		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
 		title: "Study Cases",
 		layers: "CASES_ZONES",
-		priority: 24,
+		priority: 1,
 		visible: true,
 	}
-	/*,
-	{
-		id: 14,
-		server: "http://www.igpresa.geographica.gs/cgi-bin/ig",
-		title: "Catastro",
-		layers: "catastro",
-		priority: 14,
-		visible: true,		
-	}*/
+	
 
 
 

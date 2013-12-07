@@ -1,0 +1,1 @@
+var medinaCatalogWMS = "http://www.medinageoportal.eu/cgi-bin/medinageoportal";
