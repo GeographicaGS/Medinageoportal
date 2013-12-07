@@ -94,6 +94,10 @@
 		$("img.sync").click(Split.sync);
 		Split.initialize();
 		
+		$("#ctrl_catalog").click(catalog);
+		
+		$("ul.families > li").click(openCloseFamilyCatalog)
+		
 		
     });
 	
@@ -130,73 +134,155 @@
 	<div class="sep2 fright"></div>
 	<input class="fright" type="text" id="search" value="Search" />
 	
-	
-	
 	<div class="clear"></div>
 </header>
+
 
 <div id="container" >
 	<div id="panel_search" style="display:none">
 		<p class="no_search">Type a text to search in the upper box</p>
 	</div>
-	<div id="panel_left" class="panel">
-		<div class="co_overlay_panel">
-			<canvas id="rectangle_canvas_left" style="display:none" class="cursor_cross"></canvas>
+	
+	<!-- Begin Medina catalog section-->
+	<div id="catalog" style="display: none">
+		<div class="container">
+				<div class="info">
+						<h4><strong>Medina</strong>&nbsp;Catalogue</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus velit iaculis faucibus placerat. Morbi et porttitor lorem, id rutrum est. Morbi sed dolor ac nunc euismod tempus.</p>						
+				</div>
+				
+				<ul class="families">
+					<li class="close">
+						<ul class="family_header">
+						     <li class="ico_open_close"><img src="img/MED_icon_capas.png"></li>
+						     <li class="ico"><img src="img/MED_icon_resul_wms.png"></li>
+							 <li class="name">Familia 1</li>
+							 <li class="n_elements">(24)</li>
+							 <li class="closeme">Close</li>
+							 <li class="clear"></li>
+						</ul>
+						<div class="clear"></div>
+						<ul class="family_content">
+				            <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						    <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						    <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						</ul>
+					</li>
+					<!--To remove-->
+						<li class="close">
+						<ul class="family_header">
+						     <li class="ico_open_close"><img src="img/MED_icon_capas.png"></li>
+						     <li class="ico"><img src="img/MED_icon_resul_wms.png"></li>
+							 <li class="name">Familia 1</li>
+							 <li class="n_elements">(24)</li>
+							 <li class="closeme">Close</li>
+							 <li class="clear"></li>
+						</ul>
+						<div class="clear"></div>
+						<ul class="family_content">
+				            <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						    <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						    <li>
+								<img src="img/MED_icon_layer.png" />
+								<span>Title Layer</span>
+								<a href="javascript:addLayer()">
+								    Add to Map
+								</a>
+								<p>Curabitur sed enim varius, facilisis lectus eu, accumsan odio. Maecenas mollis orci ipsum, a rutrum justo interdum vel. Vivamus vulputate massa quis ullamcorper pharetra. Nam sodales mauris id elit lacinia, ac faucibus libero mattis. Fusce ut lectus quis urna rutrum tristique.</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
 		</div>
-		<div class="co_overlay_panel_legend">
+	</div>
+	<!--End Catalog section-->
+	<div id="maps">
+		<div id="panel_left" class="panel">
+			<div class="co_overlay_panel">
+				<canvas id="rectangle_canvas_left" style="display:none" class="cursor_cross"></canvas>
+			</div>
+			<div class="co_overlay_panel_legend"></div>
+			
+			<div id="map_left"></div>
+						
+			<div class="split_ctrl">			
+				<img class="sync" src="img/MED_icon_enlazar_OK_left.png" width=15px height=16px title="Desynchronized maps" />						
+				<a href="javascript:Split.togglePanel(Split.LEFT)">
+					<img class="toggle" src="img/MED_icon_split_left.png" width=28px height=29px title="Hide left map"/>
+				</a>
+			</div>
 		
-		</div>
-		<div id="map_left">
+			<a href="javascript:Split.toggleLayersInterface(Split.LEFT)" class="layer_ctrl">Layers</a>
+			
+			<ul class="layer_panel"></ul>
 			
 		</div>
 		
-		<div id="histogram_left" style="display:none"></div>
 		
-		<div class="split_ctrl">			
-			<img class="sync" src="img/MED_icon_enlazar_OK_left.png" width=15px height=16px title="Desynchronized maps" />						
-			<a href="javascript:Split.togglePanel(Split.LEFT)">
-				<img class="toggle" src="img/MED_icon_split_left.png" width=28px height=29px title="Hide left map"/>
-			</a>
+		<div id="sep" class="sep" ></div>
+		<div id="tool_bar">
+			<div id="ctrl_rectangle_drawer"></div>
+			<div id="ctrl_feature_info"></div>
 		</div>
-	
-		<a href="javascript:Split.toggleLayersInterface(Split.LEFT)" class="layer_ctrl">Layers</a>
+		<div id="panel_right" class="panel">
+			<div class="co_overlay_panel">
+				<canvas id="rectangle_canvas_right" style="display:none" class="cursor_cross"></canvas>
+			 </div>
+			
+			<div id="map_right"></div>
+				
+			<div class="split_ctrl">			
+				<img class="sync" src="img/MED_icon_enlazar_OK_right" width=15px height=16px title="Desynchronized maps"/>			
+				<a href="javascript:Split.togglePanel(Split.RIGHT)">
+					<img class="toggle" src="img/MED_icon_split_right.png" width=28px height=29px title="Hide right map"/>
+				</a>
+			</div>
 		
-		<ul class="layer_panel"></ul>
+			<a href="javascript:Split.toggleLayersInterface(Split.RIGHT)" class="layer_ctrl">Layers</a>
+			
+			<ul class="layer_panel"></ul>
 		
-		
-	
-	</div>
-	
-	
-	<div id="sep" class="sep" ></div>
-	<div id="tool_bar">
-		<div id="ctrl_rectangle_drawer"></div>
-		<div id="ctrl_feature_info"></div>
-	</div>
-	<div id="panel_right" class="panel">
-		<div class="co_overlay_panel">
-			<canvas id="rectangle_canvas_right" style="display:none" class="cursor_cross"></canvas>
-		 </div>
-		
-		<div id="map_right"></div>
-	
-		<div id="histogram_right" style="display:none"></div>
-	
-		<div class="split_ctrl">			
-			<img class="sync" src="img/MED_icon_enlazar_OK_right" width=15px height=16px title="Desynchronized maps"/>			
-			<a href="javascript:Split.togglePanel(Split.RIGHT)">
-				<img class="toggle" src="img/MED_icon_split_right.png" width=28px height=29px title="Hide right map"/>
-			</a>
+			
 		</div>
-	
-		<a href="javascript:Split.toggleLayersInterface(Split.RIGHT)" class="layer_ctrl">Layers</a>
 		
-		<ul class="layer_panel"></ul>
-	
-		
+		<div class="clear"></div>
 	</div>
- 	
-	<div class="clear"></div>
+	<!--End maps content-->
 </div>
 <footer>
 	<p class="credits">
