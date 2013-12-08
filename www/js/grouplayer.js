@@ -107,6 +107,8 @@ function GroupLayer(opts){
 			
 		}
 		
+		html +="<li><a class='add_layer' href='javascript:catalog()'>+ Add layers from <strong>Medina Catalogue</strong></a></li>";
+		
 		return html;		
 	};
 	this.findLayerById = function(id){
@@ -140,7 +142,6 @@ function GroupLayer(opts){
 	};
 	
 	this.__getLegendContainer = function(){
-		// get WMS legend
 		return $("<div class='flotable_legend' >"
 							+	"<h4>" 
 							+		"<img src='img/MED_icon_leyenda.png' />"
