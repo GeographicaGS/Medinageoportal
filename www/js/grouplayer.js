@@ -137,7 +137,34 @@ function GroupLayer(opts){
 		
 	this.setHistogram = function(id_layer){
 		this.__layerHistogram = this.layers[id_layer];
-	}
+	};
+	
+	this.__getLegendContainer = function(){
+		// get WMS legend
+		return $("<div class='flotable_legend' >"
+							+	"<h4>" 
+							+		"<img src='img/MED_icon_leyenda.png' />"
+							+		"<p class='title'></p>"
+							+		"<img class='close' src='img/MED_icon_delete.png' />"
+							+	"</h4>"
+							+	"<div class='co_legend'>"							
+							+	"</div>"			
+							+	"</div>");
+					
+					
+	};
+	
+	this.__addLegendDOM= function($container,$el){
+		$container.prepend($el);
+		$el.draggable();
+					
+		$el.css("left",($container.width() / 2 ) - $el.width());
+		$el.css("top",($container.height() / 2 ) - ($el.height() / 2));
+					
+		$el.click(function(){
+			$(this).remove();
+		});
+	};
 	
 	this.refreshLayerPanel = function(){
 		this.$layerPanel.html(this.getHTMLLayersPanel());
@@ -186,41 +213,124 @@ function GroupLayer(opts){
 			}
 			
 			var l = obj.findLayerById(id);
+			
+			var $el = obj.__getLegendContainer();
+			$el.attr("id_layer",id);
+			$el.find(".title").html(l.title);
+					
 			// Should we have generate this legend. Check if the following JSON file exists.
 			$.ajax({
 				dataType: "json",
 				url: "json/" +l.tile.options.layers+".json",				
 				success: function(json){
 					// We've to generate this legend
-					console.log(l.tile.options.layers)
+					console.log(json);
+					var $co_legend = $el.find(".co_legend");
+					
+					$co_legend.html("<div class='kinetic_legend'></div>");
+					
+					obj.__addLegendDOM($container,$el);
+					
+					var kinectic_container = $co_legend.find(".kinetic_legend")[0];
+					
+					$(kinectic_container).css("margin","10");
+					
+					var stage = new Kinetic.Stage({
+						container: kinectic_container,
+						width: $co_legend.width() -20,
+						height: $co_legend.height() -20
+					});
+					var layer = new Kinetic.Layer();
+			
+					var width = 20;
+					var height = $co_legend.height() -20;
+					
+					function componentToHex(c) {
+						var hex = c.toString(16);
+						return hex.length == 1 ? "0" + hex : hex;
+					}
+					
+					function rgbToHex(rgb) {
+						return "#" + componentToHex(rgb[0]) + componentToHex(rgb[1]) + componentToHex(rgb[2]);
+					}
+					
+					var color_start = rgbToHex(json.color.start),
+						color_end = rgbToHex(json.color.end);
+					
+					var rect = new Kinetic.Rect({
+						x: 0, 
+						y: 0, 
+						width: width,
+						height: height,
+						fillLinearGradientStartPoint: [0, 0],
+						fillLinearGradientEndPoint: [0, height],
+						fillLinearGradientColorStops: [0, color_start, 1, color_end],
+					});
+					
+					
+					function drawText(x,y,text,align){
+						
+						var rw = 60;
+						
+						var ry;
+						if (align == "top") {
+							ry = y;
+						}
+						else if (align=="center") {
+							ry = y+5;
+						}
+						else if (align=="bottom") {
+							ry = y+10;
+						}
+						layer.add(new Kinetic.Rect({
+							x: x, 
+							y: ry, 
+							width: rw,
+							height: 1,
+							fill: "#333",
+							
+						}));
+						
+						
+						
+						layer.add(new Kinetic.Text({
+							x: x+rw+10,
+							y: y,
+							text: text,
+							fontSize: 11,
+							fontFamily: 'Helvetica,Arial,sans-serif',
+							fill: '#333'
+						}));
+					}
+					
+					// draw legend text
+					var n_intervals = 5;
+					drawText(width,0,parseFloat(Math.round(json.data_range.start * 100) / 100).toFixed(2),"top");
+					drawText(width,height-11,parseFloat(Math.round(json.data_range.end * 100) / 100).toFixed(2),"bottom");
+					var interval_data_size = (json.data_range.end - json.data_range.start) / n_intervals;
+					var interval_layout_size = height / n_intervals;
+					for (i=1;i<=n_intervals;i++){
+						var h = interval_layout_size*i,
+							d = parseFloat(Math.round(interval_data_size*i * 100) / 100).toFixed(2);
+						drawText(width,h,d,"center");
+					}
+					
+					
+					
+					layer.add(rect);
+					stage.add(layer);
+			
+					
 				},
 				error: function(){
 					// get WMS legend
 					var legendUrl = l.tile._url + "?TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&"
 									+"EXCEPTIONS=application%2Fvnd.ogc.se_xml&FORMAT=image%2Fpng&LAYER=" + l.tile.wmsParams.layers;
 			
-					var legendHTML = "	<img src='" + legendUrl +"'/>";
 					
-					var $el = $("<div class='flotable_legend' id_layer="+id +">"
-							+	"<h4>" 
-							+		"<img src='img/MED_icon_leyenda.png' />"
-							+		"<p>"+l.title+"</p>"
-							+		"<img class='close' src='img/MED_icon_delete.png' />"
-							+	"</h4>"
-							+	"<div class='co_legend'>"
-							+	legendHTML
-							+	"</div>"			
-							+	"</div>");
+					$el.find(".co_legend").html("<img src='" + legendUrl +"'/>");
 					
-					$container.prepend($el);
-					$el.draggable();
-					
-					$el.css("left",($container.width() / 2 ) - $el.width());
-					$el.css("top",($container.height() / 2 ) - ($el.height() / 2));
-					
-					$el.click(function(){
-						$(this).remove();
-					});
+					obj.__addLegendDOM($container,$el);
 				}
 			});
 			
