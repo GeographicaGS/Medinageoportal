@@ -80,15 +80,22 @@
 			"overlayOpacity" : 0.5
 		});
 		
-		$("#search").keypress(function(e) {
-		    if(e.which == 13) {
+		$("input#search").keypress(function(e) {
+			if(e.which == 13) {
 				
 		    	Split.search();
 		    }
 		});
-		
-		$("#search_server").change(function(){
-			Split.search();
+		$("input#search").focus(function() {
+			var attr = $(this).attr('first');
+
+			// For some browsers, `attr` is undefined; for others,
+			// `attr` is false.  Check for both.
+			if (typeof attr !== 'undefined' && attr !== false) {
+				$(this).removeAttr("first");
+				$(this).val("");
+			}
+			
 		});
 		
 		resize();
@@ -134,7 +141,7 @@
 		</a>
 	</p>
 	<div class="sep2 fright"></div>
-	<input class="fright" type="text" id="search" value="Search" />
+	<input class="fright" type="text" id="search" value="Search" first />
 	
 	<div class="clear"></div>
 </header>

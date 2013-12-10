@@ -51,7 +51,7 @@ function getMedinaWMS(families){
             });
          
             var html = "";
-            console.log(familyData);
+            
             for (f in familyData){
                 
                 var html2 = ""

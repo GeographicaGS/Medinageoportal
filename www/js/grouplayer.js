@@ -53,16 +53,18 @@ function GroupLayer(opts){
 	
 	this.addLayer = function(layer){
 		
+		var id = this.layers.length > 0 ? this.layers[0].id + 1: 1;
+		var priority = this.layers.length > 0 ? this.layers[0].priority + 1: 1;
 		var l = {
-			id: this.layers[0].id +1,
+			id: id,
 			tile: new L.tileLayer.wms(layer.server, {		
 			    layers: layer.layers,
 			    format: 'image/png',
 			    transparent: true,
-			    zIndex: this.layers[0].priority +1
+			    zIndex: priority
 			}),
 			visible:true,
-			priority:this.layers[0].priority +1,
+			priority:priority,
 			title:layer.title,
 			opacity: 1
 		};
@@ -73,6 +75,29 @@ function GroupLayer(opts){
 		
 		this.refreshLayerPanel();
 		
+	};
+	
+	this.removeLayer = function(id_layer){
+		
+		var id = this.findLayerIdxById(id_layer);
+		if (!id) {
+			return;
+		}
+		
+		var l = this.layers[id];
+		
+		this.map.removeLayer(l.tile);
+		this.layers.splice(id, 1);
+		
+		this.refreshLayerPanel();
+		
+		this.$layerPanel.closest(".panel").append("<div class='remove_layer_info'>"
+			+	 "The layer <strong>"+l.title+"</strong> has been removed from this map."
+			+ "</div>");
+		
+		setTimeout(function(){
+			$(".remove_layer_info").fadeOut(500);
+		},3000);
 		
 	};
 	
@@ -157,7 +182,8 @@ function GroupLayer(opts){
 	
 	this.__addLegendDOM= function($container,$el){
 		$container.prepend($el);
-		$el.draggable();
+	
+	
 					
 		$el.css("left",($container.width() / 2 ) - $el.width());
 		$el.css("top",($container.height() / 2 ) - ($el.height() / 2));
@@ -352,6 +378,13 @@ function GroupLayer(opts){
 		});
 		
 		this.$layerPanel.sortable({
+			out: function(event, ui) {
+				var leftGap = 70;					
+				if ((ui.position.left + leftGap) < 0 ){
+					var id_layer = $(ui.item).find("input").attr("id_layer");
+					obj.removeLayer(id_layer);
+				}
+			},
 			start: function( event, ui ) {
 				$(ui.item).css("background-color","#f2f7fb");
 			},
@@ -382,10 +415,10 @@ function GroupLayer(opts){
 					}
 				}
 				
-				var debug = "";
-				for(var i=0;i<obj.layers.length;i++){
-					console.log(obj.layers[i].title + ":" +obj.layers[i].priority);
-				}
+				//var debug = "";
+				//for(var i=0;i<obj.layers.length;i++){
+				//	console.log(obj.layers[i].title + ":" +obj.layers[i].priority);
+				//}
 			
 			}
 		});
@@ -419,7 +452,6 @@ function GroupLayer(opts){
 				break;
 			}
 		}
-		//featureInfo = "poligonos,lineas,puntos,catastro,parcelas2";
 		
 		if (layers===null || server===null || requestIdx===null)
 		{

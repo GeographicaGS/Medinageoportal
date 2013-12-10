@@ -96,8 +96,8 @@ header #logo{
 header #search{
 	background: white url("../img/MED_icon_buscar.png") no-repeat 353 6;
 	padding-right: 22px;
-	color: #333333;
-	font-size: 17px;
+	color: #007eb6;
+	font-size: 14px;
 	margin-left: 30px;
 	margin-top: 19px;
 	border: 1px solid #013E88;
@@ -850,3 +850,15 @@ ul.family_content > li > p{
 	
 }
 
+
+.remove_layer_info{
+	width: 100px;
+	border: 1px solid #000;
+	position: absolute;
+	bottom: 30px;
+	background-color: #ecd97f;
+	right: 296px;
+	border-radius: 5px;
+	padding: 7px 10px;
+	font-size: 11px;
+}

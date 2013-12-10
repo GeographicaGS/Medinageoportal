@@ -505,7 +505,8 @@ Split = {
 		return html;
 	},
 	search: function(startPosition){
-		
+		//search disabled
+		return;
 		// no text to search
 		if ($("#search").val()==""){
 			return;
