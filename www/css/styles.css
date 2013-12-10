@@ -859,9 +859,9 @@ ul.family_content > li > p{
 	border: 1px solid #000;
 	position: absolute;
 	bottom: 30px;
-	background-color: #ecd97f;
+	background: #ecd97f url("../img/MED_icon_papelera.png") no-repeat 8px center;
 	right: 296px;
 	border-radius: 5px;
-	padding: 7px 10px;
+	padding: 7px 10px 7px 35px;
 	font-size: 11px;
 }
