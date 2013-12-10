@@ -729,12 +729,16 @@ ul.wms .desc{
 
 
 #catalog .container .families{
+	padding-top: 25px;
+}
+
+#catalog .container .co_families{
 	float:left;
 	width: 640px;
 	min-height:100%;
 	border-left:1px solid #ccc;
 	border-right:1px solid #ccc;
-	padding-top: 25px;
+	
 }
 
 ul.families > li{ 
@@ -762,8 +766,7 @@ ul.families ul.family_header > li{
 	font-size:11px;
 }
 ul.families ul.family_header  > li.ico_open_close{
-	margin-left: 10px;
-	margin-top: 10px;
+	margin: 15px 8px 0 10px;
 }
 ul.families ul.family_header > li.ico{
 	margin-top: 8px;

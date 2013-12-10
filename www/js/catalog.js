@@ -73,7 +73,7 @@ function getMedinaWMS(families){
                 
                 html += "<li class='close'>"
                         +   "<ul class='family_header'>"
-                            +   "<li class='ico_open_close'><img src='img/MED_icon_capas.png'></li>"
+                            +   "<li class='ico_open_close'><img src='img/MED_icon_familia.png'></li>"
     						+   "<li class='ico'><img src='img/MED_icon_resul_wms.png'></li>"
                             +   "<li class='name'>"+f+"</li>"
                             +   "<li class='n_elements'>("+ familyData[f].length+")</li>"
@@ -114,8 +114,10 @@ function loadMedinaCatalog() {
 function openCloseFamilyCatalog(){
     if ($(this).hasClass("close")) {
         $(this).removeClass("close").addClass("open");
+        $(this).find("li.ico_open_close > img").attr("src","img/MED_icon_familia_abierta.png");
     }
     else{
         $(this).removeClass("open").addClass("close");
+        $(this).find("li.ico_open_close > img").attr("src","img/MED_icon_familia.png");
     }
 }

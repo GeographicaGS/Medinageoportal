@@ -314,7 +314,7 @@ function GroupLayer(opts){
 							y: ry, 
 							width: rw,
 							height: 1,
-							fill: "#333",
+							fill: "#ccc",
 							
 						}));
 						
