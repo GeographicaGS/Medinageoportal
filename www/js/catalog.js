@@ -9,7 +9,7 @@ function catalog() {
     }    
 }
 
-function getMedinaWMS(families){
+function getMedinaWMS(json){
     var url = medinaCatalogWMS + "?SERVICE=WMS&Request=GetCapabilities";
 	var req_url = url.replace("?","&");
 	
@@ -29,15 +29,16 @@ function getMedinaWMS(families){
                 var layer = {
                     "name": $($(this).find("Name")[0]).text(),
                     "title" : $($(this).find("Title")[0]).text(),
-                    "desc" : $(this).find("Abstract").text(),
+                    "desc" : $(this).find("Abstract").text()
                 };
                 
                 // find in which family is this layer
                 var indexFamily = null;
                 
-                for(f in families){
-                    if (families[f].indexOf(layer.name)!=-1) {
+                for(f in json.families){
+                    if (json.families[f].indexOf(layer.name)!=-1) {
                         indexFamily = f;
+                        break;
                     }
                 }
                 
@@ -45,6 +46,7 @@ function getMedinaWMS(families){
                     if (!familyData.hasOwnProperty(indexFamily)) {
                         familyData[indexFamily] = [];
                     }
+                    
                     familyData[indexFamily].push(layer);
                 }
                 
@@ -60,9 +62,16 @@ function getMedinaWMS(families){
                     html2 += "<li>"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>"
-                            +   "<a href='javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\")'>"
+                            +   "<a class='ml' href='javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\")'>"
 							+       "Add to Map"
 							+   "</a>";
+                    if (json.metadata.hasOwnProperty(layer.name)) {
+                        html2 +=    "<span style='float:right'>|</span>"
+                            +   "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
+							+       "View metadata"
+							+   "</a>";
+                    }
+                            
                             
                     if (layer.desc) {
                         html2 += "<p>"+layer.desc+"</p>";
