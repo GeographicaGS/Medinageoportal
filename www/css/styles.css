@@ -94,14 +94,14 @@ header #logo{
 }
 
 header #search{
-	background: white url("../img/MED_icon_buscar.png") no-repeat 353 6;
+	background: white url("../img/MED_icon_buscar.png") no-repeat 390 6;
 	padding-right: 22px;
 	color: #007eb6;
 	font-size: 14px;
 	margin-left: 30px;
 	margin-top: 19px;
 	border: 1px solid #013E88;
-	width: 380px;
+	width: 417px;
 	padding-left: 5px;
 	height: 33px;
 	margin-right: 20px;
@@ -380,12 +380,47 @@ p.credits{
 #panel_search{
 	position: absolute;
 	z-index: 6;
-	left: 0;
+	right: 0;
 	top: 0;
 	width: 40%;
 	background-color: #fff;
 	overflow-y: scroll;
 	border-right:1px solid #999;
+}
+
+#panel_search > * {
+}
+
+#panel_search_2	{
+		display:none;
+}
+#panel_header{
+	height:24px;
+	border-bottom: 1px solid #0363aa ;
+}
+#panel_header .ctrl{
+	background-color:#e5e5e5;
+	float:left;
+	height: 24px;
+	line-height: 24px;
+	
+	padding: 0 10px;
+}
+#ctrl_panel_search_1{
+	margin-left: 37px;
+}
+#panel_header .ctrl.enable{
+	background-color:#fff;
+	border-left: 1px solid #0363aa;
+	border-right: 1px solid #0363aa;
+	border-bottom: 1px solid #fff ;
+}
+
+#panel_header_sep{
+	background-color: #0363aa;
+	margin-top:5px;
+	height: 1px;
+		
 }
 
 ul.search_result,ul.wms{
@@ -421,7 +456,8 @@ ul.search_result li .img_label{
 	margin: 0 13px 0 7px;
 }
 
-ul.search_result li .img_label.WMS{
+ul.search_result li .img_label.WMS,
+ul.search_result li .img_label.WMS-LAYER{
 	background:url("../img/MED_icon_resul_wms.png") no-repeat top left;
 }
 

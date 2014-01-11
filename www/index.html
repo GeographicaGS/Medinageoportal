@@ -37,6 +37,7 @@
 <script type="text/javascript" src="js/layers.js"></script>
 <script type="text/javascript" src="js/RectangleDrawer.js"></script>
 <script type="text/javascript" src="js/catalog.js"></script>
+<script type="text/javascript" src="js/cswclient.js"></script>
 
 <script type="text/javascript" src="js/lib/kinetic-v4.7.4.min.js"></script>
 
@@ -83,7 +84,7 @@
 		$("input#search").keypress(function(e) {
 			if(e.which == 13) {
 				
-		    	Split.search();
+		    	CSWClient.search();
 		    }
 		});
 		$("input#search").focus(function() {
@@ -98,6 +99,16 @@
 			
 		});
 		
+		$("#panel_header .ctrl").click(function(){
+			$(this).siblings().removeClass("enable");
+			$(this).addClass("enable");
+			
+			$("#panel_search .search_data").hide();
+			var id = $(this).attr("id");
+			id = id.substr(id.length - 1); 
+			$("#panel_search_"+id).show();
+			
+		});
 		resize();
 		
 		$("img.sync").click(Split.sync);
@@ -142,6 +153,8 @@
 	</p>
 	<div class="sep2 fright"></div>
 	<input class="fright" type="text" id="search" value="Search" first />
+	<br/>
+	<a href='javascript:CSWClient.toggleSearchPanel()'>Search results</a>
 	
 	<div class="clear"></div>
 </header>
@@ -149,7 +162,13 @@
 
 <div id="container" >
 	<div id="panel_search" style="display:none">
-		<p class="no_search">Type a text to search in the upper box</p>
+		<div id="panel_header">
+			<a href="#" id="ctrl_panel_search_1" class="ctrl enable">Medina results</a>
+			<a href="#" id="ctrl_panel_search_2" class="ctrl">GEOSS results</a>
+		</div>
+		<div id="panel_header_sep"></div>
+		<div id="panel_search_1" class="search_data"></div>
+		<div id="panel_search_2" class="search_data"></div>
 	</div>
 	
 	<!-- Begin Medina catalog section-->
