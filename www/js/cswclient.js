@@ -200,7 +200,7 @@ CSWClient = {
 			var e = elements[i];
             
             if (e.id == "44fc1a12799c95d7490a72249428e61c2814bb4d") {
-                e.url = medinaCatalogWMS +"&Service=WMS&Request=GetCapabilities";
+                e.url = medinaCatalogWMS +"?Service=WMS&Request=GetCapabilities";
                 e.type = "WMS";
             }
             
@@ -285,7 +285,7 @@ CSWClient = {
                     "</div>";
                     
             html += "<ul class='search_result'>" + this._drawSearchResultsElementsHTML(elements.els,startPosition) + "</ul>";
-            if (elements.nextRecord<=elements.nRecords){
+            if (elements.nextRecord<elements.nRecords){
                 html += "<div id='more'><a href='javascript:CSWClient.search("+elements.nextRecord+"," + serverID +")'>See more results</a></div>";
             }
             $panel_search.html(html);
@@ -293,7 +293,7 @@ CSWClient = {
         else{
             
             $panel_search.find("ul.search_result").append(this._drawSearchResultsElementsHTML(elements.els,startPosition));
-            if (elements.nextRecord<=elements.nRecords){
+            if (elements.nextRecord<elements.nRecords){
                 // add more link
                 $panel_search.find("#more").html("<a href='javascript:CSWClient.search("+elements.nextRecord+"," + serverID +")'>See more results</a>");
             }
