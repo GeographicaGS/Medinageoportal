@@ -55,19 +55,25 @@ function GroupLayer(opts){
 		
 		var id = this.layers.length > 0 ? this.layers[0].id + 1: 1;
 		var priority = this.layers.length > 0 ? this.layers[0].priority + 1: 1;
-		var l = {
-			id: id,
-			tile: new L.tileLayer.wms(layer.server, {		
+		var opts = {		
 			    layers: layer.layers,
 			    format: 'image/png',
 			    transparent: true,
 			    zIndex: priority
-			}),
+			};
+		if (layer.hasOwnProperty("crs")) {
+				opts.crs = layer.crs;
+		}
+		var l = {
+			id: id,
+			
+			tile: new L.tileLayer.wms(layer.server,opts),
 			visible:true,
 			priority:priority,
 			title:layer.title,
 			opacity: 1
 		};
+		
 		
 		this.map.addLayer(l.tile);
 		

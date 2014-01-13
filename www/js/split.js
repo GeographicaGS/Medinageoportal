@@ -43,6 +43,7 @@ Split = {
 			  zoom: this.iniZoom,
 			  fadeAnimation: false,
 			  crs: L.CRS.EPSG3857,
+			  //crs: L.CRS.EPSG4326,
 			  zoomControl: false,
 			  attributionControl: false
 		});
@@ -317,33 +318,15 @@ Split = {
 		this.__drawLayerInterface(el);
 	},
 	
-	
-	__getCSWURL: function(){
-		var url,server,text;
-		
-		server = $("#search_server").val();
-		server = "http://pegasosdi.uab.es/catalog/srv/en/csw"
-		text = $("#search").val();
-		
-		// let's build a valid request url
-		// first, we've to call to the service through a proxy to avoid cross domain request
-		url = "proxy_get.php?url="+server;
-		// build the request
-		url += "&service=CSW&Version=2.0.2&request=GetRecords&resultType=results&typeNames=gmd:MD_Metadata"
-				+"&constraintlanguage=CQL_TEXT&constraint=gmd:anytext+like+'"+escape(text)+"'"
-				+ "&constraint_language_version=1.1.0&outputFormat=application/xml"
-				+ "&outputSchema=http://www.isotc211.org/2005/gmd&elementsetname=full";
-		
-		return url;
-		
-	},
-	
-	addLayer: function (server_url,name,title){
+	addLayer: function (server_url,name,title,is4326){
 		
 		var l = {
 			server: server_url,
 			title: title,
 			layers: name
+		}
+		if (is4326) {
+		    l.crs = L.CRS.EPSG4326;
 		}
 		this.__mapLeft.addLayer(l);
 		this.__mapRight.addLayer(l);

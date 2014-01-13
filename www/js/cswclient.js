@@ -80,7 +80,7 @@ CSWClient = {
 		
 		var req_url = url.replace("?","&");
 		
-		var server_base_url = url.substring(0,url.indexOf("&"));
+		var server_base_url = url.substring(0,url.indexOf("?"));
 		
 		$.ajax({
 			//url: 'proxy_get.php?url=http://www.idee.es/wms/PNOA/PNOA&service=wms&version=1.3.0&request=getcapabilities',
@@ -97,19 +97,26 @@ CSWClient = {
 					gkeywords.push($.trim($(this).text()));
 				});
 				
-				
-				var fatherSupport3857 = false;
+				var fatherCRSs = [];
 				
 				var $layerFather = $(xml).find("Layer").first();
 				
 				var gatt = $.trim($($layerFather.find("Attribution")[0]).find("Title").text());
 				
 				$layerFather.find("CRS").each(function(){
-					if ($(this).text()=="EPSG:3857"){
-						fatherSupport3857 = true;
-						return false;
-					}
+                    var crs = $.trim($(this).text());
+                    if (fatherCRSs.indexOf(crs)==-1) {
+                        fatherCRSs.push(crs);    
+                    }
 				});
+                
+                $layerFather.find("SRS").each(function(){
+					var crs = $.trim($(this).text());
+                    if (fatherCRSs.indexOf(crs)==-1) {
+                        fatherCRSs.push(crs);    
+                    }
+				});
+                var supportedCRS = fatherCRSs.indexOf("EPSG:3857")!=-1 || fatherCRSs.indexOf("EPSG:4326")!=-1;
 				
 				var html = "<a class='wms_back' href='javascript:CSWClient._backToCSWResultsFromWMSParser()'>" +
 				"	<img src='img/MED_icon_back.png' />"+
@@ -143,27 +150,8 @@ CSWClient = {
 					$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
 						keywords.push($.trim($(this).text()));
 					});
-					var support3857 = false;
-					
-					$crs = $(this).find("CRS");
-					
-					if ($crs.length>0){
-						$crs.each(function(){
-							if ($.trim($(this).text())=="EPSG:3857"){
-								support3857 = true;
-								return false;
-							}
-						});
-                        
-                        if (!support3857) {
-                            support3857 = fatherSupport3857;
-                        }
-					}
-					else{
-						// no CRS defined in this node look the father
-						support3857 = fatherSupport3857;
-					}	
-					
+                    
+                   
 					
 					html += "<li>" +
                         "	<p class='title'>"+title+"</p>" +
@@ -175,9 +163,11 @@ CSWClient = {
 						
 					html += "<p class='desc mb'>";
                     
-                    if (support3857){
+                    if (supportedCRS){
                 
-                        html += "	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>" +
+                        //if the layer is not in 3827 let's draw it in 4326.
+                        var str_boolean_4326 = fatherCRSs.indexOf("EPSG:3857")==-1  ? "true" : "false";        
+                        html += "	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\","+str_boolean_4326+")'>" +
                         "		<img src='img/MED_icon_add_layer.png' />" +
                         "		<span>Add layer</span>" +
                         "	</a>";
