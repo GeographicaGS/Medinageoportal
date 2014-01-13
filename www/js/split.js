@@ -245,7 +245,7 @@ Split = {
 	sync: function(){
 		Split.syncEnable = !Split.syncEnable;
 		var lurl = Split.syncEnable ? "MED_icon_enlazar_OK_left.png" : "MED_icon_enlazar_KO_left.png";
-		var rurl = Split.syncEnabletoggleLayer ? "MED_icon_enlazar_OK_right.png" : "MED_icon_enlazar_KO_right.png";
+		var rurl = Split.syncEnable ? "MED_icon_enlazar_OK_right.png" : "MED_icon_enlazar_KO_right.png";
 		$("#panel_left img.sync").attr("src","img/"+lurl);
 		$("#panel_right img.sync").attr("src","img/"+rurl);
 		
