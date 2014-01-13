@@ -393,11 +393,14 @@ Split = {
 				Split._addRectangle(bounds,name);
 			}
 		});
+		
+		$("#map_left,#map_right").addClass("cursor_cross");
 	},
 	
 	deActivateRectangleTool:function(){
 		this._ldrawer._removeCanvas();
 		this._rdrawer._removeCanvas();
+		$("#map_left,#map_right").removeClass("cursor_cross");
 	},
 	activateFeatureInfo: function(){
 		var obj = this;

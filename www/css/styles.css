@@ -602,11 +602,13 @@ ul.wms .desc{
 }
 
 .cursor_cross{
-	cursor: url("../img/MED_herram_area_cursor.png") 13 16;
+	/*cursor: url("../img/MED_herram_area_cursor.png") 13 16;*/
+	cursor: crosshair;
 }
 
 .cursor_info{
-	cursor: url("../img/MED_herram_info_cursor.png") 13 16;
+	/*cursor: url("../img/MED_herram_info_cursor.png") ;*/
+	cursor: context-menu;
 }
 
 #rectangle_name{
