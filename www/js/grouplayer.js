@@ -127,6 +127,7 @@ function GroupLayer(opts){
 			
 			html += "<li title='"+l.title+"'>" + 
 					"	<input type='checkbox' id_layer="+l.id+" " + checked + "/>" +
+					" 	<img class='remove' src='img/MED_icon_papelera_panel.png' title='Remove layer' id_layer="+l.id+" />"	+
 					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
 					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Leyend popup' id_layer="+l.id+" />"	+
 					"	<p class='" + styleclass +"'>"+l.title+"</span>" +
@@ -232,6 +233,12 @@ function GroupLayer(opts){
 				$li.css("border-bottom","none");
 			}
 			
+		});
+		
+		this.$layerPanel.find("li > img.remove").click(function(){
+			console.log("borrar");
+			var id_layer = $(this).attr("id_layer");
+			obj.removeLayer(id_layer);		
 		});
 		
 		var obj = this;
@@ -366,6 +373,9 @@ function GroupLayer(opts){
 					obj.__addLegendDOM($container,$el);
 				}
 			});
+			
+			
+			
 			
 		});
 		

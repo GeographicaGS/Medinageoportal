@@ -185,7 +185,7 @@ img.sync{
 	height:24px;
 	font-weight:bold;
 	background-image: url("../img/MED_icon_cerrar_capas.png");
-	width:240px;
+	width:270px;
 	padding:0;
 	background: #f0f0f0 url("../img/MED_icon_cerrar_capas.png") no-repeat 66px 8px;
 	border-radius: 0;
@@ -197,7 +197,7 @@ img.sync{
 	position: absolute;
 	bottom: 25px;
 	right: 0;
-	width: 250px;
+	width: 280px;
 	z-index: 1001;
 	background-color: #fff;
 	
@@ -322,7 +322,24 @@ ul.layer_panel > li > img{
 
 ul.layer_panel > li > img.legend{
 	padding: 5px 0px;
+}
 
+ul.layer_panel > li > img.opacity{
+	margin-right: 31px;
+}
+
+ul.layer_panel > li:hover > img.opacity{
+	margin-right: 0px;
+}
+
+ul.layer_panel > li > img.remove{
+	display: none;
+	padding-left: 0px;
+}
+
+ul.layer_panel > li:hover > img.remove{
+	display: inline;
+	
 }
 
 ul.layer_panel > li > p {
