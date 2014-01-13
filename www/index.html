@@ -152,10 +152,11 @@
 		</a>
 	</p>
 	<div class="sep2 fright"></div>
-	<input class="fright" type="text" id="search" value="Search" first />
-	<br/>
-	<a href='javascript:CSWClient.toggleSearchPanel()'>Search results</a>
-	
+	<div class="fright">
+		<input type="text" id="search" value="Search" first />
+		<br/>
+		<a href='javascript:CSWClient.toggleSearchPanel()' id="ctrl_search_results" >SEARCH RESULTS</a>
+	</div>
 	<div class="clear"></div>
 </header>
 
@@ -169,6 +170,7 @@
 		<div id="panel_header_sep"></div>
 		<div id="panel_search_1" class="search_data"></div>
 		<div id="panel_search_2" class="search_data"></div>
+		<div id="panel_search_wms" class="search_data"></div>
 	</div>
 	
 	<!-- Begin Medina catalog section-->

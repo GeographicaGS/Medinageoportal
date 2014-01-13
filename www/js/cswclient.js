@@ -64,19 +64,28 @@ CSWClient = {
         });
     },    
     
+    _backToCSWResultsFromWMSParser: function(){
+        
+        var id = $("#panel_header .ctrl.enable").attr("id");
+		id = id.substr(id.length - 1); 
+		$("#panel_search_"+id).show();
+        $("#panel_search_wms").hide();
+    },
 	parseServiceWMS: function(url){
-		var $panel_search = $("#panel_search");
-		$panel_search.html("<p class='no_search'>Loading...</p>");
-
+		var $panel_search = $("#panel_search_wms");
+		$panel_search.html("<p class='no_search'>Loading...</p>");  
+        
+        $(".search_data").hide();
+        $panel_search.show();
 		
 		var req_url = url.replace("?","&");
 		
-		var server_base_url = url.substring(0,url.indexOf("?"));
+		var server_base_url = url.substring(0,url.indexOf("&"));
 		
 		$.ajax({
 			//url: 'proxy_get.php?url=http://www.idee.es/wms/PNOA/PNOA&service=wms&version=1.3.0&request=getcapabilities',
 			//url: 'proxy_get.php?url=http://www.medinageoportal.eu/cgi-bin/medinageoportal&service=wms&version=1.3.0&request=getcapabilities',
-			url: 'proxy_get.php?url='+req_url,
+			url: 'proxy_wms.php?url='+req_url,
 			dataType: 'xml',
 			success: function(xml){
 				var $srv = $(xml).find("Service");
@@ -89,20 +98,20 @@ CSWClient = {
 				});
 				
 				
-				var fatherSupport4326 = false;
+				var fatherSupport3857 = false;
 				
 				var $layerFather = $(xml).find("Layer").first();
 				
 				var gatt = $.trim($($layerFather.find("Attribution")[0]).find("Title").text());
 				
-				$layerFather.find("SRS").each(function(){
-					if ($(this).text()=="EPSG:4326"){
-						fatherSupport4326 = true;
+				$layerFather.find("CRS").each(function(){
+					if ($(this).text()=="EPSG:3857"){
+						fatherSupport3857 = true;
 						return false;
 					}
 				});
 				
-				var html = "<a class='wms_back' href='javascript:Split.search()'>" +
+				var html = "<a class='wms_back' href='javascript:CSWClient._backToCSWResultsFromWMSParser()'>" +
 				"	<img src='img/MED_icon_back.png' />"+
 				"	<span class='blue'>Volver a resultados</span>" +
 				"</a>"; 
@@ -134,40 +143,52 @@ CSWClient = {
 					$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
 						keywords.push($.trim($(this).text()));
 					});
-					var support4326 = false;
+					var support3857 = false;
 					
-					$srs = $(this).find("SRS");
+					$crs = $(this).find("CRS");
 					
-					if ($srs.length>0){
-						$srs.each(function(){
-							if ($(this).text()=="EPSG:4326"){
-								support4326 = true;
+					if ($crs.length>0){
+						$crs.each(function(){
+							if ($.trim($(this).text())=="EPSG:3857"){
+								support3857 = true;
 								return false;
 							}
 						});
+                        
+                        if (!support3857) {
+                            support3857 = fatherSupport3857;
+                        }
 					}
 					else{
-						// no SRS defined in this node look the father
-						support4326 = fatherSupport4326;
+						// no CRS defined in this node look the father
+						support3857 = fatherSupport3857;
 					}	
 					
-					if (support4326){
-						html += "<li>" +
-							"	<p class='title'>"+title+"</p>" +
-							"	<p class='desc'>"+desc+"</p>";
+					
+					html += "<li>" +
+                        "	<p class='title'>"+title+"</p>" +
+                        "	<p class='desc'>"+desc+"</p>";
 						
-						if (keywords.length>1){
-							html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + keywords.join(", ") + "</p>";	
-						}
-						
-						html += "<p class='desc mb'>" +
-								"	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>" +
-								"		<img src='img/MED_icon_add_layer.png' />" +
-								"		<span>Add layer</span>" +
-								"	</a>" +
-								"</p>" +
-						"</li>"
+					if (keywords.length>1){
+						html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + keywords.join(", ") + "</p>";	
 					}
+						
+					html += "<p class='desc mb'>";
+                    
+                    if (support3857){
+                
+                        html += "	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'>" +
+                        "		<img src='img/MED_icon_add_layer.png' />" +
+                        "		<span>Add layer</span>" +
+                        "	</a>";
+                    }
+                    else{
+                        html += "<strong>This layer is not offered in 3857.</strong>";
+                    }
+                    
+                    html +=	"</p>" +
+                        "</li>"
+					
 					
 					
 				
@@ -187,6 +208,12 @@ CSWClient = {
 		var html = "";
 		for(var i=0;i<elements.length;i++){
 			var e = elements[i];
+            
+            if (e.id == "44fc1a12799c95d7490a72249428e61c2814bb4d") {
+                e.url = medinaCatalogWMS +"&Service=WMS&Request=GetCapabilities";
+                e.type = "WMS";
+            }
+            
 			html += "<li>" +
 					"	<div class='counter'>" + (i+ startPosition) + ". </div>" +
 					"	<div class='img_label "+e.type + "'></div>" +
@@ -204,7 +231,7 @@ CSWClient = {
 			}
 			
 			if (e.type == "WMS"){
-				html += "<p><a href='javascript:Split.parseServiceWMS(\"" + e.url +"\")'>Explore WMS service</a></p>";
+				html += "<p><a href='javascript:CSWClient.parseServiceWMS(\"" + e.url +"\")'>Explore WMS service</a></p>";
 			}
             else if (e.type == "WMS-LAYER") {
                 //code
@@ -268,8 +295,9 @@ CSWClient = {
                     "</div>";
                     
             html += "<ul class='search_result'>" + this._drawSearchResultsElementsHTML(elements.els,startPosition) + "</ul>";
-            html += "<div id='more'><a href='javascript:CSWClient.search("+elements.nextRecord+"," + serverID +")'>See more results</a></div>";
-            
+            if (elements.nextRecord<=elements.nRecords){
+                html += "<div id='more'><a href='javascript:CSWClient.search("+elements.nextRecord+"," + serverID +")'>See more results</a></div>";
+            }
             $panel_search.html(html);
         }
         else{
@@ -332,7 +360,7 @@ CSWClient = {
             for(var i=0;i<$links.length;i++){
                 var text = $($links[i]).text();
                 var protocol = $($links[i]).attr("protocol");
-                if (protocol.indexOf("WMS")!= -1  && protocol.indexOf("http-get-map")!= -1){
+                if (protocol && protocol.indexOf("WMS")!= -1  && protocol.indexOf("http-get-map")!= -1){
                     var server = $.trim(text);
                     if (!server || server == ""){
                         //workaround. Medina geonetwork doesn't return server base URL.

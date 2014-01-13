@@ -98,13 +98,19 @@ header #search{
 	padding-right: 22px;
 	color: #007eb6;
 	font-size: 14px;
-	margin-left: 30px;
 	margin-top: 19px;
 	border: 1px solid #013E88;
 	width: 417px;
 	padding-left: 5px;
 	height: 33px;
 	margin-right: 20px;
+}
+
+#ctrl_search_results{
+	color: #fff;
+	font-size: 9px;
+	margin-top: 5px;
+	display: block;
 }
 
 .clear {
@@ -391,7 +397,7 @@ p.credits{
 #panel_search > * {
 }
 
-#panel_search_2	{
+#panel_search_2,#panel_search_wms{
 		display:none;
 }
 #panel_header{
