@@ -63,138 +63,7 @@ CSWClient = {
             
         });
     },    
-    
-    _backToCSWResultsFromWMSParser: function(){
-        
-        var id = $("#panel_header .ctrl.enable").attr("id");
-		id = id.substr(id.length - 1); 
-		$("#panel_search_"+id).show();
-        $("#panel_search_wms").hide();
-    },
-	parseServiceWMS: function(url){
-		var $panel_search = $("#panel_search_wms");
-		$panel_search.html("<p class='no_search'>Loading...</p>");  
-        
-        $(".search_data").hide();
-        $panel_search.show();
-		
-		var req_url = url.replace("?","&");
-		
-		var server_base_url = url.substring(0,url.indexOf("?"));
-		
-		$.ajax({
-			//url: 'proxy_get.php?url=http://www.idee.es/wms/PNOA/PNOA&service=wms&version=1.3.0&request=getcapabilities',
-			//url: 'proxy_get.php?url=http://www.medinageoportal.eu/cgi-bin/medinageoportal&service=wms&version=1.3.0&request=getcapabilities',
-			url: 'proxy_wms.php?url='+req_url,
-			dataType: 'xml',
-			success: function(xml){
-				var $srv = $(xml).find("Service");
-				var gtitle = $.trim($srv.find("Title").text());
-				var gdesc = $.trim($srv.find("Abstract").text());
-				
-				var gkeywords = [];
-				$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
-					gkeywords.push($.trim($(this).text()));
-				});
-				
-				var fatherCRSs = [];
-				
-				var $layerFather = $(xml).find("Layer").first();
-				
-				var gatt = $.trim($($layerFather.find("Attribution")[0]).find("Title").text());
-				
-				$layerFather.find("CRS").each(function(){
-                    var crs = $.trim($(this).text());
-                    if (fatherCRSs.indexOf(crs)==-1) {
-                        fatherCRSs.push(crs);    
-                    }
-				});
-                
-                $layerFather.find("SRS").each(function(){
-					var crs = $.trim($(this).text());
-                    if (fatherCRSs.indexOf(crs)==-1) {
-                        fatherCRSs.push(crs);    
-                    }
-				});
-                var supportedCRS = fatherCRSs.indexOf("EPSG:3857")!=-1 || fatherCRSs.indexOf("EPSG:4326")!=-1;
-				
-				var html = "<a class='wms_back' href='javascript:CSWClient._backToCSWResultsFromWMSParser()'>" +
-				"	<img src='img/MED_icon_back.png' />"+
-				"	<span class='blue'>Volver a resultados</span>" +
-				"</a>"; 
-					
-				html += "<ul class='wms'>";
-				
-				html += "<li>" +
-				"	<p class='title'>" + gtitle + "</p>" +
-				"	<p class='att'>"+ gatt + "</p>" +
-				"	<p class='desc'>" + gdesc + "</p>";
-				
-				if (gkeywords.length>1){
-					html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + gkeywords.join(", ") + "</p>";	
-				}
-				var $childs = $layerFather.find("Layer");
-				
-				html += "<p class='desc mb'><span class='bold grey2'>LAYERS</span> (" + $childs.length +") </p>";
-				html +="</li>"
-					
-				$childs.each(function(){
-					var name = $(this).find("Name").text();
-					
-					var title = $(this).find("Title").text();
-					if (!title || title=="") title = gtitle;
-					
-					var desc = $.trim($(this).find("Abstract").text());
-					
-					var keywords = [];
-					$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
-						keywords.push($.trim($(this).text()));
-					});
-                    
-                   
-					
-					html += "<li>" +
-                        "	<p class='title'>"+title+"</p>" +
-                        "	<p class='desc'>"+desc+"</p>";
-						
-					if (keywords.length>1){
-						html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + keywords.join(", ") + "</p>";	
-					}
-						
-					html += "<p class='desc mb'>";
-                    
-                    if (supportedCRS){
-                
-                        //if the layer is not in 3827 let's draw it in 4326.
-                        var str_boolean_4326 = fatherCRSs.indexOf("EPSG:3857")==-1  ? "true" : "false";        
-                        html += "	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\","+str_boolean_4326+")'>" +
-                        "		<img src='img/MED_icon_add_layer.png' />" +
-                        "		<span>Add layer</span>" +
-                        "	</a>";
-                    }
-                    else{
-                        html += "<strong>This layer is not offered in 3857.</strong>";
-                    }
-                    
-                    html +=	"</p>" +
-                        "</li>"
-					
-					
-					
-				
-						
-					/*console.log("Name:"+ $(this).find("Name").text());
-					console.log("Title:"+ $(this).find("Title").text());
-					console.log("CRS:"+ $(this).find("CRS").text());*/
-				});
-				html += "</ul>";
-				
-				$panel_search.html(html);
-			}				
-		});
-	},
-	
-	_drawSearchResultsElementsHTML: function (elements,startPosition){
+  	_drawSearchResultsElementsHTML: function (elements,startPosition){
 		var html = "";
 		for(var i=0;i<elements.length;i++){
 			var e = elements[i];
@@ -421,6 +290,8 @@ CSWClient = {
 			$("#panel_search").fadeIn(300);
 		}
         
+        this._backToCSWResultsFromWMSParser();
+        
 		if (!startPosition){
 			startPosition = 1
 			// no pagination, this is the first call
@@ -446,5 +317,130 @@ CSWClient = {
 	},
     toggleSearchPanel: function(){
         $("#panel_search").toggle();
-    }
+    },
+    _backToCSWResultsFromWMSParser: function(){        
+        var id = $("#panel_header .ctrl.enable").attr("id");
+		id = id.substr(id.length - 1); 
+		$("#panel_search_"+id).show();
+        $("#panel_search_wms").hide();
+    },
+	parseServiceWMS: function(url){
+		var $panel_search = $("#panel_search_wms");
+		$panel_search.html("<p class='no_search'>Loading...</p>");  
+        
+        $(".search_data").hide();
+        $panel_search.show();
+		
+		var req_url = url.replace("?","&");
+		
+		var server_base_url = url.substring(0,url.indexOf("?"));
+		
+		$.ajax({
+			//url: 'proxy_get.php?url=http://www.idee.es/wms/PNOA/PNOA&service=wms&version=1.3.0&request=getcapabilities',
+			//url: 'proxy_get.php?url=http://www.medinageoportal.eu/cgi-bin/medinageoportal&service=wms&version=1.3.0&request=getcapabilities',
+			url: 'proxy_wms.php?url='+req_url,
+			dataType: 'xml',
+			success: function(xml){
+				var $srv = $(xml).find("Service");
+				var gtitle = $.trim($srv.find("Title").text());
+				var gdesc = $.trim($srv.find("Abstract").text());
+				
+				var gkeywords = [];
+				$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
+					gkeywords.push($.trim($(this).text()));
+				});
+				
+				var fatherCRSs = [];
+				
+				var $layerFather = $(xml).find("Layer").first();
+				
+				var gatt = $.trim($($layerFather.find("Attribution")[0]).find("Title").text());
+				
+				$layerFather.find("CRS").each(function(){
+                    var crs = $.trim($(this).text());
+                    if (fatherCRSs.indexOf(crs)==-1) {
+                        fatherCRSs.push(crs);    
+                    }
+				});
+                
+                $layerFather.find("SRS").each(function(){
+					var crs = $.trim($(this).text());
+                    if (fatherCRSs.indexOf(crs)==-1) {
+                        fatherCRSs.push(crs);    
+                    }
+				});
+                var supportedCRS = fatherCRSs.indexOf("EPSG:3857")!=-1 || fatherCRSs.indexOf("EPSG:4326")!=-1;
+				
+				var html = "<a class='wms_back' href='javascript:CSWClient._backToCSWResultsFromWMSParser()'>" +
+				"	<img src='img/MED_icon_back.png' />"+
+				"	<span class='blue'>Volver a resultados</span>" +
+				"</a>"; 
+					
+				html += "<ul class='wms'>";
+				
+				html += "<li>" +
+				"	<p class='title'>" + gtitle + "</p>" +
+				"	<p class='att'>"+ gatt + "</p>" +
+				"	<p class='desc'>" + gdesc + "</p>";
+				
+				if (gkeywords.length>1){
+					html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + gkeywords.join(", ") + "</p>";	
+				}
+				var $childs = $layerFather.find("Layer");
+				
+				html += "<p class='desc mb'><span class='bold grey2'>LAYERS</span> (" + $childs.length +") </p>";
+				html +="</li>"
+					
+				$childs.each(function(){
+					var name = $(this).find("Name").text();
+					
+					var title = $(this).find("Title").text();
+					if (!title || title=="") title = gtitle;
+					
+					var desc = $.trim($(this).find("Abstract").text());
+					
+					var keywords = [];
+					$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
+						keywords.push($.trim($(this).text()));
+					});
+                    
+                   
+					
+					html += "<li>" +
+                        "	<p class='title'>"+title+"</p>" +
+                        "	<p class='desc'>"+desc+"</p>";
+						
+					if (keywords.length>1){
+						html += "<p class='desc'><span class='bold'>KEYWORDS</span> > " + keywords.join(", ") + "</p>";	
+					}
+						
+					html += "<p class='desc mb'>";
+                    
+                    if (supportedCRS){
+                
+                        //if the layer is not in 3827 let's draw it in 4326.
+                        var str_boolean_4326 = fatherCRSs.indexOf("EPSG:3857")==-1  ? "true" : "false";        
+                        html += "	<a href='javascript:Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\","+str_boolean_4326+")'>" +
+                        "		<img src='img/MED_icon_add_layer.png' />" +
+                        "		<span>Add layer</span>" +
+                        "	</a>";
+                    }
+                    else{
+                        html += "<strong>This layer is not offered in 3857.</strong>";
+                    }
+                    
+                    html +=	"</p>" +
+                        "</li>";
+					
+						
+					/*console.log("Name:"+ $(this).find("Name").text());
+					console.log("Title:"+ $(this).find("Title").text());
+					console.log("CRS:"+ $(this).find("CRS").text());*/
+				});
+				html += "</ul>";
+				
+				$panel_search.html(html);
+			}				
+		});
+	}
 }
