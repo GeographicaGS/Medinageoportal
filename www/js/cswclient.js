@@ -426,7 +426,7 @@ CSWClient = {
                         "	</a>";
                     }
                     else{
-                        html += "<strong>This layer is not offered in 3857.</strong>";
+                        html += "<strong>This layer is not offered in a CRS supported by the client (The client support 3857 and 4326).</strong>";
                     }
                     
                     html +=	"</p>" +
