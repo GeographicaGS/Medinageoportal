@@ -174,7 +174,7 @@ function GroupLayer(opts){
 	};
 	
 	this.__getLegendContainer = function(){
-		return $("<div class='flotable_legend' >"
+		return $("<div class='flotable_legend ui-widget ui-widget-content' >"
 							+	"<h4>" 
 							+		"<img src='img/MED_icon_leyenda.png' />"
 							+		"<p class='title'></p>"
@@ -190,14 +190,14 @@ function GroupLayer(opts){
 	this.__addLegendDOM= function($container,$el){
 		$container.prepend($el);
 	
-	
-					
 		$el.css("left",($container.width() / 2 ) - $el.width());
 		$el.css("top",($container.height() / 2 ) - ($el.height() / 2));
 					
-		$el.click(function(){
-			$(this).remove();
+		$el.find(".close").click(function(){
+			$el.remove();
 		});
+		
+		$el.draggable();
 	};
 	
 	this.refreshLayerPanel = function(){
