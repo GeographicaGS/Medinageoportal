@@ -32,6 +32,7 @@
 <script type="text/javascript" src="js/lib/leaflet.label.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="js/lib/leaflet.label.css"/>
 <script type="text/javascript" src="js/ini.js"></script>
+<script type="text/javascript" src="js/timeSlider.js"></script>
 <script type="text/javascript" src="js/grouplayer.js"></script>
 <script type="text/javascript" src="js/split.js"></script>
 <script type="text/javascript" src="js/layers.js"></script>
@@ -61,6 +62,7 @@
 		$("#sep").css("left",mw-1);
 		$("#panel_left").width(mw);
 		$("#panel_right").width(mw);
+		$(".timeslider").width(mw -100);
 		
 	}
 	
@@ -116,8 +118,18 @@
 		
 		$("#ctrl_catalog").click(catalog);
 		
+		$(document).on("click",".timeslider li",function(){
+			var parent = $(this).closest(".panel").attr("id"),
+				timeSlider = parent == "panel_left" ? Split.__mapLeft.timeSlider : Split.__mapRight.timeSlider,
+				idx = $(this).attr("idx");
+
+			timeSlider.drawTime(idx);
+		});
+
 		// load Medina catalog, 
 		loadMedinaCatalog();
+
+
 		
     });
 	
@@ -125,6 +137,8 @@
 		resize();
 		Split.__mapLeft.getMap().invalidateSize();		
 		Split.__mapRight.getMap().invalidateSize();		
+
+
 		//console.log($(window).height());
 	})
 </script>
@@ -186,11 +200,7 @@
 				</div>
 				
 		</div>
-		
-		
-		
-		
-	
+
 	</div>
 	
 	<!--End Catalog section-->
@@ -214,6 +224,9 @@
 			
 			<ul class="layer_panel"></ul>
 			
+			<ul class="timeslider">
+				
+			</ul>
 			
 			
 		</div>
@@ -241,7 +254,14 @@
 			<a href="javascript:Split.toggleLayersInterface(Split.RIGHT)" class="layer_ctrl">Layers</a>
 			
 			<ul class="layer_panel"></ul>
-		
+			
+			<ul class="timeslider">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			
 			
 		</div>
 		

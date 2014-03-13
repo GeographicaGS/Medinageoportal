@@ -9,10 +9,15 @@ function GroupLayer(opts){
 	this.__layerHistogram = null;
 	this.__active = true;
 	
+	this.timeSlider = new TimeSlider({
+		"panel" : opts.$sliderPanel,
+		"groupLayer" : this
+	});
+
 	this.layers = new Array();
 
-	for(x in opts.layers){
-		var l =  opts.layers[x];
+	for(var i=0;i<opts.layers.length;i++){
+		var l =  opts.layers[i];
 		var tmp = {
 			id: l.id,
 			tile: new L.tileLayer.wms(l.server, {		
@@ -66,14 +71,19 @@ function GroupLayer(opts){
 		}
 		var l = {
 			id: id,
-			
+			server : layer.server,
 			tile: new L.tileLayer.wms(layer.server,opts),
 			visible:true,
 			priority:priority,
 			title:layer.title,
-			opacity: 1
+			opacity: 1,
+			timelayer : layer.hasOwnProperty("timelayer") ? true : false
 		};
 		
+		if (layer.hasOwnProperty("timelayer")){
+			this.timeSlider.addLayerToSlider(layer.timelayer,id);
+
+		}
 		
 		this.map.addLayer(l.tile);
 		
@@ -91,9 +101,13 @@ function GroupLayer(opts){
 		}
 		
 		var l = this.layers[id];
-		
+		if (l.timelayer){
+			this.timeSlider.removeLayer(id_layer);
+		}
+
 		this.map.removeLayer(l.tile);
 		this.layers.splice(id, 1);
+
 		
 		this.refreshLayerPanel();
 		
@@ -109,8 +123,8 @@ function GroupLayer(opts){
 	
 	this.getHTMLLayersPanel = function(){
 		var html = "";
-		for(x in this.layers){
-			var l =  this.layers[x];
+		for(var i=0;i<this.layers.length;i++){
+			var l =  this.layers[i];
 			// DEPRECATED
 			/*var limg = l.visible ? "MED_icon_mapa_0.png" : "MED_icon_mapa.png";  
 			var lhistimg = this.__layerHistogram==l ? "MED_icon_histograma_0.png" : "MED_icon_histograma.png";

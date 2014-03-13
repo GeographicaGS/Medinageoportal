@@ -57,7 +57,8 @@ Split = {
 				map: mapLeft,
 				layers: layers,
 				father:this.LEFT,
-				$layerPanel : $("#panel_left ul.layer_panel")
+				$layerPanel : $("#panel_left ul.layer_panel"),
+				$sliderPanel : $("#panel_left .timeslider")
 		}		
 		this.__mapLeft = new GroupLayer(opts);		
 		
@@ -84,7 +85,8 @@ Split = {
 				map: mapRight,
 				layers: layers,
 				father:this.RIGHT,
-				$layerPanel : $("#panel_right ul.layer_panel")
+				$layerPanel : $("#panel_right ul.layer_panel"),
+				$sliderPanel : $("#panel_right .timeslider")
 		}
 		this.__mapRight = new GroupLayer(opts);
 		
@@ -318,16 +320,34 @@ Split = {
 		this.__drawLayerInterface(el);
 	},
 	
-	addLayer: function (server_url,name,title,is4326){
+
+	addLayer: function (server_url,name,title,is4326,timelayer){
 		
-		var l = {
-			server: server_url,
-			title: title,
-			layers: name
+		var l;
+		if (!timelayer){
+			l  = {
+				server: server_url,
+				title: title,
+				layers: name
+			}
+			if (is4326) {
+			    l.crs = L.CRS.EPSG4326;
+			}	
 		}
-		if (is4326) {
-		    l.crs = L.CRS.EPSG4326;
+		else{
+
+			for(var key in this.timeslider[name].time_layers) break;
+			var first_layer = this.timeslider[name].time_layers[key];
+
+			l  = {
+				server: server_url,
+				title: title,
+				layers: first_layer,
+				timelayer: name
+			}
+
 		}
+		
 		this.__mapLeft.addLayer(l);
 		this.__mapRight.addLayer(l);
 		$("#panel_search").fadeOut(300);
@@ -427,7 +447,9 @@ Split = {
 		
 		$("#map_left,#map_right").removeClass("cursor_info");
 	},
-	
-	
-	
+
+	setMetadataTimeSlider : function(metadata){
+		this.__mapLeft.timeSlider.setMetadata(metadata);
+		this.__mapRight.timeSlider.setMetadata(metadata);
+	}
 }
