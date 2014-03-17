@@ -1,3 +1,4 @@
+
 function catalog() {
     if ($("#catalog").is(":visible")) {
         $("#maps").show();
@@ -51,18 +52,37 @@ function getMedinaWMS(json){
                 }
                 
             });
-         
+
+            Split.setMetadataTimeSlider(json.timeslider);
+            Split.timeslider = json.timeslider;
+
+            for (i in json.timeslider){
+                var el = json.timeslider[i],
+                    cat = el.family;
+
+                var layer = {
+                    "name": i,
+                    "title" : i,
+                    "desc" : el.desc,
+                    "timelayer" : true
+                };
+
+                familyData[cat].push(layer);
+            }
+
             var html = "";
-            
             for (f in familyData){
                 
                 var html2 = ""
-                for (l in familyData[f]){
-                    var layer = familyData[f][l];
+                for (var i=0;i<familyData[f].length;i++){
+                    var layer = familyData[f][i];
+                        url = layer.hasOwnProperty("timelayer") ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
+                            :
+                            "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)"
                     html2 += "<li>"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>"
-                            +   "<a class='ml' href='javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\")'>"
+                            +   "<a class='ml' href='" + url + "'>"
 							+       "Add to Map"
 							+   "</a>";
                     if (json.metadata.hasOwnProperty(layer.name)) {
@@ -106,9 +126,9 @@ function getMedinaWMS(json){
 }
 
 
-function addLayerFromCatalog(server,name,title) {
+function addLayerFromCatalog(server,name,title,timelayer) {
     // add Layer to split
-    Split.addLayer(server,name,title);
+    Split.addLayer(server,name,title,false,timelayer);
     // hide catalog
     catalog();
 }

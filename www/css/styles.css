@@ -910,8 +910,6 @@ ul.family_content > li > p{
 	color: #007eb6;
 	margin: 20px 0 0 0;
 	font-size: 14px;
-	
-	
 }
 
 
@@ -925,4 +923,69 @@ ul.family_content > li > p{
 	border-radius: 5px;
 	padding: 7px 10px 7px 35px;
 	font-size: 11px;
+}
+
+
+.timeslider{
+	width: 400px;
+	
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	height: 30px;
+	
+
+}
+
+#panel_left .timeslider{
+
+}
+
+#panel_right .timeslider{
+	left: 50px;
+}
+
+
+.timeslider li{
+	position: absolute;
+	top: 0;
+	line-height: 15px;
+	background-color: #ccc;
+	width: 2px;
+	cursor: pointer;
+	border-bottom: 1px solid #999;
+
+}
+
+.timeslider li div:nth-child(1){
+	background-color: #0363aa;
+	height: 13px;
+	line-height: 13px;
+	border-right: 1px solid #3884bc;
+	font-size: 9px;
+	color:#b4d1e6;
+	text-align: center;
+}
+
+.timeslider li div:nth-child(2){
+	background-color: #ccc;
+	height: 17px;
+	line-height: 17px;
+	font-size: 10px;
+	text-align: center;
+	color: #0363aa;
+}
+
+.timeslider li[selected]{
+	background-color: red;
+}
+
+.timeslider li[selected] div:nth-child(1){
+	background-color: #dab400;
+	color:#333;
+	font-weight: bold;
+}
+
+.timeslider li[selected] div:nth-child(2){
+	background-color: #fff;
 }
