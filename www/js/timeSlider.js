@@ -28,7 +28,7 @@ function TimeSlider(opts){
 
         this.timeLine = [];
         for(idx in this.layers){
-            this.timeLine = this.timeLine.concat(Object.keys(this.metadata[idx].time_layers).unique()); 
+            this.timeLine = this.timeLine.concat(Object.keys(this.metadata[idx].time_layers)).unique(); 
         }
 
         if (this.timeLine.length){
@@ -153,8 +153,11 @@ function TimeSlider(opts){
         this.currentTime = this.timeLine[idx];
 
         for (l in this.layers){
+
             var id_layer = this.layers[l],
                 layerObject = this.groupLayer.findLayerById(id_layer);
+
+
 
             // remove all temp layer
             this.groupLayer.map.removeLayer(layerObject.tile);
@@ -169,7 +172,9 @@ function TimeSlider(opts){
 
             layerObject.tile =  new L.tileLayer.wms(layerObject.server,opts) ;
 
-            this.groupLayer.map.addLayer(layerObject.tile);
+            if (layerObject.visible){
+                this.groupLayer.map.addLayer(layerObject.tile);
+            }
         }
         //console.log(this.groupLayer.findLayerById(this.layers[idx]));
 
