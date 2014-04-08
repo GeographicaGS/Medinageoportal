@@ -1,4 +1,4 @@
-var SELECT_LAYER_TEXT = "Choose the layers which you want to add to map.";
+var SELECT_LAYER_TEXT = "Choose the layers you want to add.";
 function catalog() {
     if ($("#catalog").is(":visible")) {
         $("#maps").show();
