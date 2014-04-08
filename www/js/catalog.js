@@ -1,4 +1,4 @@
-
+var SELECT_LAYER_TEXT = "Choose the layers you want to add.";
 function catalog() {
     if ($("#catalog").is(":visible")) {
         $("#maps").show();
@@ -6,6 +6,11 @@ function catalog() {
     }
     else{
         $("#maps").hide();
+        $("input[layer_name]:checked").each(function(){
+            $(this).removeAttr("checked");
+
+        });
+        $("#ctrl_multiple_selector").html(SELECT_LAYER_TEXT);
         $("#catalog").show();   
     }    
 }
@@ -75,16 +80,20 @@ function getMedinaWMS(json){
                 
                 var html2 = ""
                 for (var i=0;i<familyData[f].length;i++){
-                    var layer = familyData[f][i];
-                        url = layer.hasOwnProperty("timelayer") ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
+                    var layer = familyData[f][i],
+                        timelayer = layer.hasOwnProperty("timelayer")
+                        url = timelayer ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
                             :
-                            "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)"
+                            "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)",
+                        inputTimeLayer = timelayer ? "timelayer" : "";
                     html2 += "<li>"
+                            +   "<input type='checkbox' layer_name='" + layer.name +
+                                     "' layer_title='" + layer.title + "'" + inputTimeLayer + "/>"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>"
-                            +   "<a class='ml' href='" + url + "'>"
-							+       "Add to Map"
-							+   "</a>";
+       //                      +   "<a class='ml' href='" + url + "'>"
+							// +       "Add to Map"
+							// +   "</a>";
                     if (json.metadata.hasOwnProperty(layer.name)) {
                         html2 +=    "<span style='float:right'>|</span>"
                             +   "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
@@ -117,6 +126,24 @@ function getMedinaWMS(json){
             }
             $("#catalog ul.families").html(html);
             $("ul.families > li").click(openCloseFamilyCatalog);
+            $("input[layer_name]").click(function(e){
+                var n_els = $("input[layer_name]:checked").length,
+                    link = n_els ? "<a href='javascript:addSelection()'' >Add to Map</a>" : "",
+                    text;
+
+                if (!n_els){
+                     text = SELECT_LAYER_TEXT;
+                }
+                else if (n_els==1){
+                    text = "1 layer selected - " + link + ".";
+                }
+                else{
+                    text = n_els + " layers selected - " + link + ".";
+                }
+
+                $("#ctrl_multiple_selector").html(text);
+                e.stopPropagation();
+            });
         },
         error: function(eee){
             console.log("Error parsing Medina Catalogue");
@@ -149,4 +176,16 @@ function openCloseFamilyCatalog(){
         $(this).removeClass("open").addClass("close");
         $(this).find("li.ico_open_close > img").attr("src","img/MED_icon_familia.png");
     }
+}
+
+function addSelection(){
+    $("input[layer_name]:checked").each(function(){
+        var name = $(this).attr("layer_name"),
+            title = $(this).attr("layer_title"),
+            timelayer = $(this).attr("timelayer")==undefined || $(this).attr("timelayer")=="undefined" ? false : true;
+
+        Split.addLayer(medinaCatalogWMS,name,title,false,timelayer);
+    });
+    // hide catalog
+    catalog();
 }

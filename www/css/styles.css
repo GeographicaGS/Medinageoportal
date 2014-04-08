@@ -867,9 +867,14 @@ ul.family_content > li {
 	border-top : 1px dotted #ccc;
 }
 
+ul.family_content > li > input {
+	float:left;
+	margin: 12px 0px 0 20px;
+}
+
 ul.family_content > li > img {
 	float:left;
-	margin: 12px 5px 0 20px;
+	margin: 12px 5px 0 10px;
 }
 
 ul.family_content > li > span {
@@ -988,4 +993,14 @@ ul.family_content > li > p{
 
 .timeslider li[selected] div:nth-child(2){
 	background-color: #fff;
+}
+
+#ctrl_multiple_selector {
+	margin: 30px 20px 0 20px;
+	color: #007eb6;
+}
+
+#ctrl_multiple_selector a{
+	font-weight: bold;
+	color: #007eb6;
 }
