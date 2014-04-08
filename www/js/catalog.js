@@ -91,9 +91,9 @@ function getMedinaWMS(json){
                                      "' layer_title='" + layer.title + "'" + inputTimeLayer + "/>"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>"
-                            +   "<a class='ml' href='" + url + "'>"
-							+       "Add to Map"
-							+   "</a>";
+       //                      +   "<a class='ml' href='" + url + "'>"
+							// +       "Add to Map"
+							// +   "</a>";
                     if (json.metadata.hasOwnProperty(layer.name)) {
                         html2 +=    "<span style='float:right'>|</span>"
                             +   "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
