@@ -3,4 +3,5 @@
 .DS_Store
 .buildpath
 *.komodoproject
+www/metadata
 www/json
