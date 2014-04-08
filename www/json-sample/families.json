@@ -1,0 +1,427 @@
+{
+	"families" : {
+    
+		"General" : ["CASES_ZONES","Natural_Earth","Natural_Earth_HR","Natural_Earth_HR2","Marine_ecoregions","GLOBCORINE_2009"],
+		"Ecological objetives and DPSIR indicators": ["Coast_typology_v1","Share_Built_up_NA","UMZ_na_coast100","na_coast","NA_WatersClassification","Pop_density","Chla_concentarion_20032008","Chla_concentarion_2004_2009","Chla_concentarion_2005_2010","Chla_concentarion_2006_2011","Chla_concentarion_2007_2012","Surface_phosphate_concentration_2002","Surface_phosphate_concentration_2003","Surface_phosphate_concentration_2004","Surface_phosphate_concentration_2005","Surface_phosphate_concentration_2006","Surface_phosphate_concentration_2007","Surface_phosphate_concentration_2008","Surface_phosphate_concentration_2009","Surface_nitrate_concentration_2002","Surface_nitrate_concentration_2003","Surface_nitrate_concentration_2004","Surface_nitrate_concentration_2005","Surface_nitrate_concentration_2006","Surface_nitrate_concentration_2007","Surface_nitrate_concentration_2008","Surface_nitrate_concentration_2009","Surface_ammonium_concentration_2002","Surface_ammonium_concentration_2003","Surface_ammonium_concentration_2004","Surface_ammonium_concentration_2005","Surface_ammonium_concentration_2006","Surface_ammonium_concentration_2007","Surface_ammonium_concentration_2008","Surface_ammonium_concentration_2009","Surface_silicate_concentration_2002","Surface_silicate_concentration_2003","Surface_silicate_concentration_2004","Surface_silicate_concentration_2005","Surface_silicate_concentration_2006","Surface_silicate_concentration_2007","Surface_silicate_concentration_2008","Surface_silicate_concentration_2009","wastewatern","wastewaterp","attenuation_coefficient_2003","attenuation_coefficient_2004","attenuation_coefficient_2005","attenuation_coefficient_2006","attenuation_coefficient_2007","attenuation_coefficient_2008","attenuation_coefficient_2009","attenuation_coefficient_2010","attenuation_coefficient_2011","attenuation_coefficient_2012","coastal_ports","eo5_eutrophication_2009","attenuation_coeficient_2009_status","bottom_oxygen_concentration","surface_ammonium_concentration","surface_chlorophyll-a_concentration","surface_nitrate_concentration","surface_phosphate_concentration","surface_silicate_concentration"],
+		"Modelling outputs": ["nratios","chlmax","oxmin","bloomduration","deepchlmax","wintern1","wintern3","wintern4","wintern5","tan_season1","tan_season2","tan_season3","tan_season4","bejaia_Mean_duration_of_Hs_greater_than_2m_wgs","bejaia_Mean_value_of_delay_between_two_storm_events_wgs","gabes_Mean_duration_of_Hs_greater_than2m","gabes_Mean_value_of_delay_between_two_storm_events","Nador_Mean_duration_of_Hs_greater_than_2m","Nador_Mean_value_of_delay_between_two_storm_events","Significant_Wave_Height_2003122212_wgs","wave_induced_current_on_sea_bottom_2003122212","gabes_Significant_Wave_Height_2003022112_wgs","gabes_wave_induced_current_on_sea_bottom_2003022112_wgs","Nador_Significant_Wave_Height_2012083100_wgs","Nador_wave_induced_current_on_sea_bottom_2012083100_wgs","bejaia_Mean_of_Significant_Wave_Height_wgs","bejaia_Median_of_Significant_Wave_Height_wgs","bejaia_P90_of_Significant_Wave_Height_wgs","bejaia_Mean_value_of_wave_induced_current_on_sea_bottom","bejaia_Median_value_of_wave_induced_current_on_sea_bottom","bejaia_P90_value_of_wave_induced_current_on_sea_bottom","gabes_Mean_of_Significant_Wave_Height","gabes_Median_of_Significant_Wave_Height","gabes_P90_of_Significant_Wave_Height","gabes_Mean_value_of_wave_induced_current_on_sea_bottom","gabes_Median_value_of_wave_induced_current_on_sea_bottom","gabes_P90_value_of_wave_induced_current_on_sea_bottom","Nador_Mean_of_Significant_Wave_Height","Nador_Median_of_Significant_Wave_Height","Nador_P90_of_Significant_Wave_Height","Nador_Mean_value_of_wave_induced_current_on_sea_bottom","Nador_Median_value_of_wave_induced_current_on_sea_bottom","Nador_P90_value_of_wave_induced_current_on_sea_bottom"],
+		"Earth Observations": ["sst01jan12-31jan12","sst01may12-31may12","sst01aug12-31aug12","daily_kd490_P90","yearly_from_daily_chl_gsm_P90","early_from_daily_morel_zeu_P90","yearly_from_daily_adg_443_gsm_P90","phenology"]
+		
+	},
+
+
+	"timeslider":{
+		
+		"Bottom oxygen concentration 2002 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2002-01": "Bottom_oxygen_concentration_2002",
+				"2002-02": "Bottom_oxygen_concentration_2002",
+				"2002-03": "Bottom_oxygen_concentration_2002",
+				"2002-04": "Bottom_oxygen_concentration_2002",
+				"2002-05" : "Bottom_oxygen_concentration_2002",
+				"2002-06" : "Bottom_oxygen_concentration_2002",
+				"2002-07" : "Bottom_oxygen_concentration_2002",
+				"2002-08" : "Bottom_oxygen_concentration_2002",
+				"2002-09" : "Bottom_oxygen_concentration_2002",
+				"2002-10" : "Bottom_oxygen_concentration_2002",
+				"2002-11" : "Bottom_oxygen_concentration_2002",
+				"2002-12" : "Bottom_oxygen_concentration_2002"
+			}
+		},
+		
+		"Bottom oxygen concentration 2003 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2003-01": "Bottom_oxygen_concentration_2003",
+				"2003-02": "Bottom_oxygen_concentration_2003",
+				"2003-03": "Bottom_oxygen_concentration_2003",
+				"2003-04": "Bottom_oxygen_concentration_2003",
+				"2003-05" : "Bottom_oxygen_concentration_2003",
+				"2003-06" : "Bottom_oxygen_concentration_2003",
+				"2003-07" : "Bottom_oxygen_concentration_2003",
+				"2003-08" : "Bottom_oxygen_concentration_2003",
+				"2003-09" : "Bottom_oxygen_concentration_2003",
+				"2003-10" : "Bottom_oxygen_concentration_2003",
+				"2003-11" : "Bottom_oxygen_concentration_2003",
+				"2003-12" : "Bottom_oxygen_concentration_2003"
+			}
+		},
+		
+		"Bottom oxygen concentration 2004 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2004-01": "Bottom_oxygen_concentration_2004",
+				"2004-02": "Bottom_oxygen_concentration_2004",
+				"2004-03": "Bottom_oxygen_concentration_2004",
+				"2004-04": "Bottom_oxygen_concentration_2004",
+				"2004-05" : "Bottom_oxygen_concentration_2004",
+				"2004-06" : "Bottom_oxygen_concentration_2004",
+				"2004-07" : "Bottom_oxygen_concentration_2004",
+				"2004-08" : "Bottom_oxygen_concentration_2004",
+				"2004-09" : "Bottom_oxygen_concentration_2004",
+				"2004-10" : "Bottom_oxygen_concentration_2004",
+				"2004-11" : "Bottom_oxygen_concentration_2004",
+				"2004-12" : "Bottom_oxygen_concentration_2004"
+			}
+		},
+		
+		"Bottom oxygen concentration 2005 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2005-01": "Bottom_oxygen_concentration_2005",
+				"2005-02": "Bottom_oxygen_concentration_2005",
+				"2005-03": "Bottom_oxygen_concentration_2005",
+				"2005-04": "Bottom_oxygen_concentration_2005",
+				"2005-05" : "Bottom_oxygen_concentration_2005",
+				"2005-06" : "Bottom_oxygen_concentration_2005",
+				"2005-07" : "Bottom_oxygen_concentration_2005",
+				"2005-08" : "Bottom_oxygen_concentration_2005",
+				"2005-09" : "Bottom_oxygen_concentration_2005",
+				"2005-10" : "Bottom_oxygen_concentration_2005",
+				"2005-11" : "Bottom_oxygen_concentration_2005",
+				"2005-12" : "Bottom_oxygen_concentration_2005"
+			}
+		},
+		
+		"Bottom oxygen concentration 2006 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2006-01": "Bottom_oxygen_concentration_2006",
+				"2006-02": "Bottom_oxygen_concentration_2006",
+				"2006-03": "Bottom_oxygen_concentration_2006",
+				"2006-04": "Bottom_oxygen_concentration_2006",
+				"2006-05" : "Bottom_oxygen_concentration_2006",
+				"2006-06" : "Bottom_oxygen_concentration_2006",
+				"2006-07" : "Bottom_oxygen_concentration_2006",
+				"2006-08" : "Bottom_oxygen_concentration_2006",
+				"2006-09" : "Bottom_oxygen_concentration_2006",
+				"2006-10" : "Bottom_oxygen_concentration_2006",
+				"2006-11" : "Bottom_oxygen_concentration_2006",
+				"2006-12" : "Bottom_oxygen_concentration_2006"
+			}
+		},
+		
+		"Bottom oxygen concentration 2007 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2007-01": "Bottom_oxygen_concentration_2007",
+				"2007-02": "Bottom_oxygen_concentration_2007",
+				"2007-03": "Bottom_oxygen_concentration_2007",
+				"2007-04": "Bottom_oxygen_concentration_2007",
+				"2007-05" : "Bottom_oxygen_concentration_2007",
+				"2007-06" : "Bottom_oxygen_concentration_2007",
+				"2007-07" : "Bottom_oxygen_concentration_2007",
+				"2007-08" : "Bottom_oxygen_concentration_2007",
+				"2007-09" : "Bottom_oxygen_concentration_2007",
+				"2007-10" : "Bottom_oxygen_concentration_2007",
+				"2007-11" : "Bottom_oxygen_concentration_2007",
+				"2007-12" : "Bottom_oxygen_concentration_2007"
+			}
+		},
+		
+		"Bottom oxygen concentration 2008 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2008-01": "Bottom_oxygen_concentration_2008",
+				"2008-02": "Bottom_oxygen_concentration_2008",
+				"2008-03": "Bottom_oxygen_concentration_2008",
+				"2008-04": "Bottom_oxygen_concentration_2008",
+				"2008-05" : "Bottom_oxygen_concentration_2008",
+				"2008-06" : "Bottom_oxygen_concentration_2008",
+				"2008-07" : "Bottom_oxygen_concentration_2008",
+				"2008-08" : "Bottom_oxygen_concentration_2008",
+				"2008-09" : "Bottom_oxygen_concentration_2008",
+				"2008-10" : "Bottom_oxygen_concentration_2008",
+				"2008-11" : "Bottom_oxygen_concentration_2008",
+				"2008-12" : "Bottom_oxygen_concentration_2008"
+			}
+		},
+		
+		"Bottom oxygen concentration 2009 (mmol.m-3)" : {
+			"family" : "Ecological objetives and DPSIR indicators",
+			"desc" : "Single-year average oxygen concentration(mmol.m-3)in Offshore waters(1-200 nm)",
+			"time_layers": {
+				"2009-01": "Bottom_oxygen_concentration_2009",
+				"2009-02": "Bottom_oxygen_concentration_2009",
+				"2009-03": "Bottom_oxygen_concentration_2009",
+				"2009-04": "Bottom_oxygen_concentration_2009",
+				"2009-05" : "Bottom_oxygen_concentration_2009",
+				"2009-06" : "Bottom_oxygen_concentration_2009",
+				"2009-07" : "Bottom_oxygen_concentration_2009",
+				"2009-08" : "Bottom_oxygen_concentration_2009",
+				"2009-09" : "Bottom_oxygen_concentration_2009",
+				"2009-10" : "Bottom_oxygen_concentration_2009",
+				"2009-11" : "Bottom_oxygen_concentration_2009",
+				"2009-12" : "Bottom_oxygen_concentration_2009"
+			}
+		},
+		
+		"2012 p90 Chlorophyll (mg/m3)" : {
+			"family" : "Earth Observations",
+			"desc" : "Monthly 90th percentile of chlorophyll from Aqua MODIS",
+			"time_layers": {
+				"2012-01": "p90_chlor_Jan_sgt",
+				"2012-02": "p90_chlor_Feb_sgt",
+				"2012-03": "p90_chlor_Mar_sgt",
+				"2012-04": "p90_chlor_Apr_sgt",
+				"2012-05" : "p90_chlor_May_sgt",
+				"2012-06" : "p90_chlor_Jun_sgt",
+				"2012-07" : "p90_chlor_Jul_sgt",
+				"2012-08" : "p90_chlor_Aug_sgt",
+				"2012-09" : "p90_chlor_Sep_sgt",
+				"2012-10" : "p90_chlor_Oct_sgt",
+				"2012-11" : "p90_chlor_Nov_sgt",
+				"2012-12" : "p90_chlor_Dec_sgt"
+			}
+		},
+
+		"2012 Sea Surface Temperature. Celsius." : {
+			"family" : "Earth Observations",
+			"desc" : "2012 Sea Surface Temperature. Celsius.",
+			"time_layers": {
+				"2012-01": "sst_january",
+				"2012-02": "sst_february",
+				"2012-03": "sst_march",
+				"2012-04": "sst_april",
+				"2012-05" : "sst_may",
+				"2012-06" : "sst_june",
+				"2012-07" : "sst_july",
+				"2012-08" : "sst_august",
+				"2012-09" : "sst_sept",
+				"2012-10" : "sst_october",
+				"2012-11" : "sst_nov",
+				"2012-12" : "sst_dec"
+			}
+		},
+
+		"Euphotic Depth (m)" : {
+			"family" : "Modelling outputs",
+			"desc" : "Monthly means of the euphotic depth. The production of this data was supported by the EU-FP7 projects VECTORS (266445) and MEDINA (282977).",
+			"time_layers": {
+				"2012-01": "eudepth1",
+				"2012-02": "eudepth2",
+				"2012-03": "eudepth3",
+				"2012-04": "eudepth4",
+				"2012-05" : "eudepth5",
+				"2012-06" : "eudepth6",
+				"2012-07" : "eudepth7",
+				"2012-08" : "eudepth8",
+				"2012-09" : "eudepth9",
+				"2012-10" : "eudepth10",
+				"2012-11" : "eudepth11",
+				"2012-12" : "eudepth12"
+			}
+		},
+
+		"Potential Energy Anomaly (J/m3)" : {
+			"family" : "Modelling outputs",
+			"desc" : "Monthly means of the potential energy anomaly. The production of this data was supported by the EU-FP7 projects VECTORS (266445) and MEDINA (282977).",
+			"time_layers": {
+				"2012-01": "pea1",
+				"2012-02": "pea2",
+				"2012-03": "pea3",
+				"2012-04": "pea4",
+				"2012-05" : "pea5",
+				"2012-06" : "pea6",
+				"2012-07" : "pea7",
+				"2012-08" : "pea8",
+				"2012-09" : "pea9",
+				"2012-10" : "pea10",
+				"2012-11" : "pea11",
+				"2012-12" : "pea12"
+			}
+		},
+
+		"Dissolved Inorganic Carbon (DIC, mmol/m^3)" : {
+			"family" : "Modelling outputs",
+			"desc" : "Dissolved inorganic carbon concentrations for the GCOMS MEDI29 domain. Monthly means of dissolved inorganic carbon. The production of this data was supported by the EU-FP7 projects VECTORS (266445) and MEDINA (282977).",
+			"time_layers": {
+				"2012-01": "dic1",
+				"2012-02": "dic2",
+				"2012-03": "dic3",
+				"2012-04": "dic4",
+				"2012-05" : "dic5",
+				"2012-06" : "dic6",
+				"2012-07" : "dic7",
+				"2012-08" : "dic8",
+				"2012-09" : "dic9",
+				"2012-10" : "dic10",
+				"2012-11" : "dic11",
+				"2012-12" : "dic12"
+			}
+		},
+
+		"Net Primary Production 2012 (tons C/d)" : {
+			"family" : "Modelling outputs",
+			"desc" : "Net primary production. The production of this data was supported by the EU-FP7 projects VECTORS (266445) and MEDINA (282977).",
+			"time_layers": {
+				"2012-01": "netpp_1",
+				"2012-02": "netPP_2",
+				"2012-03": "netPP_3",
+				"2012-04": "netPP_4",
+				"2012-05" : "netPP_5",
+				"2012-06" : "netPP_6",
+				"2012-07" : "netPP_7",
+				"2012-08" : "netPP_8",
+				"2012-09" : "netPP_9",
+				"2012-10" : "netPP_10",
+				"2012-11" : "netPP_11",
+				"2012-12" : "netPP_12"
+			}
+		},
+
+		"Chlorophyll-a 2012" : {
+			"family" : "General",
+			"desc" : "Chlorophyll-a 2012",
+			"time_layers": {
+				"2012-01": "chlorophyll_january",
+				"2012-02": "chlorophyll_february",
+				"2012-03": "chlorophyll_march",
+				"2012-04": "chlorophyll_april",
+				"2012-05" : "chlorophyll_may",
+				"2012-06" : "chlorophyll_june",
+				"2012-07" : "chlorophyll_july",
+				"2012-08" : "chlorophyll_august",
+				"2012-09" : "chlorophyll_september",
+				"2012-10" : "chlorophyll_october",
+				"2012-11" : "chlorophyll_november",
+				"2012-12" : "chlorophyll_december"
+			}
+		}
+	},
+	
+	"metadata": {
+		"Coast_typology_v1" : "http://www.medinageoportal.eu/catalogue?uuid=e868c8f3-8056-4f65-a958-e8b1732233b8",
+		"Share_Built_up_NA" : "http://www.medinageoportal.eu/catalogue?uuid=a6ddebc3-f696-4a64-a1c8-2f4033d63a70",
+		"UMZ_na_coast100" : "http://www.medinageoportal.eu/catalogue?uuid=e868c8f3-8056-4f65-a958-e8b1732233b8",
+		"na_coast" : "http://www.medinageoportal.eu/catalogue?uuid=58c032f9-8a78-4d72-8554-7bd12e3e5fcb",
+		"NA_WatersClassification" : "http://www.medinageoportal.eu/catalogue?uuid=c2c0c0a4-84fe-45a2-9669-bb61c6f2f9a2",
+		"Pop_density" : "http://www.medinageoportal.eu/catalogue?uuid=13a53c59-b547-4d8a-a5e2-28eca01a176e",
+		"Chla_concentarion_20032008" : "http://www.medinageoportal.eu/catalogue?uuid=516d77a1-90dd-4e72-a20e-e79477b82e78",
+		"Chla_concentarion_2004_2009" : "http://www.medinageoportal.eu/catalogue?uuid=46ab56e3-fd2d-4a30-a2cb-7532d1165406",
+		"Chla_concentarion_2005_2010" : "http://www.medinageoportal.eu/catalogue?uuid=fa2be9c9-5eb7-45c5-80ad-8e92aa01b7f3",
+		"Chla_concentarion_2006_2011" : "http://www.medinageoportal.eu/catalogue?uuid=93630262-743f-47f8-97be-db79f77ef4f0",
+		"Chla_concentarion_2007_2012" : "http://www.medinageoportal.eu/catalogue?uuid=ad9523c2-b5e1-4ac4-a717-4943d728c4bf",
+		"Bottom_oxygen_concentration_2002" : "http://www.medinageoportal.eu/catalogue?uuid=f7ae7edf-28e2-4a9c-8972-6ff62ac84bea",
+		"Bottom_oxygen_concentration_2003" : "http://www.medinageoportal.eu/catalogue?uuid=2db40f42a49a4643fdf6b1a7ed9b2c1e6ca829c0",
+		"Bottom_oxygen_concentration_2004" : "http://www.medinageoportal.eu/catalogue?uuid=2b6067c2-993f-4a34-a077-3ea87b6387fa",
+		"Bottom_oxygen_concentration_2005" : "http://www.medinageoportal.eu/catalogue?uuid=61079243-1ec5-4f7d-a397-e63952a6fb40",
+		"Bottom_oxygen_concentration_2006" : "http://www.medinageoportal.eu/catalogue?uuid=53196888-50dd-4637-946f-e57b341fc930",
+		"Bottom_oxygen_concentration_2007" : "http://www.medinageoportal.eu/catalogue?uuid=8ecc7dd3-60f7-47e5-ad91-ae8901f0a9de",
+		"Bottom_oxygen_concentration_2008" : "http://www.medinageoportal.eu/catalogue?uuid=e0104ac5-2a8e-442a-9ad2-a0a5b3b2ae40",
+		"Bottom_oxygen_concentration_2009" : "http://www.medinageoportal.eu/catalogue?uuid=8bff86fe-861d-4c06-a300-4393dde45c61",
+		"Surface_phosphate_concentration_2002" : "http://www.medinageoportal.eu/catalogue?uuid=dee885a5-3a0e-4385-96e2-75bedde99fad",
+		"Surface_phosphate_concentration_2003" : "http://www.medinageoportal.eu/catalogue?uuid=7201dc13-ad42-4565-aba0-0d3bfc2fefef",
+		"Surface_phosphate_concentration_2004" : "http://www.medinageoportal.eu/catalogue?uuid=e52c0568-e66e-4c8b-b894-c802fc9c41a0",
+		"Surface_phosphate_concentration_2005" : "http://www.medinageoportal.eu/catalogue?uuid=1ba1fb5e-4496-4bb3-af23-3bf4e073fd3e",
+		"Surface_phosphate_concentration_2006" : "http://www.medinageoportal.eu/catalogue?uuid=d6e01a25-7988-4875-bb30-14d3cb7a114b",
+		"Surface_phosphate_concentration_2007" : "http://www.medinageoportal.eu/catalogue?uuid=4bd90cc7-42e0-46c0-b499-c9c26a25322a",
+		"Surface_phosphate_concentration_2008" : "http://www.medinageoportal.eu/catalogue?uuid=2a626e82-3ea3-4589-8e17-fc9ec3a85b3a",
+		"Surface_phosphate_concentration_2009" : "http://www.medinageoportal.eu/catalogue?uuid=acbfba3a-93d7-41e0-8129-20da03d67271",
+		"Surface_nitrate_concentration_2002" : "http://www.medinageoportal.eu/catalogue?uuid=3b38c806-df1c-45d9-85e9-e8a3654f4e09",
+		"Surface_nitrate_concentration_2003" : "http://www.medinageoportal.eu/catalogue?uuid=13c5cc5a-9f80-4567-82fe-becb1195e987",
+		"Surface_nitrate_concentration_2004" : "http://www.medinageoportal.eu/catalogue?uuid=e39b00a6-7e79-40d0-894f-60c7c851e6ee",
+		"Surface_nitrate_concentration_2005" : "http://www.medinageoportal.eu/catalogue?uuid=0c8e720c-9d76-4dcd-a920-d2beff4ac579",
+		"Surface_nitrate_concentration_2006" : "http://www.medinageoportal.eu/catalogue?uuid=5c516373-e36e-419d-ac60-915d0e5c3077",
+		"Surface_nitrate_concentration_2007" : "http://www.medinageoportal.eu/catalogue?uuid=f2944204-3a6c-486f-8679-cf301f99aaf8",
+		"Surface_nitrate_concentration_2008" : "http://www.medinageoportal.eu/catalogue?uuid=3d08598c-965b-4257-86df-d7ab349f11ab",
+		"Surface_nitrate_concentration_2009" : "http://www.medinageoportal.eu/catalogue?uuid=da6c385e-0fb7-4af2-8d7d-80f67992f018",
+		"Surface_ammonium_concentration_2003" : "http://www.medinageoportal.eu/catalogue?uuid=c0b5ede7-61a6-4ed4-8654-7bd01dd19ee1",
+		"Surface_ammonium_concentration_2004" : "http://www.medinageoportal.eu/catalogue?uuid=ad516113-6018-4007-a488-f1baaca68b6d",
+		"Surface_ammonium_concentration_2005" : "http://www.medinageoportal.eu/catalogue?uuid=b6ff0d58-53e4-4d7b-9eb2-a3727c4b4f69",
+		"Surface_ammonium_concentration_2006" : "http://www.medinageoportal.eu/catalogue?uuid=bc1f8037-a06a-48fb-91fe-390397ca7a29",
+		"Surface_ammonium_concentration_2007" : "http://www.medinageoportal.eu/catalogue?uuid=0589c4dc-8607-4172-ac9b-38a9146cffd5",
+		"Surface_ammonium_concentration_2008" : "http://www.medinageoportal.eu/catalogue?uuid=0b98fd4e-10c8-422b-9ed2-baa60c3f78cc",
+		"Surface_ammonium_concentration_2009" : "http://www.medinageoportal.eu/catalogue?uuid=72b01f98-dbed-46e3-ba90-5a593fd6c3f3",
+		"Surface_ammonium_concentration_2002" : "http://www.medinageoportal.eu/catalogue?uuid=1d2154f3-b06b-4944-b0e3-5d2e3b267000",
+		"Surface_silicate_concentration_2003" : "http://www.medinageoportal.eu/catalogue?uuid=ab81722f-9a40-4049-882c-6a92f30b545c",
+		"Surface_silicate_concentration_2004" : "http://www.medinageoportal.eu/catalogue?uuid=c9b29bba-7611-48b1-a21c-54ad80b4107e",
+		"Surface_silicate_concentration_2005" : "http://www.medinageoportal.eu/catalogue?uuid=c56e8fa0-6983-4cbd-9052-f263e201a71c",
+		"Surface_silicate_concentration_2006" : "http://www.medinageoportal.eu/catalogue?uuid=c860c62a-6286-4a3d-8746-45e85a16dac7",
+		"Surface_silicate_concentration_2007" : "http://www.medinageoportal.eu/catalogue?uuid=c0c7b4a3-97b0-41a3-8325-a59b7e0966f2",
+		"Surface_silicate_concentration_2008" : "http://www.medinageoportal.eu/catalogue?uuid=83da695e-cf64-4d36-ae1c-27fc8ffaa6fc",
+		"Surface_silicate_concentration_2009" : "http://www.medinageoportal.eu/catalogue?uuid=93cbb463-e139-439c-a797-bb578faf98da",
+		"Surface_silicate_concentration_2002" : "http://www.medinageoportal.eu/catalogue?uuid=ef52e1fd-a7ba-4465-b96e-0ef1dbbfa2b8",
+		"bejaia_Hsig_mean_distance_per_day_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=cf8bf024-711c-41e3-aa43-70ba0dc88025",
+		"bejaia_Hsig_mean_duration_per_hour_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=7acc7c2c-497d-4cfd-935e-6c3e148c771d",
+		"bejaia_Hsig_mean_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=9b6b083d-4bfc-4bbc-ab41-09394c28e1bc",
+		"bejaia_Hsig_median_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=aea52745-b021-404b-8624-1152986b1e94",
+		"bejaia_Hsig_perc_90_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=7312c556-6154-4836-9a11-0e4d36c50adc",
+		"bejaia_Ubot_mean_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=1b06a718-2b01-44c6-a9cb-ff16b2aaeb77",
+		"bejaia_Ubot_median_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=e99715f0-b4c9-4482-9121-8f93e8e04cb8",
+		"bejaia_Ubot_perc_90_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=472ef3e3-e095-4a46-b275-f42f133c5241",
+		"gabes_Hsig_mean_distance_per_day_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=69fdefd1-456c-4f55-9887-b74243888a09",
+		"gabes_Hsig_mean_duration_per_hour_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=21858e66-d3e8-4f81-95c8-e9c575ac0eb3",
+		"gabes_Hsig_mean_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=71e8d051-8773-4f95-aaba-8dab81a294f6",
+		"gabes_Hsig_median_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=1df5edfa-ab2a-4b4b-8956-694300a2a43e",
+		"gabes_Hsig_perc_90_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=91b4c98c-09a8-41b7-80db-fd33415e055c",
+		"gabes_Ubot_mean_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=f3f767a3-ad69-4cbf-93dc-742edec3c44b",
+		"gabes_Ubot_median_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=5c214e57-f6d3-40aa-81f1-93e84b8494e9",
+		"gabes_Ubot_perc_90_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=309eff66-7ce5-4462-b754-413abd143e22",
+		"daily_kd490_P90" : "http://www.medinageoportal.eu/catalogue?uuid=0dc330bc-4c84-4661-93e5-902ae47fef0e",
+		"yearly_from_daily_chl_gsm_P90" : "http://www.medinageoportal.eu/catalogue?uuid=958f0757-e474-407e-b3f8-ca57f80e5222",
+		"early_from_daily_morel_zeu_P90" : "http://www.medinageoportal.eu/catalogue?uuid=5f24408b-8b3e-48b0-a0d5-06d4b1abc4d8",
+		"yearly_from_daily_adg_443_gsm_P90" : "http://www.medinageoportal.eu/catalogue?uuid=20ebe934-a5bf-40c8-a8f2-b0b9ffe5c37a",
+		"sst01jan12-31jan12" : "http://www.medinageoportal.eu/catalogue?uuid=279bd0f5-2e19-4b9a-bdde-4522a3a9489c",
+		"sst01may12-31may12" : "http://www.medinageoportal.eu/catalogue?uuid=279bd0f5-2e19-4b9a-bdde-4522a3a9489c",
+		"sst01aug12-31aug12" : "http://www.medinageoportal.eu/catalogue?uuid=279bd0f5-2e19-4b9a-bdde-4522a3a9489c",
+		"wastewatern" : "http://www.medinageoportal.eu/catalogue?uuid=72c9b419-90b7-4351-b515-b33f900f8c26",
+		"wastewaterp" : "http://www.medinageoportal.eu/catalogue?uuid=9cd93166-fde2-4956-81b8-684d648a9cce",
+		"bejaia_Mean_duration_of_Hs_greater_than_2m_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=dc5dd2a1-7932-4353-8ac7-882ab703bd1b",
+		"bejaia_Mean_value_of_delay_between_two_storm_events_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=810ec781-bfc4-4acb-a0ca-6a6d1c2e3a80",
+		"gabes_Mean_value_of_delay_between_two_storm_events" : "http://www.medinageoportal.eu/catalogue?uuid=71e8d051-8773-4f95-aaba-8dab81a294f6",
+		"gabes_Mean_duration_of_Hs_greater_than2m" : "http://www.medinageoportal.eu/catalogue?uuid=5bee47b8-1c13-448a-b9ad-e6890681deff",
+		"Nador_Mean_duration_of_Hs_greater_than_2m" : "http://www.medinageoportal.eu/catalogue?uuid=bd3b9fc4-c801-4499-8529-cb49411d9633",
+		"Nador_Mean_value_of_delay_between_two_storm_events" : "http://www.medinageoportal.eu/catalogue?uuid=d9f6b2ff-b100-4f9d-a28d-38e069bd6979",
+		"Significant_Wave_Height_2003122212_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=a6cd395f-553f-43ae-a5e6-488068d9bbb3",
+		"wave_induced_current_on_sea_bottom_2003122212" : "http://www.medinageoportal.eu/catalogue?uuid=747541ca-de49-4c6b-a994-6fa1bbd82a10",
+		"gabes_Significant_Wave_Height_2003022112_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=dda4dc32-257b-4a47-9b47-d1d8169d1829",
+		"gabes_wave_induced_current_on_sea_bottom_2003022112_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=cbfc0101-dbba-43d4-92da-603dc6c155a5",
+		"Nador_Significant_Wave_Height_2012083100_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=0ccb6369-81a4-492d-904a-6ec01acef5f5",
+		"Nador_wave_induced_current_on_sea_bottom_2012083100_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=df586eac-16d9-488a-8cf5-2c2d96837d13",
+		"bejaia_Mean_of_Significant_Wave_Height_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=ec456580-49d7-4068-89db-f3c70e95d494",
+		"bejaia_Median_of_Significant_Wave_Height_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=2661b7c6-9d09-49f9-8439-3d04046267e0",
+		"bejaia_P90_of_Significant_Wave_Height_wgs" : "http://www.medinageoportal.eu/catalogue?uuid=604235c9-e8bc-4664-bb32-bbd489a01a6c",
+		"bejaia_Mean_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=62e94888-4172-4571-9c1f-4adc3cdf47f1",
+		"bejaia_Median_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=42a2346a-2c74-496b-94a4-25acae524fb4",
+		"bejaia_P90_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=120ad04e-8f70-4d48-984a-97688cf8ffac",
+		"gabes_Mean_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=d090071b-2f20-4ad4-b862-db7463976a91",
+		"gabes_Median_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=4c6e3035-e2ff-482c-aece-7002d11bea69",
+		"gabes_P90_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=a122f1d5-3583-4e71-b629-5e6a643ebb95",
+		"gabes_Mean_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=1240abac-8ecc-457e-92d7-729b8a237ba7",
+		"gabes_Median_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=a9073290-97b2-4846-8f1c-bfb71a1d14a7",
+		"gabes_P90_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=a9773385-77a7-46a1-b473-772bbcd4dcbb",
+		"Nador_Mean_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=fe9dfc1e-b44c-45fe-8e57-20d457ebf9bd",
+		"Nador_Median_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=b77d5790-4560-40d8-bef9-db9d01a3a60f",
+		"Nador_P90_of_Significant_Wave_Height" : "http://www.medinageoportal.eu/catalogue?uuid=7a319d77-da5e-4892-94b0-4c75813f5372",
+		"Nador_Mean_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=94293169-aa6c-451e-a04f-6f88d158717e",
+		"Nador_Median_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=27435094-4676-4b9b-82ed-c88a36f37f59",
+		"Nador_P90_value_of_wave_induced_current_on_sea_bottom" : "http://www.medinageoportal.eu/catalogue?uuid=a8b01792-3d0e-481a-907e-e2d9c9957572",
+		"attenuation_coefficient_2003" : "http://www.medinageoportal.eu/catalogue?uuid=7a3c5da2-cdeb-4778-b04e-a92093888163",
+		"attenuation_coefficient_2004" : "http://www.medinageoportal.eu/catalogue?uuid=f0ea2997-5945-41b1-85e3-29a35442c29e",
+		"attenuation_coefficient_2005" : "http://www.medinageoportal.eu/catalogue?uuid=ce4a589b-4dfd-4c52-be61-8d19ea831b9b",
+		"attenuation_coefficient_2006" : "http://www.medinageoportal.eu/catalogue?uuid=83af103a-a932-4bf5-99cb-e2b5d6abe9ae",
+		"attenuation_coefficient_2007" : "http://www.medinageoportal.eu/catalogue?uuid=a7388aa3-2a5b-473b-b7aa-5ccb877941fd",
+		"attenuation_coefficient_2008" : "http://www.medinageoportal.eu/catalogue?uuid=66c3d116-3df9-4db0-ac15-0cc122673319",
+		"attenuation_coefficient_2009" : "http://www.medinageoportal.eu/catalogue?uuid=c5e3f7ad-cf85-4d84-a829-4d6ea11a2045",
+		"attenuation_coefficient_2010" : "http://www.medinageoportal.eu/catalogue?uuid=657cae4e-7035-416d-9e2b-85f59ecc9d28",
+		"attenuation_coefficient_2011" : "http://www.medinageoportal.eu/catalogue?uuid=d28caf27-e96b-4408-a517-c9905a50f7b1",
+		"attenuation_coefficient_2012" : "http://www.medinageoportal.eu/catalogue?uuid=449dc01f-2608-4362-8c8d-d3a5771efcd0",
+		"coastal_ports" : "http://www.medinageoportal.eu/catalogue?uuid=7b8fbe06-85fc-4f11-b51a-99ee35fcf052",
+		"eo5_eutrophication_2009" : "http://www.medinageoportal.eu/catalogue?uuid=3cf47b49-857b-4bd4-9c24-f1adefdd3b95",
+		"attenuation_coeficient_2009_status" : "http://www.medinageoportal.eu/catalogue?uuid=a7ed9ccf-a4b4-4d6e-892e-8a8ad48a95c8",
+		"bottom_oxygen_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=a4852394-1c85-45b4-a405-559af04199ad",
+		"surface_ammonium_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=5cea5612-2392-485c-9645-e8f6a8aee265",
+		"surface_chlorophyll-a_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=1ab53aa5-6b67-43dd-8b48-bad3d088b147",
+		"surface_nitrate_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=4080e009-7955-437b-9607-0c94936812cd",
+		"surface_phosphate_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=ea31a222-ecab-46d7-be5d-6b0484185b65",
+		"surface_silicate_concentration" : "http://www.medinageoportal.eu/catalogue?uuid=f06221e4-61ed-4e56-bea0-d58f2eaa2c0c"
+	}
+}

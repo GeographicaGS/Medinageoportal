@@ -995,6 +995,13 @@ ul.family_content > li > p{
 	background-color: #fff;
 }
 
+.timeslider select{
+	margin-top: 37px;
+	display: none;
+}
+.timeslider ul{
+	margin-left: 1px;
+}
 #ctrl_multiple_selector {
 	margin: 30px 20px 0 20px;
 	color: #007eb6;
