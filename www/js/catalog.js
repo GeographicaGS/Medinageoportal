@@ -2,7 +2,7 @@ var SELECT_LAYER_TEXT = "Choose the layers you want to add.";
 function catalog() {
     if ($("#catalog").is(":visible")) {
         $("#maps").show();
-        $("#catalog").hide();   
+        $("#catalog").slideUp();   
     }
     else{
         $("#maps").hide();
@@ -11,7 +11,7 @@ function catalog() {
 
         });
         $("#ctrl_multiple_selector").html(SELECT_LAYER_TEXT);
-        $("#catalog").show();   
+        $("#catalog").slideDown();   
     }    
 }
 
@@ -81,11 +81,12 @@ function getMedinaWMS(json){
                 var html2 = ""
                 for (var i=0;i<familyData[f].length;i++){
                     var layer = familyData[f][i],
-                        timelayer = layer.hasOwnProperty("timelayer")
-                        url = timelayer ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
-                            :
-                            "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)",
+                        timelayer = layer.hasOwnProperty("timelayer"),
+                        // url = timelayer ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
+                        //     :
+                        //     "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)",
                         inputTimeLayer = timelayer ? "timelayer" : "";
+
                     html2 += "<li>"
                             +   "<input type='checkbox' layer_name='" + layer.name +
                                      "' layer_title='" + layer.title + "'" + inputTimeLayer + "/>"
@@ -95,8 +96,9 @@ function getMedinaWMS(json){
 							// +       "Add to Map"
 							// +   "</a>";
                     if (json.metadata.hasOwnProperty(layer.name)) {
-                        html2 +=    "<span style='float:right'>|</span>"
-                            +   "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
+                        //html2 +=    "<span style='float:right'>|</span>"
+                         html2 +=   
+                               "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
 							+       "View metadata"
 							+   "</a>";
                     }
