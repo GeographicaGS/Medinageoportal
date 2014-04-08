@@ -365,7 +365,8 @@ function GroupLayer(opts){
 					var interval_layout_size = height / n_intervals;
 					for (i=1;i<=n_intervals;i++){
 						var h = interval_layout_size*i,
-							d = parseFloat(Math.round(interval_data_size*i * 100) / 100).toFixed(2);
+							value = (interval_data_size*i) + json.data_range.start,
+							d = parseFloat(Math.round(value* 100) / 100).toFixed(2);
 						drawText(width,h,d,"center");
 					}
 					
