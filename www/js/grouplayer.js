@@ -143,7 +143,7 @@ function GroupLayer(opts){
 					"	<input type='checkbox' id_layer="+l.id+" " + checked + "/>" +
 					" 	<img class='remove' src='img/MED_icon_papelera_panel.png' title='Remove layer' id_layer="+l.id+" />"	+
 					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
-					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Leyend popup' id_layer="+l.id+" />"	+
+					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Legend popup' id_layer="+l.id+" />"	+
 					"	<p class='" + styleclass +"'>"+l.title+"</span>" +
 					"   <div class='opacity_panel' style='display:none'>"+
 					"		<span class='opacity_label'>Opacity 100%</span>"+

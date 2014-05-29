@@ -790,7 +790,10 @@ ul.wms .desc{
 
 
 #catalog .container .families{
-	padding-top: 25px;
+	position: absolute;
+	top: 60px;bottom: 0; left: 0;right:0;
+	overflow-y: auto;
+
 }
 
 #catalog .container .co_families{
@@ -799,7 +802,7 @@ ul.wms .desc{
 	min-height:100%;
 	border-left:1px solid #ccc;
 	border-right:1px solid #ccc;
-	
+	position: relative;
 }
 
 ul.families > li{ 
