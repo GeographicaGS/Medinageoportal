@@ -160,7 +160,7 @@ img.sync{
 
 
 .layer_ctrl{
-	background:#f0f0f0 url("../img/MED_icon_capas.png") no-repeat right 9;
+	background:#f0f0f0 url("../img/MED_icon_capas.png") no-repeat right 9px !important;
 	position:absolute;
 	bottom: 0px;
 	right:0px;
@@ -831,9 +831,15 @@ ul.families ul.family_header > li{
 }
 ul.families ul.family_header  > li.ico_open_close{
 	margin: 15px 8px 0 10px;
+	height: 20px;
+
+}
+ul.families ul.family_header img{
+	vertical-align: top;
 }
 ul.families ul.family_header > li.ico{
 	margin-top: 8px;
+	height: 20px;
 }
 ul.families ul.family_header > li.closeme{
 	float:right;

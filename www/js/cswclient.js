@@ -55,10 +55,15 @@ CSWClient = {
             },
             type:"POST",
             success:function(xml){
+                console.log("success");
                fn(xml,startPosition);
             },
             error: function(){
                 fn(null);
+                console.log("error");
+            },
+            status: function(){
+                console.log("status");
             }
             
         });
@@ -173,7 +178,7 @@ CSWClient = {
         }					
     },
     _parseCSWXML: function(xml){
-        var $sr = $(xml).find("SearchResults");
+        var $sr = $(xml).find("SearchResults,csw\\:SearchResults ");
         var elements = {
             els: [],
             nRecords : parseInt($sr.attr("numberOfRecordsMatched")),
@@ -183,12 +188,12 @@ CSWClient = {
         var obj;
         
         
-        $sr.find("Record").each(function(){
+        $sr.find("Record,csw\\:Record").each(function(){
             
             obj = {};
-            obj.description = $(this).find("abstract").text();
-            obj.title = $(this).find("title").text();
-            obj.subjects = $(this).find("subject").map(function() {
+            obj.description = $(this).find("abstract,dct\\:abstract").text();
+            obj.title = $(this).find("title,dc\\:title").text();
+            obj.subjects = $(this).find("subject,dc\\:subject").map(function() {
                     return $(this).text();
             }).get();
             
@@ -196,14 +201,14 @@ CSWClient = {
                 obj.subjects = [];
             }
             obj.date = $(this).find("date").text();
-            obj.id = $(this).find("identifier").text();
+            obj.id = $(this).find("identifier,dc\\:identifier").text();
             //obj.org =  $.trim($($(this).find("contact").find("organisationName")[0]).text());
             //obj.keywords = [];
             //$(this).find("keyword").each(function(){
             //    obj.keywords.push($.trim($(this).text()));
             //});
             
-            var $links = $(this).find("URI");
+            var $links = $(this).find("URI,dc\\:URI");
             
             // search WMS
             obj.type = null;
@@ -342,8 +347,8 @@ CSWClient = {
 			dataType: 'xml',
 			success: function(xml){
 				var $srv = $(xml).find("Service");
-				var gtitle = $.trim($srv.find("Title").text());
-				var gdesc = $.trim($srv.find("Abstract").text());
+				var gtitle = $.trim($srv.find("Title,ows\\:Title").text());
+				var gdesc = $.trim($srv.find("Abstract,ows\\:Abstract").text());
 				
 				var gkeywords = [];
 				$($srv.find("KeywordList")[0]).find("Keyword").each(function(){
