@@ -69,15 +69,26 @@ function getMedinaWMS(json){
                     "name": i,
                     "title" : i,
                     "desc" : el.desc,
-                    "timelayer" : true
+                    "timelayer" : true,
+                    "metadata" : el.metadata
                 };
 
                 familyData[cat].push(layer);
             }
 
+            function sortByTitle(a, b){
+              var aName = a.title.toLowerCase();
+              var bName = b.title.toLowerCase(); 
+              return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+            }
+
+
+
             var html = "";
             for (f in familyData){
                 
+                familyData[f].sort(sortByTitle);
+
                 var html2 = ""
                 for (var i=0;i<familyData[f].length;i++){
                     var layer = familyData[f][i],
@@ -91,16 +102,18 @@ function getMedinaWMS(json){
                             +   "<input type='checkbox' layer_name='" + layer.name +
                                      "' layer_title='" + layer.title + "'" + inputTimeLayer + "/>"
                             +   "<img src='img/MED_icon_layer.png' />"
-                            +   "<span>"+layer.title+"</span>"
+                            +   "<span>"+layer.title+"</span>";
        //                      +   "<a class='ml' href='" + url + "'>"
 							// +       "Add to Map"
 							// +   "</a>";
-                    if (json.metadata.hasOwnProperty(layer.name)) {
+                    var url_metadata = json.metadata.hasOwnProperty(layer.name) ? json.metadata[layer.name] 
+                                    : (layer.hasOwnProperty("metadata") ? layer.metadata : null);
+                    if (url_metadata) {
                         //html2 +=    "<span style='float:right'>|</span>"
                          html2 +=   
-                               "<a class='mr' href='"+json.metadata[layer.name]+"' target='_blank'>"
-							+       "View metadata"
-							+   "</a>";
+                               "<a class='mr' href='"+ url_metadata +"' target='_blank'>"
+                            +       "View metadata"
+                            +   "</a>";
                     }
                             
                             
@@ -130,17 +143,20 @@ function getMedinaWMS(json){
             $("ul.families > li").click(openCloseFamilyCatalog);
             $("input[layer_name]").click(function(e){
                 var n_els = $("input[layer_name]:checked").length,
-                    link = n_els ? "<a href='javascript:addSelection()'' >Add to Map</a>" : "",
+                    html  = "<a href='javascript:addSelection(\"left\")'>left panel</a>, "
+                        + "<a href='javascript:addSelection(\"right\")'>right panel</a>, or "
+                        +  "<a href='javascript:addSelection()' >both panel</a>",
+                    link = n_els ? html : "",
                     text;
 
                 if (!n_els){
                      text = SELECT_LAYER_TEXT;
                 }
                 else if (n_els==1){
-                    text = "1 layer selected - " + link + ".";
+                    text = "1 layer selected - Add to: " + link + ".";
                 }
                 else{
-                    text = n_els + " layers selected - " + link + ".";
+                    text = n_els + " layers selected - Add to: " + link + ".";
                 }
 
                 $("#ctrl_multiple_selector").html(text);
@@ -165,6 +181,7 @@ function loadMedinaCatalog() {
    
     $.getJSON("json/families.json",function(json){
         getMedinaWMS(json);
+
     });
 	
 }
@@ -180,14 +197,18 @@ function openCloseFamilyCatalog(){
     }
 }
 
-function addSelection(){
+function addSelection(panel){
     $("input[layer_name]:checked").each(function(){
         var name = $(this).attr("layer_name"),
             title = $(this).attr("layer_title"),
             timelayer = $(this).attr("timelayer")==undefined || $(this).attr("timelayer")=="undefined" ? false : true;
+        
+        Split.addLayer(medinaCatalogWMS,name,title,false,timelayer,panel);    
+        
 
-        Split.addLayer(medinaCatalogWMS,name,title,false,timelayer);
+        
     });
     // hide catalog
     catalog();
 }
+

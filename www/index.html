@@ -69,7 +69,11 @@
 	function showInfoFancybox(text) {
 		var html =  "<div>"+text+"</div>";
 		$("#info_fancy_box_data").html(html);
-		$("#info_fancybox").fancybox().trigger('click');
+		$("#info_fancybox").fancybox({
+			"autoSize" : true,
+			"autoWidth" : true,
+			"autoHeight" : true
+		}).trigger('click');
 	}
 	
 	function showDevMsg(){
@@ -192,9 +196,9 @@
 		<div class="container">
 				<div class="info">
 						<h4><strong>Medina</strong>&nbsp;Catalogue</h4>
-						<p>Medina project enhances the capacities of Mediterranean Northern African Countries (Morocco, Algeria, Tunisia, Libya and Egypt) to monitor their coastal and marine ecosystems through the development of indicators and the integration of coastal monitoring tools into GEOSS. The Medina e-infrastructure (MeI) is a full SDI, constructed as a compound of web services (OGC standards), that allows end users to visualize, query maps and analyse coastal data. Its design and capacities supports collaborative decision-making and marine ecosystem management. Currently (december 2013), a total of 209 indicators can be visualised and accessed through the MeI.
+						<p>Medina project enhances the capacities of Mediterranean Northern African Countries (Morocco, Algeria, Tunisia, Libya and Egypt) to monitor their coastal and marine ecosystems through the development of indicators and the integration of coastal monitoring tools into GEOSS. The Medina e-infrastructure (MeI) is a full SDI, constructed as a compound of web services (OGC standards), that allows end users to visualize, query maps and analyse coastal data. Its design and capacities supports collaborative decision-making and marine ecosystem management. Currently (May 2014), a total of 82 indicators (around 400 maps) can be visualised and accessed through the MeI.
 						<br/><br/>
-						The url to access this service from another SDI o GIS application is: <strong>http://medinageoportal.eu/cgi-bin/medinageoportal</strong>.
+						The url to access this service from another SDI o GIS application is: <strong>http://medinageoportal.eu/cgi-bin/medinageoportal</strong>
 						<br/><br/>
 						</p>
 
