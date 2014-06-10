@@ -258,7 +258,7 @@ function TimeSlider(opts){
                     break;
 
                 case "08":
-                    textMonth = "Agu";
+                    textMonth = "Aug";
                     break;
 
                 case "09":

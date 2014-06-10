@@ -157,7 +157,6 @@ Split = {
 				Split.activateFeatureInfo()
 			}
 		});
-		
 		resize();
 	},
 	mapMover: function(a,b) {
@@ -321,7 +320,7 @@ Split = {
 	},
 	
 
-	addLayer: function (server_url,name,title,is4326,timelayer){
+	addLayer: function (server_url,name,title,is4326,timelayer,panel){
 		
 		var l;
 		if (!timelayer){
@@ -348,8 +347,17 @@ Split = {
 
 		}
 		
-		this.__mapLeft.addLayer(l);
-		this.__mapRight.addLayer(l);
+		if (panel != "left" && panel != "right"){
+			this.__mapLeft.addLayer(l);
+			this.__mapRight.addLayer(l);
+		}
+		else if (panel == "left"){
+			this.__mapLeft.addLayer(l);
+		}
+		else{
+			this.__mapRight.addLayer(l);	
+		}
+		
 		$("#panel_search").fadeOut(300);
 		//this.__mapRight.addLayer(l);
 		

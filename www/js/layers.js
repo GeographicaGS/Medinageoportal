@@ -175,11 +175,23 @@ var layers = [/*{
 	{
 		id: 1,
 		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
-		title: "Study Cases",
-		layers: "CASES_ZONES",
+		title: "Bathymetry",
+		layers: "batimetry",
 		priority: 1,
 		visible: true,
-	}
+	},
+
+	{
+		id: 2,
+		server: "http://www.medinageoportal.eu/cgi-bin/medinageoportal",
+		title: "Study Cases",
+		layers: "CASES_ZONES",
+		priority: 2,
+		visible: true,
+	},	
+		
+
+	
 	
 
 
