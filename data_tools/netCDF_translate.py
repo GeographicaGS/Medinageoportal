@@ -118,7 +118,7 @@ def batchProcess(folder):
 
 
 if __name__ == "__main__":
-
+    # Folder with netCDF files
     folder = '/myNetCDFfolder'
     
     batchProcess(folder)
