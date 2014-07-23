@@ -43,7 +43,7 @@ def netCDF2geotiff(in_filename, out_format_r="GTiff", var_index=1):
     
     """
     
-    # Open Grib 2 edition file
+    # Open netCDF file
     src_ds = gdal.Open(in_filename)
 
     if src_ds is None:
@@ -118,7 +118,7 @@ def batchProcess(folder):
 
 
 if __name__ == "__main__":
-
-    folder = '/home/cayetano/Escritorio/medina/ficheros_fuente'
+    # Folder with netCDF files
+    folder = '/myNetCDFfolder'
     
     batchProcess(folder)
