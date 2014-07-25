@@ -119,6 +119,6 @@ def batchProcess(folder):
 
 if __name__ == "__main__":
     # Folder with netCDF files
-    folder = '/myNetCDFfolder'
+    folder = '/home/cayetano/Escritorio/medina/ficheros_fuente'
     
     batchProcess(folder)
