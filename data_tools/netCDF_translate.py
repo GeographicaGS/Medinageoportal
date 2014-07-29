@@ -36,7 +36,7 @@ import sys
 from osgeo import gdal
 
 
-def netCDF2geotiff(in_filename, out_format_r="GTiff", var_index=1):
+def netCDF2geotiff(in_filename, out_folder,out_format_r="GTiff", var_index=1):
     """
     
     Convert NetCDF files to Geotiff
@@ -45,6 +45,8 @@ def netCDF2geotiff(in_filename, out_format_r="GTiff", var_index=1):
     
     # Open netCDF file
     src_ds = gdal.Open(in_filename)
+
+    print in_filename
 
     if src_ds is None:
         print "Open failed"
@@ -75,7 +77,9 @@ def netCDF2geotiff(in_filename, out_format_r="GTiff", var_index=1):
         for i in range(1, src_ds_sd.RasterCount + 1):
             src_ds_sd_band = src_ds_sd.GetRasterBand(i)
             # Output to new format
-            dst_filename_band = '%s_%s.%s' % (os.path.splitext(in_filename)[0], i, ext)
+            fileName, fileExtension = os.path.splitext(in_filename)
+           
+            dst_filename_band = '%s/%s_%s.%s' % (out_folder,os.path.basename(out_folder), i, "tiff")
             # Call to Gdal command for translate to GeoTiff
             # Exporting in one Geotiff one var with one time dimensions
             gdal_translate = 'gdal_translate -of %s -b %s %s %s' % (out_format_r, i, dst_filename, dst_filename_band)
@@ -98,6 +102,8 @@ def netCDF2geotiff(in_filename, out_format_r="GTiff", var_index=1):
     # Close the dataset
     src_ds = None
 
+    os.remove(dst_filename)
+
     return dst_filename
 
 def batchProcess(folder):
@@ -113,12 +119,13 @@ def batchProcess(folder):
         if len(files) > 0:
             for fl in files:
                 filepath = '%s/%s' % (subdir, fl)
-                new_file = netCDF2geotiff(filepath)
-                print '\nCreated complete file (One var/multiple time dimensions): %s\n\n' % (new_file)
+                fileName, fileExtension = os.path.splitext(filepath)
+                if fileExtension == ".nc":
+                    new_file = netCDF2geotiff(filepath)
+                    print '\nCreated complete file (One var/multiple time dimensions): %s\n\n' % (new_file)
 
-
-if __name__ == "__main__":
-    # Folder with netCDF files
-    folder = '/Users/javierroberto/Desktop/ficheros_fuente_2'
+# if __name__ == "__main__":
+#     # Folder with netCDF files
+#     folder = '/Users/javierroberto/Desktop/ficheros_fuente_2'
     
-    batchProcess(folder)
+#     batchProcess(folder)

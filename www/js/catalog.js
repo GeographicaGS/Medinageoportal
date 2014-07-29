@@ -58,6 +58,15 @@ function getMedinaWMS(json){
                 
             });
 
+                 // let's add layers which are not from base_wms. Example: nador.
+            for (f in json.families){
+                for (var i=0;i<json.families[f].length;i++){
+                    var layer = json.families[f][i];
+                    if (typeof layer == "object"){
+                        familyData[f].push(layer);
+                    }
+                }
+            }
             Split.setMetadataTimeSlider(json.timeslider);
             Split.timeslider = json.timeslider;
 
@@ -69,7 +78,7 @@ function getMedinaWMS(json){
                     "name": i,
                     "title" : i,
                     "desc" : el.desc,
-                    "timelayer" : true,
+                    "type" : "timelayer",
                     "metadata" : el.metadata
                 };
 
@@ -92,35 +101,29 @@ function getMedinaWMS(json){
                 var html2 = ""
                 for (var i=0;i<familyData[f].length;i++){
                     var layer = familyData[f][i],
-                        timelayer = layer.hasOwnProperty("timelayer"),
-                        // url = timelayer ? "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",true)"
-                        //     :
-                        //     "javascript:addLayerFromCatalog(\""+medinaCatalogWMS+"\",\""+layer.name+"\",\""+layer.title+"\",false)",
-                        inputTimeLayer = timelayer ? "timelayer" : "";
+                        type = layer.hasOwnProperty("type") ? layer.type : "";
 
                     html2 += "<li>"
                             +   "<input type='checkbox' layer_name='" + layer.name +
-                                     "' layer_title='" + layer.title + "'" + inputTimeLayer + "/>"
+                                     "' layer_title='" + layer.title + "'" +
+                                     "' layer_server='" + (layer.server ? layer.server : "" ) + 
+                                     "' layer_type='" + type +  "' />"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>";
-       //                      +   "<a class='ml' href='" + url + "'>"
-							// +       "Add to Map"
-							// +   "</a>";
+
                     var url_metadata = json.metadata.hasOwnProperty(layer.name) ? json.metadata[layer.name] 
                                     : (layer.hasOwnProperty("metadata") ? layer.metadata : null);
                     if (url_metadata) {
-                        //html2 +=    "<span style='float:right'>|</span>"
                          html2 +=   
                                "<a class='mr' href='"+ url_metadata +"' target='_blank'>"
                             +       "View metadata"
                             +   "</a>";
                     }
-                            
-                            
+                                
                     if (layer.desc) {
                         html2 += "<p>"+layer.desc+"</p>";
                     }
-                    //Split.addLayer(\""+server_base_url+"\",\""+ name +"\",\""+title+"\")'
+
                     html2 += "<div class='clear'></div>";
                 }
                 
@@ -201,9 +204,10 @@ function addSelection(panel){
     $("input[layer_name]:checked").each(function(){
         var name = $(this).attr("layer_name"),
             title = $(this).attr("layer_title"),
-            timelayer = $(this).attr("timelayer")==undefined || $(this).attr("timelayer")=="undefined" ? false : true;
+            type = $(this).attr("layer_type"),
+            server =  !$(this).attr("layer_server") ? medinaCatalogWMS : $(this).attr("layer_server");
         
-        Split.addLayer(medinaCatalogWMS,name,title,false,timelayer,panel);    
+        Split.addLayer(server,name,title,false,type,panel);    
         
 
         

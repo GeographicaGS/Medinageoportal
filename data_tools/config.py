@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
+dataPath = "/Users/alasarr/dev/Medinageoportal/data_tools/data/nador"
 
 config = {
-	"path_origen":"/Users/javierroberto/Desktop/ficheros_fuente_2/",
-	"path_images":"data/nador",
-	"fichero_destino":"/Users/javierroberto/Proyectos/Medinageoportal/data_tools/nador.map",
-	"fecha":"01/01/2006",
+	"path_input": os.path.join(dataPath,"input"),
+	"path_output": os.path.join(dataPath,"output"),
+	"shapepath" : "data/nador",
+	"mapfile_output_prefix":"nador_",
+	"date":"01/01/2006",
 	"layers":
 	[
 		{

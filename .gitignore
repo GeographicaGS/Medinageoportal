@@ -5,3 +5,6 @@
 *.komodoproject
 www/metadata
 www/json
+*.pyc
+data
+rsync.sh

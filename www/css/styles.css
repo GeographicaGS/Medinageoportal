@@ -185,7 +185,7 @@ img.sync{
 	height:24px;
 	font-weight:bold;
 	background-image: url("../img/MED_icon_cerrar_capas.png");
-	width:270px;
+	width:310px;
 	padding:0;
 	background: #f0f0f0 url("../img/MED_icon_cerrar_capas.png") no-repeat 66px 8px;
 	border-radius: 0;
@@ -197,7 +197,7 @@ img.sync{
 	position: absolute;
 	bottom: 25px;
 	right: 0;
-	width: 280px;
+	width: 320px;
 	z-index: 1001;
 	background-color: #fff;
 	

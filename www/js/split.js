@@ -48,8 +48,22 @@ Split = {
 			  attributionControl: false
 		});
 		
-		ggl1 = new L.Google('SATELLITE');
-		mapLeft.addLayer(ggl1);
+		ggl1roadmap = new L.Google('ROADMAP');
+		ggl1satellite = new L.Google('SATELLITE');
+		ggl1hybrid = new L.Google('HYBRID');
+		ggl1terrain = new L.Google('TERRAIN');
+
+		mapLeft.addControl(new L.Control.Layers( {
+			"Google Roadmap" : ggl1roadmap,
+			"Google Satellite":ggl1satellite, 
+			"Google Terrain":ggl1terrain, 
+			"Google Hybrid":ggl1hybrid, 
+
+		}, {},{
+			"position": "topleft"
+		}));
+
+		mapLeft.addLayer(ggl1satellite);
 		
 		zoomControl.addTo(mapLeft);
 		
@@ -76,8 +90,22 @@ Split = {
 			  attributionControl: false
 		});
 		
-		ggl2 = new L.Google('SATELLITE');
-		mapRight.addLayer(ggl2);		
+		
+		ggl2roadmap = new L.Google('ROADMAP');
+		ggl2satellite = new L.Google('SATELLITE');
+		ggl2hybrid = new L.Google('HYBRID');
+		ggl2terrain = new L.Google('TERRAIN');
+
+
+		mapRight.addControl(new L.Control.Layers( {
+			"Google Roadmap" : ggl2roadmap,
+			"Google Satellite":ggl2satellite, 
+			"Google Terrain":ggl2terrain, 
+			"Google Hybrid":ggl2hybrid, 
+
+		}, {}));
+
+		mapRight.addLayer(ggl2satellite);		
 		
 		zoomControl.addTo(mapRight);		
 		
@@ -320,20 +348,21 @@ Split = {
 	},
 	
 
-	addLayer: function (server_url,name,title,is4326,timelayer,panel){
+	addLayer: function (server_url,name,title,is4326,type,panel){
 		
 		var l;
-		if (!timelayer){
+		if (!type){
 			l  = {
 				server: server_url,
 				title: title,
-				layers: name
+				layers: name,
+				type: null,
 			}
 			if (is4326) {
 			    l.crs = L.CRS.EPSG4326;
 			}	
 		}
-		else{
+		else if (type == "timelayer"){
 
 			for(var key in this.timeslider[name].time_layers) break;
 			var first_layer = this.timeslider[name].time_layers[key];
@@ -342,9 +371,20 @@ Split = {
 				server: server_url,
 				title: title,
 				layers: first_layer,
-				timelayer: name
+				timelayer: name,
+				type: type,
 			}
 
+		}
+		else if (type == "nador"){
+			var re= /\d{4}_\d{2}_\d{2}/
+			l  = {
+				server: server_url,
+				title: title,
+				layers: name,
+				type: type,
+				date : name.match(re)[0]
+			}
 		}
 		
 		if (panel != "left" && panel != "right"){

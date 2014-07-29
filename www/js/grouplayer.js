@@ -76,8 +76,10 @@ function GroupLayer(opts){
 			visible:true,
 			priority:priority,
 			title:layer.title,
+			name : layer.layers,
 			opacity: 1,
-			timelayer : layer.hasOwnProperty("timelayer") ? true : false
+			type : layer.type,
+			date : layer.hasOwnProperty("date") ? layer.date : null
 		};
 		
 		if (layer.hasOwnProperty("timelayer")){
@@ -138,12 +140,16 @@ function GroupLayer(opts){
 					"</li>";*/
 			var checked = l.visible ? "checked" : "";
 			var styleclass = l.visible ? "" : "disable";
+			console.log(l);
 			
 			html += "<li title='"+l.title+"'>" + 
 					"	<input type='checkbox' id_layer="+l.id+" " + checked + "/>" +
 					" 	<img class='remove' src='img/MED_icon_papelera_panel.png' title='Remove layer' id_layer="+l.id+" />"	+
 					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
 					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Legend popup' id_layer="+l.id+" />"	+
+					(l.type == "nador" ?
+						 "<input style='display:none' value='" + l.date + "' type='text' class='nadordatepicker' title='Date' id_layer="+l.id+" />" : 
+						 "") + 
 					"	<p class='" + styleclass +"'>"+l.title+"</span>" +
 					"   <div class='opacity_panel' style='display:none'>"+
 					"		<span class='opacity_label'>Opacity 100%</span>"+
@@ -452,6 +458,48 @@ function GroupLayer(opts){
 				//}
 			
 			}
+		});
+
+		this.$layerPanel.find("li > img.nadordatepicker").click(function(){
+
+		});
+
+		this.$layerPanel.find("li > input.nadordatepicker").datepicker({
+			//showOn: both - datepicker will come clicking the input box as well as the calendar icon
+			//showOn: button - datepicker will come only clicking the calendar icon
+			showOn: 'button',
+			//you can use your local path also eg. buttonImage: 'images/x_office_calendar.png'
+			buttonImage: 'img/MED_icon_calendar.png',
+			buttonImageOnly: true,
+			changeMonth: true,
+			changeYear: false,
+			showAnim: 'slideDown',
+			duration: 'fast',
+			dateFormat: 'yy_mm_dd',
+			minDate: new Date("2006-01-01"), 
+			maxDate: new Date("2006-12-31")
+		});
+
+		this.$layerPanel.find("li > input.nadordatepicker").change(function(){
+
+			var re= /\d{4}_\d{2}_\d{2}/,
+				l = obj.findLayerById($(this).attr("id_layer"));
+			
+			obj.map.removeLayer(l.tile);
+
+			l.name = l.name.replace(l.name.match(re)[0],$(this).val());
+			var opts = {		
+				    layers: l.name,
+				    format: 'image/png',
+				    transparent: true,
+				    zIndex: l.priority,
+				    crs : l.crs
+			};
+			
+			l.tile = new L.tileLayer.wms(l.server,opts);
+			obj.map.addLayer(l.tile);
+			
+			 
 		});
 	};
 	
