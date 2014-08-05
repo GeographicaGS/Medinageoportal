@@ -320,6 +320,7 @@ Split = {
 			
 		}
 	},
+	
 	__drawLayerInterface: function(el){		
 		if (el==this.LEFT){
 			this.__mapLeft.refreshLayerPanel();
@@ -328,6 +329,7 @@ Split = {
 			this.__mapRight.refreshLayerPanel();
 		}
 	},
+
 	toggleLayer: function(id_layer,el){
 		if (el==this.LEFT){
 			this.__mapLeft.toogleLayer(id_layer);			
@@ -337,6 +339,7 @@ Split = {
 		}
 		this.__drawLayerInterface(el);
 	},
+
 	setHistogram: function(id_layer,el){
 		if (el==this.LEFT){
 			this.__mapLeft.setHistogram(id_layer);			
@@ -348,15 +351,18 @@ Split = {
 	},
 	
 
-	addLayer: function (server_url,name,title,is4326,type,panel){
+	addLayer: function (server_url,name,title,is4326,type,panel,bbox){
 		
 		var l;
+		if(!bbox) bbox = null;
+
 		if (!type){
 			l  = {
 				server: server_url,
 				title: title,
 				layers: name,
 				type: null,
+				bbox : bbox
 			}
 			if (is4326) {
 			    l.crs = L.CRS.EPSG4326;
@@ -373,6 +379,7 @@ Split = {
 				layers: first_layer,
 				timelayer: name,
 				type: type,
+				bbox : bbox
 			}
 
 		}
@@ -383,7 +390,8 @@ Split = {
 				title: title,
 				layers: name,
 				type: type,
-				date : name.match(re)[0]
+				date : name.match(re)[0],
+				bbox : bbox
 			}
 		}
 		

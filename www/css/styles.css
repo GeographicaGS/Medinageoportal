@@ -316,7 +316,7 @@ ul.layer_panel > li > input {
 
 ul.layer_panel > li > img{
 	float:right;
-	padding: 5px 15px 5px 10px;
+	padding: 5px 9px 5px 9px;
 	cursor:pointer;
 }
 
@@ -325,7 +325,7 @@ ul.layer_panel > li > img.legend{
 }
 
 ul.layer_panel > li > img.opacity{
-	margin-right: 31px;
+	margin-right: 25px;
 }
 
 ul.layer_panel > li:hover > img.opacity{

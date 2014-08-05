@@ -29,7 +29,8 @@ function GroupLayer(opts){
 			visible:l.visible,
 			priority:l.priority,
 			title:l.title,
-			opacity: 1
+			opacity: 1,
+			bbox : l.bbox
 		};
 		
 		
@@ -66,6 +67,7 @@ function GroupLayer(opts){
 			    transparent: true,
 			    zIndex: priority
 			};
+
 		if (layer.hasOwnProperty("crs")) {
 				opts.crs = layer.crs;
 		}
@@ -79,7 +81,8 @@ function GroupLayer(opts){
 			name : layer.layers,
 			opacity: 1,
 			type : layer.type,
-			date : layer.hasOwnProperty("date") ? layer.date : null
+			date : layer.hasOwnProperty("date") ? layer.date : null,
+			bbox: layer.bbox
 		};
 		
 		if (layer.hasOwnProperty("timelayer")){
@@ -140,13 +143,16 @@ function GroupLayer(opts){
 					"</li>";*/
 			var checked = l.visible ? "checked" : "";
 			var styleclass = l.visible ? "" : "disable";
-			console.log(l);
+			
 			
 			html += "<li title='"+l.title+"'>" + 
 					"	<input type='checkbox' id_layer="+l.id+" " + checked + "/>" +
 					" 	<img class='remove' src='img/MED_icon_papelera_panel.png' title='Remove layer' id_layer="+l.id+" />"	+
 					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
 					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Legend popup' id_layer="+l.id+" />"	+
+					( l.bbox ? 
+						"<img class='zoomlayer' src='img/MED_icon_leyenda.png' title='Zoom to layer' id_layer="+l.id+" />"	
+						: "") + 
 					(l.type == "nador" ?
 						 "<input style='display:none' value='" + l.date + "' type='text' class='nadordatepicker' title='Date' id_layer="+l.id+" />" : 
 						 "") + 
@@ -351,8 +357,6 @@ function GroupLayer(opts){
 							
 						}));
 						
-						
-						
 						layer.add(new Kinetic.Text({
 							x: x+rw+10,
 							y: y,
@@ -375,8 +379,6 @@ function GroupLayer(opts){
 							d = parseFloat(Math.round(value* 100) / 100).toFixed(2);
 						drawText(width,h,d,"center");
 					}
-					
-					
 					
 					layer.add(rect);
 					stage.add(layer);
@@ -500,6 +502,18 @@ function GroupLayer(opts){
 			obj.map.addLayer(l.tile);
 			
 			 
+		});
+
+		this.$layerPanel.find("li > img.zoomlayer").click(function(){
+
+			var l = obj.findLayerById($(this).attr("id_layer")),
+				map = obj.getMap(),
+				bbox = l.bbox.split(" "),
+				southWest = L.latLng(bbox[0], bbox[1]),
+				northEast = L.latLng(bbox[2],bbox[3]),
+				bounds = L.latLngBounds(southWest, northEast);
+			
+			map.fitBounds(bounds);
 		});
 	};
 	

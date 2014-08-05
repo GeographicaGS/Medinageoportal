@@ -35,7 +35,13 @@ function getMedinaWMS(json){
                 var layer = {
                     "name": $($(this).find("Name")[0]).text(),
                     "title" : $($(this).find("Title")[0]).text(),
-                    "desc" : $(this).find("Abstract").text()
+                    "desc" : $(this).find("Abstract").text(),
+                    "bbox": [ 
+                        parseFloat($($(this).find("southBoundLatitude")[0]).text()),
+                        parseFloat($($(this).find("westBoundLongitude")[0]).text()),
+                        parseFloat($($(this).find("northBoundLatitude")[0]).text()),
+                        parseFloat($($(this).find("eastBoundLongitude")[0]).text())
+                    ]
                 };
                 
                 // find in which family is this layer
@@ -58,7 +64,7 @@ function getMedinaWMS(json){
                 
             });
 
-                 // let's add layers which are not from base_wms. Example: nador.
+             // let's add layers which are not from base_wms. Example: nador.
             for (f in json.families){
                 for (var i=0;i<json.families[f].length;i++){
                     var layer = json.families[f][i];
@@ -91,8 +97,6 @@ function getMedinaWMS(json){
               return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
             }
 
-
-
             var html = "";
             for (f in familyData){
                 
@@ -107,7 +111,11 @@ function getMedinaWMS(json){
                             +   "<input type='checkbox' layer_name='" + layer.name +
                                      "' layer_title='" + layer.title + "'" +
                                      "' layer_server='" + (layer.server ? layer.server : "" ) + 
-                                     "' layer_type='" + type +  "' />"
+                                     "' layer_type='" + type + 
+                                     (layer.bbox ? 
+                                     "' layer_bbox='"+ layer.bbox.join(" ") 
+                                     : "") +
+                                     " '/>"
                             +   "<img src='img/MED_icon_layer.png' />"
                             +   "<span>"+layer.title+"</span>";
 
@@ -180,11 +188,11 @@ function addLayerFromCatalog(server,name,title,timelayer) {
     // hide catalog
     catalog();
 }
+
 function loadMedinaCatalog() {
    
     $.getJSON("json/families.json",function(json){
         getMedinaWMS(json);
-
     });
 	
 }
@@ -205,12 +213,10 @@ function addSelection(panel){
         var name = $(this).attr("layer_name"),
             title = $(this).attr("layer_title"),
             type = $(this).attr("layer_type"),
-            server =  !$(this).attr("layer_server") ? medinaCatalogWMS : $(this).attr("layer_server");
+            server =  !$(this).attr("layer_server") ? medinaCatalogWMS : $(this).attr("layer_server"),
+            bbox = !$(this).attr("layer_bbox") ? null : $(this).attr("layer_bbox");
         
-        Split.addLayer(server,name,title,false,type,panel);    
-        
-
-        
+        Split.addLayer(server,name,title,false,type,panel,bbox);
     });
     // hide catalog
     catalog();
