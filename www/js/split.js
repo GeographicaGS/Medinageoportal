@@ -320,7 +320,7 @@ Split = {
 			
 		}
 	},
-	
+
 	__drawLayerInterface: function(el){		
 		if (el==this.LEFT){
 			this.__mapLeft.refreshLayerPanel();
@@ -370,8 +370,9 @@ Split = {
 		}
 		else if (type == "timelayer"){
 
-			for(var key in this.timeslider[name].time_layers) break;
-			var first_layer = this.timeslider[name].time_layers[key];
+			var layerCatalog = findLayerCatalog(null,name);
+			for(var key in layerCatalog.time_layers) break;
+			var first_layer = layerCatalog.time_layers[key];
 
 			l  = {
 				server: server_url,
