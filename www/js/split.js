@@ -140,7 +140,7 @@ Split = {
 		this.__mapRight.refreshLayerPanel();
 
 		// CODIGO PARA HERRAMIENTA DE DIBUJADO
-		// this.createDrawLocal();
+		L.drawLocal.draw.handlers.polyline.tooltip.end = "Click last point to finish the measurement.";
 		var editableLayers = new L.FeatureGroup();
 		Split.__mapLeft.getMap().addLayer(editableLayers);
 		var editableLayersRight = new L.FeatureGroup();
