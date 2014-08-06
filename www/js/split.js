@@ -138,6 +138,60 @@ Split = {
 		
 		this.__mapLeft.refreshLayerPanel();
 		this.__mapRight.refreshLayerPanel();
+
+		// CODIGO PARA HERRAMIENTA DE DIBUJADO
+		// this.createDrawLocal();
+		var editableLayers = new L.FeatureGroup();
+		Split.__mapLeft.getMap().addLayer(editableLayers);
+		var editableLayersRight = new L.FeatureGroup();
+		Split.__mapRight.getMap().addLayer(editableLayersRight);
+		var options = {
+		    position: 'bottomleft',
+		    draw: {
+		        polyline: {
+		            shapeOptions: {
+		    			color: 'red',
+		    			weight: 2,
+		    			opacity: 0.8,
+		
+		            },
+		        },
+		        polygon: {
+		            allowIntersection: false,
+		            drawError: {
+		                color: '#e1e100',
+		                message: '<strong>Oh snap!<strong> you can\'t draw that!'
+		            },
+		            shapeOptions: {
+		                color: 'red',
+		                fill: "red"
+		            }
+		        },
+		        circle: false,
+		        rectangle:false,
+		    },
+		    edit: {
+		        featureGroup: editableLayers,
+		    }
+		};
+		var optionsRight = options;
+		optionsRight.edit.featureGroup = editableLayersRight;
+
+		var drawControl = new L.Control.Draw(options);
+		Split.__mapLeft.getMap().addControl(drawControl);
+		
+		var drawControlRight = new L.Control.Draw(optionsRight);
+		Split.__mapRight.getMap().addControl(drawControlRight);
+		
+		var drawLineLeft = new L.Draw.Polyline(Split.__mapLeft.getMap(), options.draw.polyline);
+		var drawLineRight = new L.Draw.Polyline(Split.__mapRight.getMap(), optionsRight.draw.polyline);
+
+		var editLeft = new L.EditToolbar.Edit(Split.__mapLeft.getMap(), {
+            featureGroup: drawControl.options.edit.featureGroup,
+            selectedPathOptions: drawControl.options.edit.selectedPathOptions
+        });
+
+		// FIN DEL CÓDIGO PARA HERRAMIENTA DE DIBUJADO
 		
 		//permanet hooks
 		$(document).on("click",".ctrl_expand",function(){
@@ -169,9 +223,26 @@ Split = {
 				Split.activateRectangleTool();
 			}
 		});
+
+		$("#ctrl_line_drawer").click(function(){
+			var $rd = $("#ctrl_feature_info");
+			if ($rd.hasClass("enable")){
+				$rd.trigger("click");
+			}
+			if ($(this).hasClass("enable")) { 
+				$(this).removeClass("enable");
+				drawLineLeft.disable();
+				drawLineRight.disable();
+			}
+			else{
+				$(this).addClass("enable");				
+				drawLineLeft.enable();
+				drawLineRight.enable();
+			}
+		});
 		
 		$("#ctrl_feature_info").click(function(){
-			var $rd = $("#ctrl_rectangle_drawer");
+			var $rd = $("#ctrl_line_drawer");
 			if ($rd.hasClass("enable")){
 				$rd.trigger("click");
 			}
@@ -207,16 +278,18 @@ Split = {
 
 		var lng, newZoom = a.getZoom(),otherZoom = b.getZoom();		     
 
-		b.panTo(a.getCenter());
+		// b.panTo(a.getCenter());
 		
-		if (newZoom !== otherZoom){
-		    b.setZoom(newZoom);
-			setTimeout(function(){
-				var c = a.getCenter();
-				c.lat += 0.0001
-				b.setView(c);
-			},500);
-		}
+		// if (newZoom !== otherZoom){
+		//     b.setZoom(newZoom);
+		// 	setTimeout(function(){
+		// 		var c = a.getCenter();
+		// 		c.lat += 0.0001
+		// 		b.setView(c);
+		// 	},500);
+		// }
+
+		b.setView(a.getCenter(),newZoom);
 	
 		Split.__mapIsMoving = false;
 	},

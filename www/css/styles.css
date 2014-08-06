@@ -725,7 +725,7 @@ ul.wms .desc{
 	position: absolute;
 	top: 0;
 	background-color: #ccc;
-	height: 29px;
+	height: 33px;
 	width: 67px;
 	border-radius: 0 0 5px 5px;
 	border-bottom: 1px solid #999;
@@ -738,7 +738,7 @@ ul.wms .desc{
 
 #tool_bar > * {
 	width: 29px;
-	height: 23px;
+	height: 30px;
 	float:left;
 	cursor: pointer;
 	margin-top: 2px;
@@ -746,11 +746,21 @@ ul.wms .desc{
 }
 
 #tool_bar #ctrl_rectangle_drawer{
-	background:url("../img/MED_herram_area_OFF.png");	 	 
+	background:url("../img/MED_herram_area_OFF.png");
+	display: none; 	 
 }
 
 #tool_bar #ctrl_rectangle_drawer.enable{
-	background:url("../img/MED_herram_area_ON.png");	 
+	background:url("../img/MED_herram_area_ON.png");
+	display: none;	 
+}
+
+#tool_bar #ctrl_line_drawer{
+	background:url("../img/MED_herramienta_linea_off.png");
+}
+
+#tool_bar #ctrl_line_drawer.enable{
+	background:url("../img/MED_herramienta_linea_on.png");
 }
 
 #tool_bar #ctrl_feature_info{
@@ -1019,4 +1029,9 @@ ul.family_content > li > p{
 #ctrl_multiple_selector a{
 	font-weight: bold;
 	color: #007eb6;
+}
+
+
+.leaflet-draw-toolbar{
+	display: none;
 }
