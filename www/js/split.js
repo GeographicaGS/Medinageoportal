@@ -191,6 +191,14 @@ Split = {
             selectedPathOptions: drawControl.options.edit.selectedPathOptions
         });
 
+        Split.__mapLeft.getMap().on('draw:created', function (e) {
+        	$("#ctrl_line_drawer").trigger("click");
+        });
+
+        Split.__mapRight.getMap().on('draw:created', function (e) {
+        	$("#ctrl_line_drawer").trigger("click");
+        });
+
 		// FIN DEL CÓDIGO PARA HERRAMIENTA DE DIBUJADO
 		
 		//permanet hooks
