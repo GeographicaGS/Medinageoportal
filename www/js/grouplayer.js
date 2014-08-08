@@ -151,7 +151,7 @@ function GroupLayer(opts){
 					" 	<img class='opacity' src='img/MED_icon_opacity.png' title='Opacity 100 %'/>"	+
 					" 	<img class='legend' src='img/MED_icon_leyenda.png' title='Legend popup' id_layer="+l.id+" />"	+
 					( l.bbox ? 
-						"<img class='zoomlayer' src='img/MED_icon_leyenda.png' title='Zoom to layer' id_layer="+l.id+" />"	
+						"<img class='zoomlayer' src='img/MED_icon_zoomcapa.png' title='Zoom to layer' id_layer="+l.id+" />"	
 						: "") + 
 					(l.type == "nador" ?
 						 "<input style='display:none' value='" + l.date + "' type='text' class='nadordatepicker' title='Date' id_layer="+l.id+" />" : 
