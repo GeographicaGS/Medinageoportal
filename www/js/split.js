@@ -437,7 +437,7 @@ Split = {
 		var l;
 		if(!bbox) bbox = null;
 
-		if (!type){
+		if (!type || type=="simplewms"){
 			l  = {
 				server: server_url,
 				title: title,
