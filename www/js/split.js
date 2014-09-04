@@ -90,12 +90,10 @@ Split = {
 			  attributionControl: false
 		});
 		
-		
 		ggl2roadmap = new L.Google('ROADMAP');
 		ggl2satellite = new L.Google('SATELLITE');
 		ggl2hybrid = new L.Google('HYBRID');
 		ggl2terrain = new L.Google('TERRAIN');
-
 
 		mapRight.addControl(new L.Control.Layers( {
 			"Google Roadmap" : ggl2roadmap,

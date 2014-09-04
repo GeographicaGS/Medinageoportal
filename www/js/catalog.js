@@ -44,11 +44,18 @@ function sortByTitle(a, b){
     return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
 
+function sortByName(a, b){
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase(); 
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+}
+
 function getFamilyHTML(f){
  
     var html = "";
     if (f.hasOwnProperty("children")){
-        var html2 = ""
+        var html2 = "";
+        f.children.sort(sortByName);
         for (var i=0;i<f.children.length;i++){
             html2 += getFamilyHTML(f.children[i]);    
         }
@@ -71,7 +78,7 @@ function getFamilyHTML(f){
     }            
     else{
 
-        //f.layers.sort(sortByTitle);
+        f.layers.sort(sortByTitle);
 
         var html2 = "";
         for (var i=0;i<f.layers.length;i++){
@@ -162,6 +169,7 @@ function getMedinaWMS(json){
 
             var html = "";
 
+            json.families.sort(sortByName);
             for (var i=0;i<json.families.length;i++){
                 html += getFamilyHTML(json.families[i]);
             }
