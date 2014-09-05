@@ -179,7 +179,7 @@ var layers = [/*{
 		layers: "batimetry",
 		priority: 1,
 		visible: true,
-		bbox : "27.83 -11.27 47.5 39.18"
+		bbox : "30.08 -2.99 36.87 31.8"
 	},
 
 	{
@@ -189,7 +189,7 @@ var layers = [/*{
 		layers: "CASES_ZONES",
 		priority: 2,
 		visible: true,
-		bbox : "36.62 5.06 36.87 5.45"
+		bbox : "30.08 -2.99 36.87 31.8"
 	},	
 		
 
