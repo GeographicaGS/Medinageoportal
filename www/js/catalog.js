@@ -169,7 +169,7 @@ function getMedinaWMS(json){
 
             var html = "";
 
-            json.families.sort(sortByName);
+            //json.families.sort(sortByName);
             for (var i=0;i<json.families.length;i++){
                 html += getFamilyHTML(json.families[i]);
             }
