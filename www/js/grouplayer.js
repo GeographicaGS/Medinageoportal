@@ -106,7 +106,7 @@ function GroupLayer(opts){
 		}
 		
 		var l = this.layers[id];
-		if (l.timelayer){
+		if (l.type == "timelayer"){
 			this.timeSlider.removeLayer(id_layer);
 		}
 
@@ -231,7 +231,7 @@ function GroupLayer(opts){
 		// set obj to the closure
 		var obj = this;
 		
-		this.$layerPanel.find("input").change(function(){			
+		this.$layerPanel.find("input[type='checkbox']").change(function(){			
 			var id_layer = $(this).attr("id_layer");
 			obj.toggleLayer(id_layer);
 			
@@ -241,8 +241,7 @@ function GroupLayer(opts){
 			else{
 				$(this).next().addClass("disable");
 			}
-			
-			
+	
 		});
 		
 		this.$layerPanel.find("li > img.opacity").click(function(){

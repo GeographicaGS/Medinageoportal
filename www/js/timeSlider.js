@@ -100,6 +100,12 @@ function TimeSlider(opts){
         var idxStartYear = null,
             idxEndYear;
 
+        // if (!this.timeLine.length){
+        //     this.$panel.hide();
+        // }
+        // else{
+        //     this.$panel.show();   
+        // }
         // find where this year is in the timeLine
         for (var i=0;i<this.timeLine.length;i++){
             var year = this.timeLine[i].split("-")[0];
